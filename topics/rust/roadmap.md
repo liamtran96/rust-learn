@@ -99,9 +99,38 @@ By now you have the Rust skills to read the framework. Stop reading and start sh
 - Profile the release binary; set `[profile.release]` opt-level + LTO
 - **Milestone:** A signed installer for your OS, a README with screenshots, a tagged v0.1.0.
 
-## Going deeper (Weeks 13+)
-- [[12-advanced/unsafe|Unsafe Rust]] — raw pointers, FFI
-- [[12-advanced/macros|Macros]] — `macro_rules!` first, proc macros later
+## Phase 7 — Advanced Track C: Unsafe & Memory Model (Weeks 13–16)
+
+A specialty track. **Optional** — most Rust developers ship production code without writing a single `unsafe` block of their own. Take this when you want to build primitives, wrap C, or read std's source with confidence.
+
+### Week 13 — The unsafe contract
+- [[14-unsafe/why-unsafe|What `unsafe` actually means]] — soundness vs safety, validity invariants
+- [[14-unsafe/raw-pointers|Raw pointers]] — `*const`/`*mut`, provenance, `NonNull`, `addr_of!`
+- **Milestone:** Implement `MyBox<T>` from `Box::into_raw` / `Box::from_raw`.
+
+### Week 14 — Aliasing & UB
+- [[14-unsafe/aliasing|Stacked Borrows]] — Rust's aliasing model and what UB looks like
+- [[14-unsafe/uninit-and-cells|`MaybeUninit<T>` & `UnsafeCell<T>`]] — uninitialized memory and interior mutability primitives
+- [[14-unsafe/miri|Miri]] — your only practical UB detector
+- **Milestone:** Implement `MyVec<T>` (push, pop, drop). Run under Miri. Fix every violation.
+
+### Week 15 — Patterns & FFI
+- [[14-unsafe/patterns|Common patterns]] — bump arena, intrusive linked list
+- [[14-unsafe/ffi-safety|FFI safety beyond the basics]] — `catch_unwind`, opaque handles, Send/Sync over the boundary
+- **Milestone:** A safe Rust wrapper around an opaque C handle of your choice (`libcurl`, `sqlite3`, your own C lib).
+
+### Week 16 — Audit & ship
+- [[14-unsafe/review-checklist|The unsafe-code review checklist]] — `// SAFETY:` discipline
+- Re-audit every `unsafe` block in your projects against the checklist
+- Add a CI job that runs `cargo +nightly miri test` on changed crates
+- **Milestone:** Public PR (or internal review) of an unsafe block with a complete `// SAFETY:` rationale.
+
+## Going deeper (Weeks 17+)
+- [[12-advanced/macros|Macros]] — `macro_rules!` first, proc macros later (Track D)
+- API design / type-system depth — variance, HRTBs, GATs, sealed traits (Track A)
+- Async maturity — cancellation, structured concurrency, tracing (Track B)
+- Performance — profiling, allocations, SIMD (Track E)
+- no_std / embedded (Track F)
 - Other domain stacks: **web** (axum/actix), **CLI** (clap), **embedded** (embassy/no_std), **systems** (nix, libc)
 - Tauri mobile (iOS/Android) — same codebase, new targets
 

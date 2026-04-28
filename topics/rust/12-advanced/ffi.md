@@ -65,5 +65,10 @@ crate-type = ["cdylib"]     # produces a .so / .dylib / .dll
 - [`bindgen`](https://github.com/rust-lang/rust-bindgen) — autogenerate Rust bindings from C headers.
 - [`cbindgen`](https://github.com/mozilla/cbindgen) — generate C headers from Rust.
 
+## Going deeper
+
+For panic safety across boundaries, opaque handle wrappers, Send/Sync over FFI, allocator mismatch, and CI integration with sanitizers, see [[../14-unsafe/ffi-safety|14.7 FFI safety beyond the basics]].
+
 ## Related
 - [[unsafe|Unsafe]]
+- [[../14-unsafe/index|Chapter 14 — Unsafe deep dive]]

@@ -42,6 +42,9 @@ tags: [rust, moc, index]
 ### Phase 6 — Tauri Capstone (Weeks 9–12)
 - [[13-tauri/index|13. Tauri — ship a real desktop app]]
 
+### Phase 7 — Advanced Track C: Unsafe & Memory Model (Weeks 13–16)
+- [[14-unsafe/index|14. Unsafe Rust & the Memory Model]] — *optional specialty track*
+
 ## 📚 Quick-reference
 
 - [[cheatsheets/index|Cheatsheets]] — ownership rules, lifetime syntax, iterator methods, trait bounds
@@ -57,7 +60,7 @@ Track your progress — tick boxes as you master each level:
 - [ ] **Intermediate:** Build a REST API with `axum`/`actix-web` + `sqlx`, including tests
 - [ ] **Capstone:** Ship a Tauri 2 desktop app — installer, signed bundle, persisted state ([[13-tauri/capstone|tracks]])
 - [ ] **Advanced:** Write a concurrent async service with graceful shutdown, tracing, and back-pressure
-- [ ] **Systems:** Implement a non-trivial data structure (e.g., an arena allocator, lock-free queue) with `unsafe`
+- [ ] **Systems:** Implement a non-trivial data structure (`MyVec`, arena, intrusive list) with `unsafe`, Miri-clean ([[14-unsafe/index|Track C]])
 
 ## 🧠 Learning principles
 

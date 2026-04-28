@@ -10,10 +10,11 @@ tags: [rust, moc, index]
 ## How to use this vault
 
 1. Start with [[roadmap|the Roadmap]] to see the full learning arc.
-2. Work through the numbered folders in order — each builds on the last.
-3. After every chapter, do the linked [[exercises/index|exercises]] before moving on. **Active recall > re-reading.**
-4. When stuck, consult the [[cheatsheets/index|cheatsheets]] and [[pitfalls|common pitfalls]].
-5. Keep a personal journal at `topics/rust/journal.md` — log confusions, aha-moments, and open questions.
+2. Use [[study-plan|the Study Plan]] for a concrete week-by-week calendar at 1 hr/day.
+3. Work through the numbered folders in order — each builds on the last.
+4. After every chapter, do the linked [[exercises/index|exercises]] before moving on. **Active recall > re-reading.**
+5. When stuck, consult the [[cheatsheets/index|cheatsheets]] and [[pitfalls|common pitfalls]].
+6. Keep a personal journal at `topics/rust/journal.md` — log confusions, aha-moments, and open questions.
 
 ## 🗺️ Curriculum
 

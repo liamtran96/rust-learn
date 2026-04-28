@@ -34,10 +34,13 @@ tags: [rust, moc, index]
 - [[08-closures-iterators/index|8. Closures & Iterators]]
 - [[09-smart-pointers/index|9. Smart Pointers — Box, Rc, Arc, RefCell]]
 
-### Phase 5 — Systems & Scale (Week 8+)
+### Phase 5 — Systems & Scale (Week 8)
 - [[10-concurrency/index|10. Concurrency — threads, channels, Send/Sync]]
 - [[11-async/index|11. Async/Await & Tokio]]
 - [[12-advanced/index|12. Advanced — unsafe, macros, FFI]]
+
+### Phase 6 — Tauri Capstone (Weeks 9–12)
+- [[13-tauri/index|13. Tauri — ship a real desktop app]]
 
 ## 📚 Quick-reference
 
@@ -52,6 +55,7 @@ Track your progress — tick boxes as you master each level:
 
 - [ ] **Beginner:** Write a CLI tool that reads a file, parses it, and writes output with proper error handling
 - [ ] **Intermediate:** Build a REST API with `axum`/`actix-web` + `sqlx`, including tests
+- [ ] **Capstone:** Ship a Tauri 2 desktop app — installer, signed bundle, persisted state ([[13-tauri/capstone|tracks]])
 - [ ] **Advanced:** Write a concurrent async service with graceful shutdown, tracing, and back-pressure
 - [ ] **Systems:** Implement a non-trivial data structure (e.g., an arena allocator, lock-free queue) with `unsafe`
 

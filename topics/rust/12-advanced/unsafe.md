@@ -51,6 +51,11 @@ Raw pointers don't imply ownership, aliasing, or validity. **You** are responsib
 
 Almost every safe abstraction you use (`Vec`, `Mutex`, `String`, `HashMap`) is built on `unsafe` inside. That's fine — safety is about the **public API**, not the absence of `unsafe` anywhere.
 
+## Going deeper
+
+This page is a 1-screen overview. For the full deep dive — soundness, Stacked Borrows, `MaybeUninit`, `UnsafeCell`, Miri, common patterns, FFI safety, and the review checklist — see [[../14-unsafe/index|Chapter 14 — Unsafe Rust & the Memory Model]].
+
 ## Related
 - [[ffi|FFI]]
 - [[macros|Macros]]
+- [[../14-unsafe/index|Chapter 14 — Unsafe deep dive]]

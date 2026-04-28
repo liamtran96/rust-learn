@@ -21,3 +21,9 @@ Optional. Pick up as you need them.
 - You're pushing for the last N% of performance and need layout / dispatch control.
 
 **Most real Rust programmers rarely touch this chapter.** It's here so you know what exists.
+
+## Going deeper
+
+These pages are short overviews. For the **full deep dive**:
+
+- [[../14-unsafe/index|Chapter 14 — Unsafe Rust & the Memory Model]] — soundness, Stacked Borrows, Miri, building primitives, FFI safety, the unsafe-code review checklist.

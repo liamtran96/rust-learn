@@ -10,10 +10,11 @@ tags: [rust, moc, index]
 ## How to use this vault
 
 1. Start with [[roadmap|the Roadmap]] to see the full learning arc.
-2. Work through the numbered folders in order — each builds on the last.
-3. After every chapter, do the linked [[exercises/index|exercises]] before moving on. **Active recall > re-reading.**
-4. When stuck, consult the [[cheatsheets/index|cheatsheets]] and [[pitfalls|common pitfalls]].
-5. Keep a personal journal at `topics/rust/journal.md` — log confusions, aha-moments, and open questions.
+2. Use [[study-plan|the Study Plan]] for a concrete week-by-week calendar at 1 hr/day.
+3. Work through the numbered folders in order — each builds on the last.
+4. After every chapter, do the linked [[exercises/index|exercises]] before moving on. **Active recall > re-reading.**
+5. When stuck, consult the [[cheatsheets/index|cheatsheets]] and [[pitfalls|common pitfalls]].
+6. Keep a personal journal at `topics/rust/journal.md` — log confusions, aha-moments, and open questions.
 
 ## 🗺️ Curriculum
 
@@ -34,10 +35,16 @@ tags: [rust, moc, index]
 - [[08-closures-iterators/index|8. Closures & Iterators]]
 - [[09-smart-pointers/index|9. Smart Pointers — Box, Rc, Arc, RefCell]]
 
-### Phase 5 — Systems & Scale (Week 8+)
+### Phase 5 — Systems & Scale (Week 8)
 - [[10-concurrency/index|10. Concurrency — threads, channels, Send/Sync]]
 - [[11-async/index|11. Async/Await & Tokio]]
 - [[12-advanced/index|12. Advanced — unsafe, macros, FFI]]
+
+### Phase 6 — Tauri Capstone (Weeks 9–12)
+- [[13-tauri/index|13. Tauri — ship a real desktop app]]
+
+### Phase 7 — Advanced Track C: Unsafe & Memory Model (Weeks 13–16)
+- [[14-unsafe/index|14. Unsafe Rust & the Memory Model]] — *optional specialty track*
 
 ## 📚 Quick-reference
 
@@ -52,8 +59,9 @@ Track your progress — tick boxes as you master each level:
 
 - [ ] **Beginner:** Write a CLI tool that reads a file, parses it, and writes output with proper error handling
 - [ ] **Intermediate:** Build a REST API with `axum`/`actix-web` + `sqlx`, including tests
+- [ ] **Capstone:** Ship a Tauri 2 desktop app — installer, signed bundle, persisted state ([[13-tauri/capstone|tracks]])
 - [ ] **Advanced:** Write a concurrent async service with graceful shutdown, tracing, and back-pressure
-- [ ] **Systems:** Implement a non-trivial data structure (e.g., an arena allocator, lock-free queue) with `unsafe`
+- [ ] **Systems:** Implement a non-trivial data structure (`MyVec`, arena, intrusive list) with `unsafe`, Miri-clean ([[14-unsafe/index|Track C]])
 
 ## 🧠 Learning principles
 

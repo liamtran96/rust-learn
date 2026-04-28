@@ -15,3 +15,5 @@ Short, scannable reference pages. Keep them open while you code until they're me
 - [[cargo-commands|Cargo commands]]
 - [[error-handling|Error handling combinators]]
 - [[string-conversions|String conversions]]
+- [[tauri-ipc|Tauri IPC — commands, events, state]]
+- [[unsafe-rules|Unsafe Rust — pointer rules, UB shapes, Miri]]

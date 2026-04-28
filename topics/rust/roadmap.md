@@ -5,7 +5,9 @@ tags: [rust, roadmap]
 
 # Rust Learning Roadmap
 
-A pragmatic path from zero to shipping Rust. Estimated ~8 weeks at ~1 hr/day, or ~4 weeks full-time.
+A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at ~1 hr/day, plus ~4 weeks for the Tauri capstone (Weeks 9–12). Halve all timings if you're full-time.
+
+> **End goal:** by Week 12 you ship a real desktop app built with Rust + Tauri 2 — installable, code-signable, and small enough to email.
 
 ## Week 1 — Toolchain & syntax
 - Install `rustup`, learn `cargo` basics ([[01-fundamentals/toolchain]])
@@ -68,10 +70,69 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks at ~1 hr/day, or
 - [[11-async/tokio|Tokio runtime basics]]
 - **Milestone:** A concurrent port scanner (threads) and an async chat server (tokio).
 
-## Going deeper (Weeks 9+)
-- [[12-advanced/unsafe|Unsafe Rust]] — raw pointers, FFI
-- [[12-advanced/macros|Macros]] — `macro_rules!` first, proc macros later
-- Domain-specific stacks: **web** (axum/actix), **CLI** (clap), **embedded** (embassy/no_std), **systems** (nix, libc)
+## Phase 6 — Tauri capstone (Weeks 9–12)
+
+By now you have the Rust skills to read the framework. Stop reading and start shipping.
+
+### Week 9 — Tauri foundations
+- [[13-tauri/setup|Prerequisites]] — Rust toolchain, Node + pnpm, OS deps (WebView2 / webkit2gtk / Xcode CLI)
+- `pnpm create tauri-app` — pick a frontend (Svelte, React, Vue, or vanilla TS)
+- [[13-tauri/architecture|The architecture]] — two processes, one IPC bridge, `src-tauri/` vs frontend
+- Dev loop: `pnpm tauri dev`, hot-reload, devtools
+- **Milestone:** App launches, a button in the frontend calls a Rust function and renders the result.
+
+### Week 10 — IPC: commands, events, state
+- [[13-tauri/commands|Commands]] — `#[tauri::command]`, `serde` payloads, async, error returns
+- [[13-tauri/events|Events]] — `app.emit` / `listen`, when to use events vs commands
+- [[13-tauri/state|Managed state]] — `tauri::State<T>`, `Mutex` vs `RwLock`, why `Arc` is implicit
+- **Milestone:** A command that mutates state, an event that pushes updates to the frontend, a typed error path.
+
+### Week 11 — Plugins & native APIs
+- [[13-tauri/plugins|Official plugins]] — `tauri-plugin-fs`, `dialog`, `notification`, `store`, `shell`, `os`
+- Capabilities & permissions — the v2 security model (allow lists per window)
+- Window, menu, system tray
+- **Milestone:** App reads/writes a config file, shows a native dialog, persists state across restarts.
+
+### Week 12 — Capstone & ship
+- [[13-tauri/packaging|Packaging]] — icons, bundle identifiers, `.dmg` / `.msi` / `.AppImage`, code signing basics
+- [[13-tauri/capstone|Capstone project]] — pick one of three tracks (notes app / pomodoro tray / expense tracker)
+- Profile the release binary; set `[profile.release]` opt-level + LTO
+- **Milestone:** A signed installer for your OS, a README with screenshots, a tagged v0.1.0.
+
+## Phase 7 — Advanced Track C: Unsafe & Memory Model (Weeks 13–16)
+
+A specialty track. **Optional** — most Rust developers ship production code without writing a single `unsafe` block of their own. Take this when you want to build primitives, wrap C, or read std's source with confidence.
+
+### Week 13 — The unsafe contract
+- [[14-unsafe/why-unsafe|What `unsafe` actually means]] — soundness vs safety, validity invariants
+- [[14-unsafe/raw-pointers|Raw pointers]] — `*const`/`*mut`, provenance, `NonNull`, `addr_of!`
+- **Milestone:** Implement `MyBox<T>` from `Box::into_raw` / `Box::from_raw`.
+
+### Week 14 — Aliasing & UB
+- [[14-unsafe/aliasing|Stacked Borrows]] — Rust's aliasing model and what UB looks like
+- [[14-unsafe/uninit-and-cells|`MaybeUninit<T>` & `UnsafeCell<T>`]] — uninitialized memory and interior mutability primitives
+- [[14-unsafe/miri|Miri]] — your only practical UB detector
+- **Milestone:** Implement `MyVec<T>` (push, pop, drop). Run under Miri. Fix every violation.
+
+### Week 15 — Patterns & FFI
+- [[14-unsafe/patterns|Common patterns]] — bump arena, intrusive linked list
+- [[14-unsafe/ffi-safety|FFI safety beyond the basics]] — `catch_unwind`, opaque handles, Send/Sync over the boundary
+- **Milestone:** A safe Rust wrapper around an opaque C handle of your choice (`libcurl`, `sqlite3`, your own C lib).
+
+### Week 16 — Audit & ship
+- [[14-unsafe/review-checklist|The unsafe-code review checklist]] — `// SAFETY:` discipline
+- Re-audit every `unsafe` block in your projects against the checklist
+- Add a CI job that runs `cargo +nightly miri test` on changed crates
+- **Milestone:** Public PR (or internal review) of an unsafe block with a complete `// SAFETY:` rationale.
+
+## Going deeper (Weeks 17+)
+- [[12-advanced/macros|Macros]] — `macro_rules!` first, proc macros later (Track D)
+- API design / type-system depth — variance, HRTBs, GATs, sealed traits (Track A)
+- Async maturity — cancellation, structured concurrency, tracing (Track B)
+- Performance — profiling, allocations, SIMD (Track E)
+- no_std / embedded (Track F)
+- Other domain stacks: **web** (axum/actix), **CLI** (clap), **embedded** (embassy/no_std), **systems** (nix, libc)
+- Tauri mobile (iOS/Android) — same codebase, new targets
 
 ## Ongoing habits
 - Daily: read the compiler's suggestions end-to-end, don't skim.

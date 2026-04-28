@@ -26,6 +26,8 @@ Active practice beats re-reading. Do **at least one** exercise per chapter befor
 - [[ch09-smart-pointers|Ch 9 — Smart pointers exercises]]
 - [[ch10-concurrency|Ch 10 — Concurrency exercises]]
 - [[ch11-async|Ch 11 — Async exercises]]
+- [[ch13-tauri|Ch 13 — Tauri exercises (capstone ladder)]]
+- [[ch14-unsafe|Ch 14 — Unsafe & memory model exercises (Miri-driven)]]
 
 ## Small projects (1–2 days each)
 

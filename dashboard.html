@@ -257,13 +257,13 @@
     <div class="card">
       <h3>Recent activity</h3>
       <div class="journal">
-        <div class="date">2026-04-28 — Workflow setup + code review</div>
-        <strong>What I did:</strong> stood up the daily tracking system (this dashboard, <span class="mono">progress.md</span>, <span class="mono">lessons/</span> folder, recurring 20:00 calendar block through 2026-09-15). Re-read FizzBuzz and temp-converter — code is solid; only nits are commented-out scaffolding in <span class="mono">temp-converter/main.rs</span> and the spec-asked CLI-arg variant.<br>
-        <strong>No new Rust today:</strong> rails day, not a coding day. Streak begins at 1.<br>
-        <strong>Next:</strong> Ch 1 exercise #4 (shadowing) at 20:00 tomorrow.
+        <div class="date">2026-05-03 — Guessing game shipped</div>
+        <strong>What I did:</strong> built the guessing game end-to-end. Hit and fixed the "single-read, looped parse → infinite Too small!" bug by moving prompt + <span class="mono">guess.clear()</span> + <span class="mono">read_line</span> inside the <span class="mono">loop</span>. Wired up <span class="mono">rand</span> 0.10 (renamed APIs: <span class="mono">rand::rng().random_range(1..=100)</span> with <span class="mono">use rand::RngExt</span>). Clippy clean.<br>
+        <strong>What clicked:</strong> <span class="mono">Result&lt;T, E&gt;</span> as a sealed-box mental model · <span class="mono">Ok</span>/<span class="mono">Err</span> are enum variants used as both constructors and destructuring patterns · <span class="mono">match</span> is a keyword expression (not a function), patterns ≠ values · trait methods need the trait in scope (the <span class="mono">RngExt</span> import lesson).<br>
+        <strong>Next:</strong> cleanup pass on guessing-game (drop dead comments + unused <span class="mono">_result</span> binding, run <span class="mono">cargo fmt</span>), then Ch 1 #4 paper exercise.
       </div>
       <div style="color:var(--muted);font-size:12px;margin-top:10px;">
-        Previous entry: 2026-04-19 — FizzBuzz. Backfilled as the first lesson summary.
+        Previous entries: 2026-05-01 (temp-converter, stdin) · 2026-04-28 (workflow setup) · 2026-04-19 (FizzBuzz).
       </div>
     </div>
   </div>
@@ -293,7 +293,7 @@
       <ul class="list" style="margin-top:8px;">
         <li><div><code>code/01-fundamentals/fizzbuzz/</code> <span class="tag done">shipped</span></div></li>
         <li><div><code>code/01-fundamentals/temp-converter/</code> <span class="tag partial">refactor owed</span></div></li>
-        <li><div><code>code/01-fundamentals/guessing-game/</code> <span class="tag todo">next</span></div></li>
+        <li><div><code>code/01-fundamentals/guessing-game/</code> <span class="tag done">shipped</span></div></li>
       </ul>
       <div style="color:var(--muted);font-size:12px;margin-top:10px;">
         Each project is its own crate (<code>edition = "2024"</code>, no workspace). Run <code>cargo run</code> / <code>cargo check</code> / <code>cargo clippy</code> from inside the project dir.
@@ -320,19 +320,19 @@
   <div class="card">
     <ol class="next-list">
       <li><div>
-        <strong>Tomorrow 20:00 — Ch 1 exercise #4 (shadowing).</strong>
-        Predict the output of the shadowing snippet before running. Three numbers. The point is not the answer — it is feeling shadowing in your fingers before Ch 2 throws ownership at you.
+        <strong>Cleanup pass on guessing-game.</strong>
+        Delete the commented tuple block + dead <span class="mono">const GUESS_NUMBER</span> + the orphan <span class="mono">println!("You guessed: …")</span> that runs before any input. Drop <span class="mono">let _result = loop { … };</span> in favour of plain <span class="mono">loop { … }</span> with <span class="mono">break;</span> (the unused <span class="mono">_</span>-prefixed binding is a smell, not a fix). Run <span class="mono">cargo fmt</span>.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~10 min · file: <code>code/01-fundamentals/guessing-game/src/main.rs</code></div>
+      </div></li>
+      <li><div>
+        <strong>Ch 1 exercise #4 — predict shadowing output.</strong>
+        Write down what each <span class="mono">println!</span> prints <em>before</em> running the snippet. Three numbers. Diff your prediction against reality. The point is not the answer — it is feeling shadowing in your fingers before Ch 2 throws ownership at you.
         <div style="color:var(--muted);font-size:12px;margin-top:4px;">~15 min · file: <code>topics/rust/exercises/ch01-fundamentals.md</code></div>
       </div></li>
       <li><div>
         <strong>Then exercises #5–7 in the same session.</strong>
-        #5 = i32 + i64 type-mismatch fix. #6 = sign() rewritten with no <span class="mono">return</span>. #7 = count_digits with <span class="mono">loop { break value; }</span>. Together these cement type coercion, expressions vs statements, and the loop-as-expression idiom.
+        #5 = i32 + i64 type-mismatch fix. #6 = <span class="mono">sign()</span> rewritten with no <span class="mono">return</span>. #7 = <span class="mono">count_digits</span> with <span class="mono">loop { break value; }</span>. Together these cement type coercion, expressions vs statements, and the loop-as-expression idiom — and they close out Week 1 cleanly.
         <div style="color:var(--muted);font-size:12px;margin-top:4px;">~30 min total · same file</div>
-      </div></li>
-      <li><div>
-        <strong>Day after — ship the guessing game.</strong>
-        Your first external crate (<span class="mono">cargo add rand</span>), first real <span class="mono">Result</span>/<span class="mono">match</span> on user input, first <span class="mono">loop</span> with break-on-success. After it compiles, I write the lesson summary; you tick the milestone in <code>roadmap.md</code>.
-        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~60 min · target: <code>code/01-fundamentals/guessing-game</code></div>
       </div></li>
     </ol>
   </div>

@@ -28,7 +28,7 @@ Stop at the timer even mid-problem. Resume tomorrow. The compiler is teaching yo
 - [ ] Read [[01-fundamentals/toolchain|toolchain]], [[01-fundamentals/variables|variables]], [[01-fundamentals/data-types|data types]]
 - [ ] Read [[01-fundamentals/functions|functions]], [[01-fundamentals/control-flow|control flow]]
 - [ ] Do [[exercises/ch01-fundamentals|Ch 1 exercises]] 1–7
-- [ ] **Ship:** FizzBuzz (3 ways), temperature converter, guessing game
+- [ ] **Ship:** FizzBuzz (3 ways), temperature converter, ✅ guessing game
 
 ## Phase 2 — Ownership (THE chapter)
 

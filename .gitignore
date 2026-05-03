@@ -1,0 +1,16 @@
+# Rust / Cargo build output
+target/
+**/target/
+
+# macOS
+.DS_Store
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Obsidian workspace state (keep .obsidian/ config, drop per-user state)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json

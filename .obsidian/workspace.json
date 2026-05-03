@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "f67921090cd68d8f",
+            "id": "ffbe6d8653d3d929",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "topics/rust/journal.md",
+                "file": "topics/rust/progress.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "journal"
+              "title": "progress"
             }
           }
         ]
@@ -180,13 +180,28 @@
       "bases:Create new base": false
     }
   },
-  "active": "f67921090cd68d8f",
+  "active": "ffbe6d8653d3d929",
   "lastOpenFiles": [
-    "topics/rust/cheatsheets/cargo-commands.md",
-    "topics/rust/01-fundamentals/data-types.md",
-    "topics/rust/01-fundamentals/control-flow.md",
-    "topics/rust/01-fundamentals/index.md",
     "topics/rust/journal.md",
+    "code/01-fundamentals/guessing-game/BRIEF.md",
+    "code/01-fundamentals/guessing-game/target/debug/deps/libguessing_game-865f0ae43a0afd3b.rmeta",
+    "code/01-fundamentals/guessing-game/target/debug/deps/guessing_game-865f0ae43a0afd3b.d",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2/s-hi6fm2fx8o-0rs1qb5-2rhrrh2co8db4l2x8qst1zcah/work-products.bin",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2/s-hi6fm2fx8o-0rs1qb5-2rhrrh2co8db4l2x8qst1zcah/query-cache.bin",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2/s-hi6fm2fx8o-0rs1qb5-2rhrrh2co8db4l2x8qst1zcah/dep-graph.bin",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2/s-hi6fm2fx8o-0rs1qb5.lock",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2/s-hi6fm2fx8o-0rs1qb5-2rhrrh2co8db4l2x8qst1zcah",
+    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-1fuorkd902yh2",
+    "code/01-fundamentals/guessing-game/target/debug/deps/librand-e87e589e63d523c5.rmeta",
+    "code/01-fundamentals/guessing-game/target/debug/deps/rand-e87e589e63d523c5.d",
+    "topics/rust/cheatsheets/iterator-methods.md",
+    "topics/rust/01-fundamentals/control-flow.md",
+    "topics/rust/01-fundamentals/toolchain.md",
+    "topics/rust/01-fundamentals/functions.md",
+    "topics/rust/01-fundamentals/index.md",
+    "topics/rust/01-fundamentals/data-types.md",
+    "topics/rust/01-fundamentals/variables.md",
+    "topics/rust/cheatsheets/cargo-commands.md",
     "topics/rust/resources/index.md",
     "topics/rust/pitfalls.md",
     "topics/rust/exercises/ch11-async.md",
@@ -197,26 +212,10 @@
     "topics/rust/exercises/ch05-errors.md",
     "topics/rust/exercises/ch04-collections.md",
     "topics/rust/exercises/ch03-types.md",
-    "topics/rust/01-fundamentals/functions.md",
     "topics/rust/exercises/ch02-ownership.md",
     "topics/mcp/raw/articles/2026-04-18T164324+0700-Installation - The Rust Programming Language.md",
     "topics/rust/exercises/ch01-fundamentals.md",
     "topics/rust/exercises/index.md",
-    "topics/rust/cheatsheets/string-conversions.md",
-    "topics/rust/cheatsheets/error-handling.md",
-    "topics/rust/cheatsheets/trait-bounds.md",
-    "topics/rust/cheatsheets/iterator-methods.md",
-    "topics/rust/cheatsheets/lifetimes-cheatsheet.md",
-    "topics/rust/cheatsheets/ownership-rules.md",
-    "topics/rust/resources",
-    "topics/rust/exercises",
-    "topics/rust/cheatsheets",
-    "topics/rust/12-advanced",
-    "topics/rust/11-async",
-    "topics/rust/10-concurrency",
-    "topics/rust/09-smart-pointers",
-    "topics/rust/08-closures-iterators",
-    "topics/rust/07-testing",
-    "topics/rust/06-modules"
+    "topics/rust/cheatsheets/string-conversions.md"
   ]
 }

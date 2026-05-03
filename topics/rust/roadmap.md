@@ -15,7 +15,7 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at
 - Primitives, tuples, arrays
 - Functions, expressions vs statements
 - Control flow: `if`/`else`, `loop`, `while`, `for`
-- **Milestone:** ✅ FizzBuzz · ⬜ temperature converter · ⬜ guessing game.
+- **Milestone:** ✅ FizzBuzz · ✅ temperature converter · ✅ guessing game.
 
 ## Week 2 — Ownership (THE chapter)
 - [[02-ownership/ownership|Ownership rules]] — move, copy, drop

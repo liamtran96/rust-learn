@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rust Learning Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1116;
+    --panel: #181b22;
+    --panel-2: #20242d;
+    --border: #2a2f3a;
+    --text: #e8ecf2;
+    --muted: #8a93a4;
+    --accent: #ce422b;        /* rust-orange */
+    --accent-2: #f0744f;
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+  header { display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+  h1 { margin: 0; font-size: 28px; letter-spacing: -0.01em; }
+  h1 .accent { color: var(--accent-2); }
+  .meta { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin: 32px 0 12px; font-weight: 600; }
+  h3 { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+  .grid { display: grid; gap: 16px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 2fr 1fr 1fr; }
+  @media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+  .card { background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px; }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat .num { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.06em; }
+  .stat .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .progress { height: 10px; background: var(--panel-2); border-radius: 999px;
+    overflow: hidden; margin-top: 8px; border: 1px solid var(--border); }
+  .progress > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  /* phase visualizer */
+  .phases { display: flex; flex-direction: column; gap: 10px; }
+  .phase-row { display: grid; grid-template-columns: 220px 1fr 60px;
+    align-items: center; gap: 12px; }
+  .phase-name { font-size: 13px; }
+  .phase-name .small { color: var(--muted); font-size: 11px; display: block; }
+  .weeks { display: flex; gap: 4px; flex-wrap: wrap; }
+  .week { width: 22px; height: 22px; border-radius: 4px; background: var(--panel-2);
+    border: 1px solid var(--border); position: relative; }
+  .week.done { background: var(--green); border-color: var(--green); }
+  .week.partial { background: var(--amber); border-color: var(--amber); }
+  .week.optional { border-style: dashed; }
+  .pct { font-size: 12px; color: var(--muted); text-align: right; }
+  /* checklist */
+  ul.list { list-style: none; padding: 0; margin: 0; }
+  ul.list li { padding: 8px 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+  ul.list li:last-child { border-bottom: none; }
+  .box { width: 16px; height: 16px; border-radius: 3px; flex: 0 0 16px;
+    border: 1.5px solid var(--muted); margin-top: 2px; }
+  .box.done { background: var(--green); border-color: var(--green); }
+  .box.partial { background: var(--amber); border-color: var(--amber); }
+  .strike { color: var(--muted); text-decoration: line-through; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px;
+    border-radius: 999px; background: var(--panel-2); color: var(--muted);
+    border: 1px solid var(--border); margin-left: 6px; }
+  .tag.done { background: rgba(74,222,128,0.12); color: var(--green); border-color: rgba(74,222,128,0.3); }
+  .tag.partial { background: rgba(251,191,36,0.12); color: var(--amber); border-color: rgba(251,191,36,0.3); }
+  .tag.todo { background: rgba(96,165,250,0.12); color: var(--blue); border-color: rgba(96,165,250,0.3); }
+  /* code projects */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); font-weight: 600; }
+  code, .mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px;
+    color: var(--accent-2); }
+  .journal { background: var(--panel-2); border-radius: 6px; padding: 14px;
+    border-left: 3px solid var(--accent); font-size: 13px; line-height: 1.55; }
+  .journal .date { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .next-list { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  .next-list li { counter-increment: step; padding: 10px 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+  .next-list li:last-child { border-bottom: none; }
+  .next-list li::before { content: counter(step); width: 22px; height: 22px;
+    border-radius: 50%; background: var(--accent); color: white; display: inline-flex;
+    align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex: 0 0 22px; }
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Rust <span class="accent">Learning</span> Dashboard</h1>
+    <div class="meta">Last updated: 2026-05-03 · ICT</div>
+  </header>
+
+  <div class="grid grid-4">
+    <div class="card stat">
+      <div class="label">Current phase</div>
+      <div class="num">1<span style="color:var(--muted);font-size:18px;">/7</span></div>
+      <div class="sub">Foundations · Week 1</div>
+    </div>
+    <div class="card stat">
+      <div class="label">Weeks complete</div>
+      <div class="num">0.7<span style="color:var(--muted);font-size:18px;">/20</span></div>
+      <div class="progress"><div style="width:3.5%"></div></div>
+      <div class="sub">3.5% of full plan</div>
+    </div>
+    <div class="card stat">
+      <div class="label">Projects shipped</div>
+      <div class="num">3<span style="color:var(--muted);font-size:18px;">/3</span></div>
+      <div class="sub">FizzBuzz, temp converter, guessing game</div>
+    </div>
+    <div class="card stat">
+      <div class="label">Ch 1 exercises</div>
+      <div class="num">3<span style="color:var(--muted);font-size:18px;">/7</span></div>
+      <div class="sub">4 to go before Ch 2</div>
+    </div>
+  </div>
+
+  <h2>Phase progression</h2>
+  <div class="card">
+    <div class="phases">
+      <div class="phase-row">
+        <div class="phase-name">Phase 1 — Foundations<span class="small">Toolchain, syntax, control flow</span></div>
+        <div class="weeks">
+          <div class="week partial" title="Week 1 — in progress (3 ship, 4 paper exercises owed)"></div>
+        </div>
+        <div class="pct">70%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 2 — Ownership<span class="small">Move, borrow, lifetimes</span></div>
+        <div class="weeks">
+          <div class="week" title="Week 2"></div>
+          <div class="week" title="Week 3"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 3 — Types & data<span class="small">Structs, enums, traits, collections</span></div>
+        <div class="weeks">
+          <div class="week" title="Week 4"></div>
+          <div class="week" title="Week 5"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 4 — Modules & testing<span class="small">Crates, workspaces, doc tests</span></div>
+        <div class="weeks">
+          <div class="week" title="Week 6"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 5 — Idiomatic Rust<span class="small">Closures, iterators, smart pointers, async</span></div>
+        <div class="weeks">
+          <div class="week" title="Week 7"></div>
+          <div class="week" title="Week 8"></div>
+          <div class="week" title="Week 9"></div>
+          <div class="week" title="Week 10"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 6 — Tauri capstone<span class="small">Build &amp; ship a desktop app</span></div>
+        <div class="weeks">
+          <div class="week" title="Week 11"></div>
+          <div class="week" title="Week 12"></div>
+          <div class="week" title="Week 13"></div>
+          <div class="week" title="Week 14"></div>
+          <div class="week" title="Week 15"></div>
+          <div class="week" title="Week 16"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-name">Phase 7 — Track C: Unsafe<span class="small">Optional · raw pointers, Miri, FFI</span></div>
+        <div class="weeks">
+          <div class="week optional" title="Week 17"></div>
+          <div class="week optional" title="Week 18"></div>
+          <div class="week optional" title="Week 19"></div>
+          <div class="week optional" title="Week 20"></div>
+        </div>
+        <div class="pct">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:24px;">
+    <div class="card">
+      <h3>Week 1 — Toolchain &amp; syntax</h3>
+      <ul class="list">
+        <li><div class="box done"></div><div><span class="strike">Install rustup, verify cargo --version</span></div></li>
+        <li><div class="box done"></div><div><span class="strike">Read toolchain, variables, data types</span></div></li>
+        <li><div class="box done"></div><div><span class="strike">Read functions, control flow</span></div></li>
+        <li><div class="box partial"></div><div>Do Ch 1 exercises 1–7 <span class="tag partial">3 of 7</span></div></li>
+        <li><div class="box done"></div><div><span class="strike">Ship: FizzBuzz, temperature converter, guessing game</span> <span class="tag done">3 of 3</span></div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Code projects shipped</h3>
+      <table>
+        <thead><tr><th>Project</th><th>Status</th><th>Path</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>FizzBuzz</td>
+            <td><span class="tag done">shipped</span></td>
+            <td><code>code/01-fundamentals/fizzbuzz</code></td>
+          </tr>
+          <tr>
+            <td>Temperature converter</td>
+            <td><span class="tag partial">shipped, refactor</span></td>
+            <td><code>code/01-fundamentals/temp-converter</code></td>
+          </tr>
+          <tr>
+            <td>Guessing game</td>
+            <td><span class="tag done">shipped</span></td>
+            <td><code>code/01-fundamentals/guessing-game</code></td>
+          </tr>
+          <tr>
+            <td>Re-implement str::split, Vec::dedup</td>
+            <td><span class="tag todo">week 3</span></td>
+            <td><span style="color:var(--muted);">not started</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:24px;">
+    <div class="card">
+      <h3>Ch 1 exercise tracker</h3>
+      <ul class="list">
+        <li><div class="box done"></div><div><span class="strike">1. FizzBuzz — three ways (if, match, iterator)</span> <span class="tag done">done · if + match · iterator owed</span></div></li>
+        <li><div class="box partial"></div><div>2. Temperature converter <span class="tag partial">working, spec wants CLI arg like 25C</span></div></li>
+        <li><div class="box done"></div><div><span class="strike">3. Guessing game</span> <span class="tag done">shipped · clippy clean</span></div></li>
+        <li><div class="box"></div><div>4. Predict shadowing output <span class="tag todo">next</span></div></li>
+        <li><div class="box"></div><div>5. Why does i32 + i64 fail? Minimal fix</div></li>
+        <li><div class="box"></div><div>6. Rewrite sign() with no return</div></li>
+        <li><div class="box"></div><div>7. count_digits with loop + break value</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Recent activity</h3>
+      <div class="journal">
+        <div class="date">2026-04-28 — Workflow setup + code review</div>
+        <strong>What I did:</strong> stood up the daily tracking system (this dashboard, <span class="mono">progress.md</span>, <span class="mono">lessons/</span> folder, recurring 20:00 calendar block through 2026-09-15). Re-read FizzBuzz and temp-converter — code is solid; only nits are commented-out scaffolding in <span class="mono">temp-converter/main.rs</span> and the spec-asked CLI-arg variant.<br>
+        <strong>No new Rust today:</strong> rails day, not a coding day. Streak begins at 1.<br>
+        <strong>Next:</strong> Ch 1 exercise #4 (shadowing) at 20:00 tomorrow.
+      </div>
+      <div style="color:var(--muted);font-size:12px;margin-top:10px;">
+        Previous entry: 2026-04-19 — FizzBuzz. Backfilled as the first lesson summary.
+      </div>
+    </div>
+  </div>
+
+  <h2>Workflow — where things live</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3><span style="color:var(--blue);">READ</span> · <code>topics/rust/</code></h3>
+      <div style="font-size:13px;line-height:1.7;">
+        The Obsidian vault — the "book". You read here, you don't write code here.
+      </div>
+      <ul class="list" style="margin-top:8px;">
+        <li><div><code>study-plan.md</code> — <span style="color:var(--muted);">weekly calendar; tells you what to do today</span></div></li>
+        <li><div><code>roadmap.md</code> — <span style="color:var(--muted);">the 16-week arc</span></div></li>
+        <li><div><code>01-fundamentals/*.md</code> — <span style="color:var(--muted);">chapter notes: variables, functions, control flow…</span></div></li>
+        <li><div><code>exercises/ch01-fundamentals.md</code> — <span style="color:var(--muted);">the 7 exercises for Ch 1</span></div></li>
+        <li><div><code>progress.md</code> · <code>journal.md</code> — <span style="color:var(--muted);">daily log + reflection</span></div></li>
+        <li><div><code>lessons/</code> — <span style="color:var(--muted);">TL;DR summaries (Claude writes these)</span></div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span style="color:var(--accent-2);">WRITE</span> · <code>code/</code></h3>
+      <div style="font-size:13px;line-height:1.7;">
+        Real Cargo projects you write by hand. One crate per exercise. Folder names mirror <code>topics/rust/</code> on purpose.
+      </div>
+      <ul class="list" style="margin-top:8px;">
+        <li><div><code>code/01-fundamentals/fizzbuzz/</code> <span class="tag done">shipped</span></div></li>
+        <li><div><code>code/01-fundamentals/temp-converter/</code> <span class="tag partial">refactor owed</span></div></li>
+        <li><div><code>code/01-fundamentals/guessing-game/</code> <span class="tag todo">next</span></div></li>
+      </ul>
+      <div style="color:var(--muted);font-size:12px;margin-top:10px;">
+        Each project is its own crate (<code>edition = "2024"</code>, no workspace). Run <code>cargo run</code> / <code>cargo check</code> / <code>cargo clippy</code> from inside the project dir.
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Daily loop — 60 min</h3>
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:10px 16px;font-size:13px;line-height:1.6;">
+      <div class="mono">0–15 min</div>
+      <div>Re-read yesterday's notes / glance at the relevant cheatsheet</div>
+      <div class="mono">15–45 min</div>
+      <div>New material — type every example into a scratch cargo project</div>
+      <div class="mono">45–60 min</div>
+      <div>One exercise from <code>exercises/ch&lt;NN&gt;-*.md</code></div>
+    </div>
+    <div style="color:var(--muted);font-size:12px;margin-top:12px;">
+      Stop at the timer even mid-problem. Resume tomorrow. Skip Sundays. When you finish an exercise and say "done", Claude appends the journal entry, ticks the roadmap, and writes a lesson summary — unprompted.
+    </div>
+  </div>
+
+  <h2>Next 3 actions</h2>
+  <div class="card">
+    <ol class="next-list">
+      <li><div>
+        <strong>Tomorrow 20:00 — Ch 1 exercise #4 (shadowing).</strong>
+        Predict the output of the shadowing snippet before running. Three numbers. The point is not the answer — it is feeling shadowing in your fingers before Ch 2 throws ownership at you.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~15 min · file: <code>topics/rust/exercises/ch01-fundamentals.md</code></div>
+      </div></li>
+      <li><div>
+        <strong>Then exercises #5–7 in the same session.</strong>
+        #5 = i32 + i64 type-mismatch fix. #6 = sign() rewritten with no <span class="mono">return</span>. #7 = count_digits with <span class="mono">loop { break value; }</span>. Together these cement type coercion, expressions vs statements, and the loop-as-expression idiom.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~30 min total · same file</div>
+      </div></li>
+      <li><div>
+        <strong>Day after — ship the guessing game.</strong>
+        Your first external crate (<span class="mono">cargo add rand</span>), first real <span class="mono">Result</span>/<span class="mono">match</span> on user input, first <span class="mono">loop</span> with break-on-success. After it compiles, I write the lesson summary; you tick the milestone in <code>roadmap.md</code>.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~60 min · target: <code>code/01-fundamentals/guessing-game</code></div>
+      </div></li>
+    </ol>
+  </div>
+
+  <footer>
+    Generated from <code>study-plan.md</code>, <code>journal.md</code>, and the <code>code/</code> tree.
+    Re-run the dashboard prompt anytime to refresh.
+  </footer>
+
+</div>
+</body>
+</html>

@@ -14,31 +14,11 @@
               "type": "markdown",
               "state": {
                 "file": "topics/rust/01-fundamentals/mistakes.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "mistakes"
-            }
-          }
-        ]
-      },
-      {
-        "id": "bcf87c41c9eda989",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "99ad2e3da09a511d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "topics/rust/exercises/ch01-fundamentals.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "ch01-fundamentals"
             }
           }
         ]
@@ -73,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "file:ch01",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -98,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "fb7d3c2945212a01",
@@ -202,18 +183,22 @@
   },
   "active": "a5ce9d70aec5fdd7",
   "lastOpenFiles": [
-    "topics/rust/exercises/ch01-fundamentals.md",
-    "code/01-fundamentals/guessing-game/target/debug/deps/guessing_game-a80f0f60e3a7beee",
-    "code/01-fundamentals/guessing-game/target/debug/deps/rustcifIHXK/symbols.o",
-    "code/01-fundamentals/guessing-game/target/debug/deps/rustcifIHXK",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/work-products.bin",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/query-cache.bin",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/f53gxozdev6divnleqn8ck3po.o",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/do22m7xz834cybwy1jnnjxhxg.o",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/dep-graph.bin",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/av4sft614n1y0j0iyaqyoldjj.o",
-    "code/01-fundamentals/guessing-game/target/debug/incremental/guessing_game-10dscgfowuclq/s-hipe6g1hxg-0iaomv4-dype3oxtw704b2jp0py2hlzol/9ltlkd5v67847xwhga24f3ls7.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/work-products.bin",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/query-cache.bin",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/5xsoj67fmjuxillnh0sef8mzs.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/dep-graph.part.bin",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/dep-graph.bin",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/ax99ar1tcqox0twqzrzc4lyfl.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/agc5bazyzzvli7033z2dn118q.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/9eldjggnoi68x1e7ylu2ahkww.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/7bvmd93ocfrjc6bx0s3vuul37.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/504jukvn5vp78fywj119ss71l.o",
+    "code/01-fundamentals/count-digits/target/debug/incremental/count_digits-3fll6ko7hdrrm/s-hithiycvxo-0wwpx6a-working/4ui5emwkkvs9ciuc8ixqmk9v8.o",
+    "topics/rust/01-fundamentals/control-flow.md",
     "topics/rust/01-fundamentals/mistakes.md",
+    "topics/rust/01-fundamentals/index.md",
+    "topics/rust/exercises/ch01-fundamentals.md",
+    "code/01-fundamentals/guessing-game/BRIEF.md",
     "topics/rust/01-fundamentals/variables.md",
     "topics/rust/01-fundamentals/const-vs-static.md",
     "topics/rust/01-fundamentals/data-types.md",
@@ -221,12 +206,9 @@
     "topics/rust/roadmap.md",
     "topics/rust/progress.md",
     "topics/rust/journal.md",
-    "code/01-fundamentals/guessing-game/BRIEF.md",
     "topics/rust/cheatsheets/iterator-methods.md",
-    "topics/rust/01-fundamentals/control-flow.md",
     "topics/rust/01-fundamentals/toolchain.md",
     "topics/rust/01-fundamentals/functions.md",
-    "topics/rust/01-fundamentals/index.md",
     "topics/rust/cheatsheets/cargo-commands.md",
     "topics/rust/resources/index.md",
     "topics/rust/pitfalls.md",

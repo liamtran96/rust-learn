@@ -165,7 +165,7 @@ The whole `if / else if / else` is one expression that evaluates to a `&str`. Th
   - `static NAME: Type = value;`      — global, fixed address, immutable
   - `static mut NAME: Type = value;`  — global mutable (almost never use)
 
-**Picking the right keyword — decision tree:**
+**Picking the right keyword — decision tree:**[]()
 
 ```mermaid
 flowchart TD

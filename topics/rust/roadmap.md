@@ -9,7 +9,7 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at
 
 > **End goal:** by Week 12 you ship a real desktop app built with Rust + Tauri 2 — installable, code-signable, and small enough to email.
 
-## Week 1 — Toolchain & syntax
+## ✅ Week 1 — Toolchain & syntax
 - Install `rustup`, learn `cargo` basics ([[01-fundamentals/toolchain]])
 - Variables, shadowing, mutability, constants
 - Primitives, tuples, arrays

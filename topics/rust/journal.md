@@ -182,3 +182,65 @@ tags: [rust, journal]
 - Is `static FOO: Mutex<T> = Mutex::new(0)` always the right answer for a global counter, or should I reach for `AtomicU32` instead? (Atomics avoid the lock; useful when you only need primitive ops.)
 - For `count_digits(0)`: should it return 0 (zero-iteration loop) or 1 ("zero is one digit")? Spec doesn't say — pick a convention and document it in a doc comment.
 **Next:** Fix #4's wrong guess (`10 → 12`), apply one `as` cast for #5, write the `if/else`-as-expression version of `sign` for #6, write `count_digits` with `let mut count`, `loop`, and `break count;` for #7. Then `/journal` again with the cleanup notes and any new mistakes that surfaced.
+
+### 2026-05-24 — count_digits: loop { break value } in practice
+**Working on:** Ch 1 Exercise #7 — `count_digits` — `code/01-fundamentals/count-digits/`
+**What clicked:**
+- `mut number: i32` in the parameter means "give me a mutable *copy* of the caller's value" — the caller's variable is unaffected.
+- `break count` is what makes `loop { ... }` into an expression — the value after `break` is what the whole loop evaluates to.
+- Early `return 1` before the loop is the clean way to handle edge cases that don't fit the main loop logic (the zero-digit problem).
+**What didn't:**
+- Tried `let result_count = loop { result_count += 1; }` — can't reference a name inside the loop that's *defining* it (it doesn't exist yet at that point).
+- `result_count = loop { ... }` without `let` is a statement that returns `()`, leaving the function with no return value — caused a "mismatched types, found `()`" error.
+- `break 1` hardcoded instead of `break count` — worked for the zero case but returned 1 for every input.
+- `break count+1` as a fix for the zero case — off by one for all non-zero inputs.
+**Questions asked this session:**
+- **Q:** Why does `let result_count = loop { result_count += 1; }` fail with "cannot find value `result_count` in this scope"?
+  - **Technical answer:** `let result_count = loop { ... }` is a single binding declaration. The name `result_count` is not yet in scope *inside* the right-hand side (the loop body), because the binding is only created once the whole expression on the right finishes evaluating. This is the same rule as `let x = x + 1` being valid (the old `x` is in scope on the right) but `let x = x` where `x` was never declared before — you can't reference something that hasn't been defined yet at all. The fix is to declare a *separate* counter variable before the loop: `let mut count = 0;`, then `loop { count += 1; break count; }`.
+  - **Plain-English analogy / example:**
+    ```rust
+    // ❌ can't use result_count inside the loop that defines it
+    let result_count = loop { result_count += 1; break result_count; };
+
+    // ✅ separate counter declared before the loop
+    let mut count = 0;
+    let result_count = loop {
+        count += 1;
+        break count;
+    };
+    ```
+  - **See also:** `topics/rust/01-fundamentals/variables.md`, `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** Why does `result_count = loop { ... }` cause "expected `i32`, found `()`"?
+  - **Technical answer:** An assignment in Rust (`x = value`) is a **statement**, not an expression — it evaluates to `()` (called "unit", the empty tuple), not to the value being assigned. So when the function body ends with `result_count = loop { ... }`, its last "expression" is `()`, which doesn't match the `-> i32` return type. The fix is either to add `result_count` on the next line (making *that* the last expression), or to drop the assignment entirely and let the bare `loop { ... }` be the last expression — its `break count` value flows out as the return value directly.
+  - **Plain-English analogy / example:**
+    ```rust
+    // ❌ assignment is a statement → returns ()
+    fn f() -> i32 {
+        let mut x = 0;
+        x = loop { break 42; }; // this line returns ()
+    }
+
+    // ✅ loop as last expression → its break value is the return
+    fn f() -> i32 {
+        let mut x = 0;
+        loop { break 42; } // no assignment; 42 flows out
+    }
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** Why does `break count+1` fix zero but break everything else?
+  - **Technical answer:** The counter only increments in the `else` branch (when `number ≠ 0`). By the time `number` reaches 0, `count` already equals the number of digits — so `break count` is correct. `break count+1` adds an extra 1 to every result, not just the zero case. The right fix for zero is to catch it *before* the loop with `if number == 0 { return 1; }`, keeping the loop logic clean.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn count_digits(mut number: i32) -> i32 {
+        if number == 0 { return 1; }   // edge case out front
+        let mut count = 0;
+        loop {
+            if number == 0 { break count; } // count is already correct here
+            count += 1;
+            number /= 10;
+        }
+    }
+    ```
+  - **See also:** `topics/rust/01-fundamentals/control-flow.md`
+**Question to answer later:** Is `if number == 0 { return 1; }` (early `return`) or handling it inside the loop idiomatic? When does Rust style prefer early `return` over restructuring the logic?
+**Next:** Paper exercises #4–#6 are reviewed (answers in spec file) — update progress.md to reflect. Then Week 2: ownership & borrowing.

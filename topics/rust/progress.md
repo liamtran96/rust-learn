@@ -23,7 +23,7 @@ tags: [rust, progress, log]
 | Streak (best) | 1 day |
 | Total minutes | ~60 (workflow setup, no new code) |
 | Total sessions | 1 (formally tracked) |
-| Exercises completed | 3 / 7 (Ch 1) |
+| Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |

@@ -2,7 +2,6 @@
 title: Ch 1 — My mistakes & misunderstandings
 tags: [rust, fundamentals, mistakes, review]
 ---
-
 # Ch 1 — My mistakes & misunderstandings
 
 > Personal log of what I got wrong, why I got it wrong, and the rule that fixes it.
@@ -233,6 +232,24 @@ flowchart LR
 No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a counter and a divide-by-10 loop.
 
 - **Status:** 🔴 fresh — re-read the loop section of [[control-flow]].
+
+### 2026-05-24 — Referenced variable inside the loop that defines it (Ex 7 count_digits)
+- **What I wrote:** `let result_count = loop { result_count += 1; ... };`
+- **Why it's wrong:** `result_count` doesn't exist until the loop finishes — you can't read or write it inside the expression that creates it. The loop body runs *before* the binding is made.
+- **The rule:** Declare a separate counter *before* the loop (`let mut count = 0;`), use that inside the loop, and `break count` to produce the loop's value.
+- **Status:** 🔴 fresh
+
+### 2026-05-24 — Assignment statement returns `()`, not the assigned value (Ex 7 count_digits)
+- **What I wrote:** `result_count = loop { break count; }` as the last line of the function, expecting the function to return `i32`.
+- **Why it's wrong:** Assignment (`x = value`) is a **statement** in Rust — it evaluates to `()`, not to `value`. A function's return value is its last *expression*; a statement there means the function returns `()`, which mismatches any non-unit return type.
+- **The rule:** For the function to return a value, the last line must be a bare expression (no assignment, no `;`). Either drop the assignment and let the `loop` be the last expression, or add `result_count` on its own line after the assignment.
+- **Status:** 🔴 fresh
+
+### 2026-05-24 — `break count+1` to patch the zero edge case (Ex 7 count_digits)
+- **What I wrote:** `break count+1` thinking it handles `count_digits(0)` returning 1 instead of 0.
+- **Why it's wrong:** `break count+1` adds 1 to every result, not just zero — `count_digits(12345)` returns 6 instead of 5.
+- **The rule:** Handle edge cases *before* the loop with an early `return`. Keep the loop body's logic uniform — `break count` is always correct once the edge case is filtered out.
+- **Status:** 🔴 fresh
 
 ## Resolved (kept for reference)
 

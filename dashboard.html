@@ -103,7 +103,7 @@
 
   <header>
     <h1>Rust <span class="accent">Learning</span> Dashboard</h1>
-    <div class="meta">Last updated: 2026-05-03 · ICT</div>
+    <div class="meta">Last updated: 2026-05-05 · ICT · resumes 2026-05-06 with Ch 1</div>
   </header>
 
   <div class="grid grid-4">
@@ -114,19 +114,19 @@
     </div>
     <div class="card stat">
       <div class="label">Weeks complete</div>
-      <div class="num">0.7<span style="color:var(--muted);font-size:18px;">/20</span></div>
-      <div class="progress"><div style="width:3.5%"></div></div>
-      <div class="sub">3.5% of full plan</div>
+      <div class="num">0.75<span style="color:var(--muted);font-size:18px;">/20</span></div>
+      <div class="progress"><div style="width:3.75%"></div></div>
+      <div class="sub">3.75% of full plan</div>
     </div>
     <div class="card stat">
       <div class="label">Projects shipped</div>
       <div class="num">3<span style="color:var(--muted);font-size:18px;">/3</span></div>
-      <div class="sub">FizzBuzz, temp converter, guessing game</div>
+      <div class="sub">+ scratch-static-counter (demo only)</div>
     </div>
     <div class="card stat">
       <div class="label">Ch 1 exercises</div>
       <div class="num">3<span style="color:var(--muted);font-size:18px;">/7</span></div>
-      <div class="sub">4 to go before Ch 2</div>
+      <div class="sub">#4 attempted (1/2 right), #5–7 still owed</div>
     </div>
   </div>
 
@@ -231,6 +231,11 @@
             <td><code>code/01-fundamentals/guessing-game</code></td>
           </tr>
           <tr>
+            <td>scratch-static-counter</td>
+            <td><span class="tag done">demo</span></td>
+            <td><code>code/01-fundamentals/scratch-static-counter</code></td>
+          </tr>
+          <tr>
             <td>Re-implement str::split, Vec::dedup</td>
             <td><span class="tag todo">week 3</span></td>
             <td><span style="color:var(--muted);">not started</span></td>
@@ -247,23 +252,24 @@
         <li><div class="box done"></div><div><span class="strike">1. FizzBuzz — three ways (if, match, iterator)</span> <span class="tag done">done · if + match · iterator owed</span></div></li>
         <li><div class="box partial"></div><div>2. Temperature converter <span class="tag partial">working, spec wants CLI arg like 25C</span></div></li>
         <li><div class="box done"></div><div><span class="strike">3. Guessing game</span> <span class="tag done">shipped · clippy clean</span></div></li>
-        <li><div class="box"></div><div>4. Predict shadowing output <span class="tag todo">next</span></div></li>
-        <li><div class="box"></div><div>5. Why does i32 + i64 fail? Minimal fix</div></li>
-        <li><div class="box"></div><div>6. Rewrite sign() with no return</div></li>
-        <li><div class="box"></div><div>7. count_digits with loop + break value</div></li>
+        <li><div class="box partial"></div><div>4. Predict shadowing output <span class="tag partial">2/3 right · arithmetic slip on snippet 1</span></div></li>
+        <li><div class="box partial"></div><div>5. Why does i32 + i64 fail? <span class="tag partial">attempted · confused annotation with cast · need <code>as</code></span></div></li>
+        <li><div class="box partial"></div><div>6. Rewrite sign() with no return <span class="tag partial">stuck · expressions-vs-statements gap</span></div></li>
+        <li><div class="box partial"></div><div>7. count_digits with loop + break value <span class="tag partial">attempted · keyword salad + wrong shape</span></div></li>
       </ul>
     </div>
 
     <div class="card">
       <h3>Recent activity</h3>
       <div class="journal">
-        <div class="date">2026-05-03 — Guessing game shipped</div>
-        <strong>What I did:</strong> built the guessing game end-to-end. Hit and fixed the "single-read, looped parse → infinite Too small!" bug by moving prompt + <span class="mono">guess.clear()</span> + <span class="mono">read_line</span> inside the <span class="mono">loop</span>. Wired up <span class="mono">rand</span> 0.10 (renamed APIs: <span class="mono">rand::rng().random_range(1..=100)</span> with <span class="mono">use rand::RngExt</span>). Clippy clean.<br>
-        <strong>What clicked:</strong> <span class="mono">Result&lt;T, E&gt;</span> as a sealed-box mental model · <span class="mono">Ok</span>/<span class="mono">Err</span> are enum variants used as both constructors and destructuring patterns · <span class="mono">match</span> is a keyword expression (not a function), patterns ≠ values · trait methods need the trait in scope (the <span class="mono">RngExt</span> import lesson).<br>
-        <strong>Next:</strong> cleanup pass on guessing-game (drop dead comments + unused <span class="mono">_result</span> binding, run <span class="mono">cargo fmt</span>), then Ch 1 #4 paper exercise.
+        <div class="date">2026-05-05 — <code>const</code> vs <code>static</code> + paper exercise review</div>
+        <strong>What I did:</strong> deep dive on <span class="mono">const</span> / <span class="mono">static</span> / <span class="mono">static mut</span> / <span class="mono">static + Mutex</span>. Built <span class="mono">scratch-static-counter</span> running all four side by side. Wrote a Mermaid visual companion at <code>topics/rust/01-fundamentals/const-vs-static.md</code>. Attempted Ch 1 paper exercises #4–#7; reviewed each.<br>
+        <strong>What clicked:</strong> <span class="mono">const</span> = compile-time value (inlined, no address) · <span class="mono">static</span> = global variable (one fixed address, lives entire program) · <span class="mono">static + Mutex&lt;T&gt;</span> is the safe global-mutable pattern (no <span class="mono">unsafe</span>) · Mermaid renders inside Obsidian with no install · block-scoped shadowing (snippet 2 of #4) understood cleanly.<br>
+        <strong>What didn't:</strong> type annotation ≠ type cast (#5) · expressions vs statements not yet internalized (#6 unattempted) · <span class="mono">loop</span> mashed with <span class="mono">match</span> arms + welded <span class="mono">static const ... mut</span> (#7). Five mistakes logged to <code>01-fundamentals/mistakes.md</code>.<br>
+        <strong>Next (2026-05-06):</strong> fix #4's <code>10 → 12</code>, apply one <span class="mono">as</span> cast for #5, write <span class="mono">if/else</span>-as-expression <span class="mono">sign()</span> for #6, write <span class="mono">count_digits</span> with <span class="mono">loop { break count; }</span> for #7.
       </div>
       <div style="color:var(--muted);font-size:12px;margin-top:10px;">
-        Previous entries: 2026-05-01 (temp-converter, stdin) · 2026-04-28 (workflow setup) · 2026-04-19 (FizzBuzz).
+        Previous entries: 2026-05-03 (guessing-game shipped) · 2026-05-01 (temp-converter, stdin) · 2026-04-28 (workflow setup) · 2026-04-19 (FizzBuzz).
       </div>
     </div>
   </div>
@@ -294,6 +300,7 @@
         <li><div><code>code/01-fundamentals/fizzbuzz/</code> <span class="tag done">shipped</span></div></li>
         <li><div><code>code/01-fundamentals/temp-converter/</code> <span class="tag partial">refactor owed</span></div></li>
         <li><div><code>code/01-fundamentals/guessing-game/</code> <span class="tag done">shipped</span></div></li>
+        <li><div><code>code/01-fundamentals/scratch-static-counter/</code> <span class="tag done">demo</span></div></li>
       </ul>
       <div style="color:var(--muted);font-size:12px;margin-top:10px;">
         Each project is its own crate (<code>edition = "2024"</code>, no workspace). Run <code>cargo run</code> / <code>cargo check</code> / <code>cargo clippy</code> from inside the project dir.
@@ -316,25 +323,39 @@
     </div>
   </div>
 
-  <h2>Next 3 actions</h2>
+  <h2>Next 3 actions — start here 2026-05-06</h2>
   <div class="card">
     <ol class="next-list">
       <li><div>
-        <strong>Cleanup pass on guessing-game.</strong>
-        Delete the commented tuple block + dead <span class="mono">const GUESS_NUMBER</span> + the orphan <span class="mono">println!("You guessed: …")</span> that runs before any input. Drop <span class="mono">let _result = loop { … };</span> in favour of plain <span class="mono">loop { … }</span> with <span class="mono">break;</span> (the unused <span class="mono">_</span>-prefixed binding is a smell, not a fix). Run <span class="mono">cargo fmt</span>.
-        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~10 min · file: <code>code/01-fundamentals/guessing-game/src/main.rs</code></div>
+        <strong>Open <code>01-fundamentals/mistakes.md</code> and skim the 🔴 entries (5 min).</strong>
+        Five mistakes logged from yesterday — type-annotation-vs-cast, expressions-vs-statements, keyword salad (<span class="mono">static const ... mut</span>), <span class="mono">loop</span>-vs-<span class="mono">match</span>, shadowing arithmetic. This priming pass is the new daily ritual.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~5 min · file: <code>topics/rust/01-fundamentals/mistakes.md</code></div>
       </div></li>
       <li><div>
-        <strong>Ch 1 exercise #4 — predict shadowing output.</strong>
-        Write down what each <span class="mono">println!</span> prints <em>before</em> running the snippet. Three numbers. Diff your prediction against reality. The point is not the answer — it is feeling shadowing in your fingers before Ch 2 throws ownership at you.
-        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~15 min · file: <code>topics/rust/exercises/ch01-fundamentals.md</code></div>
+        <strong>Fix #4 + #5 (the quick wins).</strong>
+        #4: change the comment <span class="mono">// my guess: 10</span> → <span class="mono">// my guess: 12</span> (chain through 5 → 6 → 12). #5: replace your "fix" with one <span class="mono">as</span> cast at the <span class="mono">+</span> — e.g. <span class="mono">let c = (a as i64) + b;</span>. Both should take ~5 minutes total.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~10 min · file: <code>topics/rust/exercises/ch01-fundamentals.md</code></div>
       </div></li>
       <li><div>
-        <strong>Then exercises #5–7 in the same session.</strong>
-        #5 = i32 + i64 type-mismatch fix. #6 = <span class="mono">sign()</span> rewritten with no <span class="mono">return</span>. #7 = <span class="mono">count_digits</span> with <span class="mono">loop { break value; }</span>. Together these cement type coercion, expressions vs statements, and the loop-as-expression idiom — and they close out Week 1 cleanly.
-        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~30 min total · same file</div>
+        <strong>Tackle #6 — the keystone idiom.</strong>
+        Re-read <code>topics/rust/01-fundamentals/control-flow.md</code> + <code>functions.md</code>, then rewrite <span class="mono">sign(n: i32) -&gt; &amp;'static str</span> with no <span class="mono">return</span> keyword. Three branches as one <span class="mono">if / else if / else</span> expression; each branch ends in a string literal with no <span class="mono">;</span>; no <span class="mono">;</span> after the final brace either. If it doesn't compile, paste the error and we'll read it together. After this clicks, #7 (<span class="mono">count_digits</span> with <span class="mono">loop { break count; }</span>) is one short hop away.
+        <div style="color:var(--muted);font-size:12px;margin-top:4px;">~20 min · same file · then #7 if time remains</div>
       </div></li>
     </ol>
+  </div>
+
+  <h2>Open mistakes (Ch 1)</h2>
+  <div class="card">
+    <ul class="list">
+      <li><div class="box partial"></div><div>🟡 Shadowing arithmetic chain — <span style="color:var(--muted);">5 → 6 → 12, not 10. Evaluate step by step.</span></div></li>
+      <li><div class="box"></div><div>🔴 Type annotation ≠ type cast — <span style="color:var(--muted);"><code>let a: i32 = 100_i32</code> doesn't help. Use <code>as</code> at the <code>+</code>.</span></div></li>
+      <li><div class="box"></div><div>🔴 Expressions vs statements — <span style="color:var(--muted);"><code>if/else</code> is an expression. Last expression of a block (no <code>;</code>) is its value.</span></div></li>
+      <li><div class="box"></div><div>🔴 Keyword salad <code>static const ... mut</code> — <span style="color:var(--muted);">pick one of <code>let mut</code> / <code>const</code> / <code>static</code>; <code>mut</code> goes between <code>let</code> and the name.</span></div></li>
+      <li><div class="box"></div><div>🔴 <code>loop</code> is not <code>match</code> — <span style="color:var(--muted);">no <code>Ok()=&gt;</code> arms; <code>loop { break value; }</code> is itself an expression.</span></div></li>
+    </ul>
+    <div style="color:var(--muted);font-size:12px;margin-top:10px;">
+      Source of truth: <code>topics/rust/01-fundamentals/mistakes.md</code>. Upgrade 🔴 → 🟡 → 🟢 yourself; move 🟢 entries to Resolved (don't delete).
+    </div>
   </div>
 
   <footer>

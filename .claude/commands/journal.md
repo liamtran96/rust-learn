@@ -1,10 +1,10 @@
 ---
-description: Append a dated entry to the Rust learning journal
+description: Append a dated entry to the Rust learning journal + log any mistakes to the chapter's mistakes.md
 argument-hint: [optional: topic / exercise name]
-allowed-tools: Read, Edit, Bash(date *)
+allowed-tools: Read, Edit, Write, Bash(date *)
 ---
 
-Append a new entry to `~/Workspaces/rust-learn/topics/rust/journal.md` capturing what Liam just worked on in this conversation.
+Append a new entry to `~/Workspaces/rust-learn/topics/rust/journal.md` capturing what Liam just worked on in this conversation, AND append any mistakes / misunderstandings from the session to the relevant chapter's `mistakes.md`.
 
 **Optional topic hint from the user:** $ARGUMENTS
 
@@ -43,9 +43,27 @@ Append a new entry to `~/Workspaces/rust-learn/topics/rust/journal.md` capturing
 
 5. If a Week milestone in `~/Workspaces/rust-learn/topics/rust/roadmap.md` was completed, tick it by prefixing the milestone line with `✅ `.
 
-6. Reply in chat with one line: the date + topic you logged, and which milestone (if any) you ticked. Nothing else.
+6. **Log any mistakes from this session** to the relevant chapter's `mistakes.md` file (`topics/rust/<NN-chapter>/mistakes.md`):
+
+   - Determine the chapter from the work done (e.g. Ch 1 fundamentals → `topics/rust/01-fundamentals/mistakes.md`).
+   - If the file doesn't exist yet, create it with the same skeleton as `topics/rust/01-fundamentals/mistakes.md` (frontmatter, intro, **Open mistakes** section, **Resolved** section, **How to use this file** footer).
+   - For each mistake / misunderstanding Liam made during the session, append a new entry under **Open mistakes** in this exact format:
+
+     ```
+     ### YYYY-MM-DD — <short title> (<exercise # or context if relevant>)
+     - **What I wrote:** <quote what Liam actually wrote, don't paraphrase>
+     - **Why it's wrong:** <the misunderstanding underneath, not just the surface error>
+     - **The rule:** <the durable principle that prevents this in future>
+     - **Status:** 🔴 fresh
+     ```
+
+   - Always start a new entry as 🔴. Liam upgrades the status himself during reviews (🔴 → 🟡 → 🟢).
+   - A "mistake" worth logging is anything that revealed a conceptual gap: wrong predictions, broken syntax he wrote, idiomatic gaps (e.g. using `match` where `if` fits), keyword confusions, etc. Don't log normal compiler-error feedback loops he caught and fixed in 30 seconds.
+   - If no mistakes happened this session, skip this step entirely.
+
+7. Reply in chat with one line: the date + topic you logged, which milestone (if any) you ticked, and how many mistakes (if any) you appended to which `mistakes.md`. Nothing else.
 
 ## Rules
-- Never overwrite prior entries — append only.
+- Never overwrite prior entries — append only (in both `journal.md` and `mistakes.md`).
 - Use the absolute date from `date`, never a relative one like "today".
 - Keep each field to one or two lines. If there's nothing to say, write `—`.

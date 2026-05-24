@@ -52,6 +52,8 @@ const MAX_RETRIES: u32 = 3;
 
 Prefer `const` unless you need a stable address or interior mutability via `OnceLock`/`Mutex`.
 
+> 📊 Visual cheatsheet with decision flowchart, memory layout, and a data-race sequence diagram: [[const-vs-static|const-vs-static.md]]. Live demo crate: `code/01-fundamentals/scratch-static-counter/`.
+
 ## Type annotations
 
 Type inference is good but not magic. Annotate when:

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Next Rust Task"
+  short_description: "Choose the next Rust learning task"
+  default_prompt: "Use $next to tell me what Rust task to do next."

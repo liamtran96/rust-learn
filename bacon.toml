@@ -1,0 +1,67 @@
+# Short, repository-root commands for each standalone exercise crate.
+# `$new-exercise <chapter> <slug>` keeps this file updated.
+
+[jobs.count-digits]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/count-digits"
+watch = ["code/01-fundamentals/count-digits/src", "code/01-fundamentals/count-digits/Cargo.toml"]
+default_watch = false
+
+[jobs.count-digits-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/count-digits"
+watch = ["code/01-fundamentals/count-digits/src", "code/01-fundamentals/count-digits/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
+[jobs.fizzbuzz]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/fizzbuzz"
+watch = ["code/01-fundamentals/fizzbuzz/src", "code/01-fundamentals/fizzbuzz/Cargo.toml"]
+default_watch = false
+
+[jobs.fizzbuzz-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/fizzbuzz"
+watch = ["code/01-fundamentals/fizzbuzz/src", "code/01-fundamentals/fizzbuzz/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
+[jobs.guessing-game]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/guessing-game"
+watch = ["code/01-fundamentals/guessing-game/src", "code/01-fundamentals/guessing-game/Cargo.toml"]
+default_watch = false
+
+[jobs.guessing-game-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/guessing-game"
+watch = ["code/01-fundamentals/guessing-game/src", "code/01-fundamentals/guessing-game/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
+[jobs.scratch-static-counter]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/scratch-static-counter"
+watch = ["code/01-fundamentals/scratch-static-counter/src", "code/01-fundamentals/scratch-static-counter/Cargo.toml"]
+default_watch = false
+
+[jobs.scratch-static-counter-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/scratch-static-counter"
+watch = ["code/01-fundamentals/scratch-static-counter/src", "code/01-fundamentals/scratch-static-counter/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
+[jobs.temp-converter]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/temp-converter"
+watch = ["code/01-fundamentals/temp-converter/src", "code/01-fundamentals/temp-converter/Cargo.toml"]
+default_watch = false
+
+[jobs.temp-converter-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/temp-converter"
+watch = ["code/01-fundamentals/temp-converter/src", "code/01-fundamentals/temp-converter/Cargo.toml"]
+default_watch = false
+need_stdout = true

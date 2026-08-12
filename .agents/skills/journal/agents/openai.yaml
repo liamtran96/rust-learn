@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rust Journal"
+  short_description: "Log a completed Rust learning session"
+  default_prompt: "Use $journal to record this Rust learning session."

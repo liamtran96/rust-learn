@@ -67,10 +67,18 @@ Scaffold a new Cargo crate under `code/` for one of Liam's exercises, and drop a
    ```
    ```
 
-6. **Reply in chat with exactly this format** (no extra prose):
+6. **Register Bacon aliases** in the repository-root `bacon.toml`.
+   - Use `<slug>` and `<slug>-run`; if `<slug>` belongs to another crate, use `<NN>-<slug>` and `<NN>-<slug>-run`.
+   - Do not duplicate existing jobs or overwrite jobs for another crate.
+   - Both jobs use `workdir = "code/<phase>/<slug>"`, `watch = ["code/<phase>/<slug>/src", "code/<phase>/<slug>/Cargo.toml"]`, and `default_watch = false`.
+   - The first runs `["cargo", "check"]`. The `-run` job runs `["cargo", "run"]` with `need_stdout = true`.
+   - Create `bacon.toml` if needed. When Bacon is installed, validate with `bacon --project . --list-jobs`; do not build or run the crate.
+
+7. **Reply in chat with exactly this format** (no extra prose):
    ```
    Scaffolded: code/<phase>/<slug>
    Spec: topics/rust/exercises/ch<NN>-*.md → <section heading you matched>
+   Watch: bacon <alias> (run: bacon <alias>-run)
    Open BRIEF.md, then start writing in src/main.rs.
    ```
 

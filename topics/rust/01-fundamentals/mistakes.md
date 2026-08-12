@@ -33,6 +33,7 @@ Each `let x = ...` is a **new nameplate** over the old one. The right-hand side 
 
 ### 2026-05-18 — Locals ≠ globals; blocks ≠ functions ([[exercises/ch01-fundamentals#Type system warm-up|Ex 4]] second/third snippets)
 - **What I wrote:** got the numbers right (`6` then `5`) but explained it as "y is a global variable" that "was changed inside the function".
+- **Review 2026-08-10:** Correctly explained that the inner `y` shadows rather than changes the outer `y`, and that the inner binding disappears when its block ends.
 - **Why it's wrong:** Three confused ideas in one sentence.
   1. `let y = 5;` in a function body is a **local** binding, not a global. In Rust, "global" means `static` or `const` at module scope (see [[const-vs-static]]).
   2. `{ ... }` is a **block**, not a function. Functions require `fn name(...) -> T { ... }`.
@@ -87,6 +88,7 @@ The yellow box (`fn main`) is the function. The blue box (`block scope`) is **ju
 
 ### 2026-05-05 — Type annotation ≠ type cast ([[exercises/ch01-fundamentals#Type system warm-up|Ex 5]])
 - **What I wrote:** "fix" by writing `let a: i32 = 100` and `let a: i64 = 200` (also accidentally renamed `b` to `a`).
+- **Review 2026-08-10:** Correctly identified the `i32`/`i64` mismatch and that one operand must be explicitly converted to the other's type.
 - **Why it's wrong:** Two errors in one.
   1. The error in the original code is at `a + b`, not at the declarations. Adding a type annotation that matches the literal suffix changes nothing — `let a: i32 = 100_i32` is identical to `let a = 100_i32`.
   2. Rust does **not** implicitly widen `i32 → i64`. `i32 + i64` is a type error, period.

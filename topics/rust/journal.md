@@ -243,4 +243,41 @@ tags: [rust, journal]
     ```
   - **See also:** `topics/rust/01-fundamentals/control-flow.md`
 **Question to answer later:** Is `if number == 0 { return 1; }` (early `return`) or handling it inside the loop idiomatic? When does Rust style prefer early `return` over restructuring the logic?
-**Next:** Paper exercises #4–#6 are reviewed (answers in spec file) — update progress.md to reflect. Then Week 2: ownership & borrowing.
+**Next:** Paper exercises #4-#6 are reviewed (answers in spec file) - update progress.md to reflect. Then Week 2: ownership & borrowing.
+
+### 2026-08-10 - Shadowing and integer-type review
+**Working on:** Ch 1 paper exercises #4-#5 - `topics/rust/exercises/ch01-fundamentals.md` (no crate)
+**What clicked:** Every repeated `let` creates a new binding through shadowing; braces limit the inner binding's scope. Assignment omits `let` and requires a mutable binding. Rust also requires both operands of arithmetic to have the same numeric type and does not silently widen integers.
+**What didn't:** The predictions were correct, but the reason the inner `y` disappears after its block and the difference between shadowing and assignment initially needed clarification.
+**Questions asked this session:**
+- **Q:** Why are the inner `y` and outer `y` different?
+  - **Technical answer:** A scope is the region where a binding is visible. `let y = y + 1` inside the braces reads the outer `y`, then creates a new inner binding that shadows it; when the block ends, that inner binding leaves scope and the unchanged outer `y` becomes visible again.
+  - **Plain-English analogy / example:**
+    ```rust
+    let y = 5;
+    { let y = y + 1; println!("{y}"); } // 6
+    println!("{y}");                    // 5
+    ```
+  - **See also:** `topics/rust/01-fundamentals/variables.md`
+- **Q:** Which one is shadowing and which one is assignment?
+  - **Technical answer:** Repeating `let x = ...` is shadowing: it creates a new binding with the same name. Writing `x = ...` without `let` is assignment: it changes an existing binding, which must have been declared with `mut`.
+  - **Plain-English analogy / example:**
+    ```rust
+    let x = 5;
+    let x = x + 1; // shadowing: new x
+    let mut y = 5;
+    y = y + 1;     // assignment: same y
+    ```
+  - **See also:** `topics/rust/01-fundamentals/variables.md`
+- **Q:** Why can't `i32` and `i64` be added directly, and what is the fix?
+  - **Technical answer:** `i32` and `i64` are distinct types, and Rust performs no implicit numeric coercion (automatic conversion) between them. Make the operands the same type explicitly; converting `i32` to `i64` with `i64::from` is lossless.
+  - **Plain-English analogy / example:**
+    ```rust
+    let a = 100_i32;
+    let b = 200_i64;
+    let c = i64::from(a) + b;
+    println!("{c}");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/data-types.md`
+**Question to answer later:** -
+**Next:** Ch 1 exercise #6 - rewrite `sign` without `return` by using the value of an `if` expression.

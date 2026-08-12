@@ -1,0 +1,4 @@
+interface:
+  display_name: "New Rust Exercise"
+  short_description: "Scaffold a repository Rust exercise crate"
+  default_prompt: "Use $new-exercise to scaffold the requested Rust exercise."

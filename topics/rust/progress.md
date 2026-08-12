@@ -21,13 +21,13 @@ tags: [rust, progress, log]
 |---|---|
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
-| Total minutes | ~60 (workflow setup, no new code) |
-| Total sessions | 1 (formally tracked) |
+| Total minutes | ~75 formally tracked |
+| Total sessions | 4 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |
-| Last session | 2026-05-03 — guessing game shipped |
+| Last session | 2026-08-10 - Ch 1 exercises #4-#5 reviewed |
 | Days since last session | 0 |
 
 ## Template
@@ -88,6 +88,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/01-fundamentals/guessing-game` — shipped, clippy clean
 - Mood: 4 — long detour through the type system but a lot landed
 - Tomorrow's first move: Ch 1 exercise #4 (predict shadowing output) — paper exercise, no crate
+
+### 2026-08-10 - Shadowing and integer types review
+- Duration: ~15 min
+- Phase / chapter: Phase 1 / Ch 1 / variables and data types
+- What I did: Re-predicted the shadowing examples correctly, explained block-scoped shadowing, distinguished shadowing from assignment, and explained why `i32 + i64` requires an explicit conversion.
+- Exercises: Ch 1 #4 and #5 reviewed successfully (Ch 1 remains 7 / 7 complete)
+- Code: none - paper exercises
+- Mood: -
+- Tomorrow's first move: Ch 1 exercise #6 - rewrite `sign` using an `if` expression without `return`
 
 ## Weekly review
 

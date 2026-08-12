@@ -281,3 +281,50 @@ tags: [rust, journal]
   - **See also:** `topics/rust/01-fundamentals/data-types.md`
 **Question to answer later:** -
 **Next:** Ch 1 exercise #6 - rewrite `sign` without `return` by using the value of an `if` expression.
+
+### 2026-08-12 — `sign`: `if` as an expression
+**Working on:** Ch 1 Exercise #6 — `code/01-fundamentals/sign-expression/`
+**What clicked:** A connected `if / else if / else` is one expression; each branch produces a `&'static str`, and the function implicitly returns that final expression without `return` or a trailing semicolon.
+**What didn't:** The first attempt used two separate `if` expressions, discarded the first branch's string with `;`, reversed the positive/negative labels, and ignored the returned string in `main`. Each issue was corrected during review.
+**Questions asked this session:**
+- **Q:** What should I do next?
+  - **Technical answer:** The progress log's explicit next move took priority: revisit Ch 1 Exercise #6 and implement `sign` using an `if` expression. This targeted the remaining expressions-versus-statements gap before returning to unfinished Week 1 project variants.
+  - **Plain-English analogy / example:**
+    ```text
+    progress.md → Exercise #6
+    exercise spec → sign without return
+    completed crate → journal reflection
+    ```
+  - **See also:** `topics/rust/progress.md`, `topics/rust/exercises/ch01-fundamentals.md`
+- **Q:** Help me create the exercise.
+  - **Technical answer:** A standalone binary crate was scaffolded with Cargo, a `BRIEF.md` was derived from Exercise #6, and Bacon jobs were registered without implementing the solution. A crate is an independently buildable Rust package described by `Cargo.toml`.
+  - **Plain-English analogy / example:**
+    ```text
+    code/01-fundamentals/sign-expression/
+    ├── Cargo.toml
+    ├── BRIEF.md
+    └── src/main.rs
+    ```
+  - **See also:** `topics/rust/01-fundamentals/toolchain.md`
+- **Q:** Run `bacon sign-expression-run`; help me install it.
+  - **Technical answer:** Bacon is a file-watching development tool that reruns a configured Cargo job whenever watched source files change. It was installed with `cargo install bacon`; the repository job then maps `sign-expression-run` to `cargo run` in this exercise crate.
+  - **Plain-English analogy / example:**
+    ```text
+    cargo install bacon
+    bacon sign-expression-run
+    # edit src/main.rs; Bacon reruns the job
+    ```
+  - **See also:** `topics/rust/cheatsheets/cargo-commands.md`
+- **Q:** Check this `sign` implementation — is the expression structure correct?
+  - **Technical answer:** A semicolon turns a value-producing expression into a statement whose value is `()`, called the unit type. Separate `if` statements do not form one conditional value; connecting the branches makes the entire conditional the function's final `&'static str` expression.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn sign(n: i32) -> &'static str {
+        if n < 0 { "negative" }
+        else if n > 0 { "positive" }
+        else { "zero" }
+    }
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/01-fundamentals/control-flow.md`
+**Question to answer later:** —
+**Next:** Finish the iterator-`map` version of FizzBuzz, then refactor the temperature converter to accept a single argument such as `25C`.

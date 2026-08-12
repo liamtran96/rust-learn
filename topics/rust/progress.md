@@ -21,13 +21,13 @@ tags: [rust, progress, log]
 |---|---|
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
-| Total minutes | ~75 formally tracked |
-| Total sessions | 4 (formally tracked) |
+| Total minutes | ~75 formally tracked + current session (duration not recorded) |
+| Total sessions | 5 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |
-| Last session | 2026-08-10 - Ch 1 exercises #4-#5 reviewed |
+| Last session | 2026-08-12 - Ch 1 exercise #6 completed |
 | Days since last session | 0 |
 
 ## Template
@@ -97,6 +97,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: none - paper exercises
 - Mood: -
 - Tomorrow's first move: Ch 1 exercise #6 - rewrite `sign` using an `if` expression without `return`
+
+### 2026-08-12 — `if` expressions and implicit returns
+- Duration: not recorded
+- Phase / chapter: Phase 1 · Ch 1 · functions and control flow
+- What I did: Scaffolded and completed `sign` without `return`; corrected a discarded branch, connected the conditional chain, and used tail expressions.
+- Exercises: Ch 1 #6 completed and verified (Ch 1 remains 7 / 7 complete)
+- Code: `code/01-fundamentals/sign-expression` — completed; fmt, check, test, and Clippy clean
+- Mood: —
+- Tomorrow's first move: Finish the iterator-`map` version of FizzBuzz
 
 ## Weekly review
 

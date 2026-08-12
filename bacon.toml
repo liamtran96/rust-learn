@@ -53,6 +53,19 @@ watch = ["code/01-fundamentals/scratch-static-counter/src", "code/01-fundamental
 default_watch = false
 need_stdout = true
 
+[jobs.sign-expression]
+command = ["cargo", "check"]
+workdir = "code/01-fundamentals/sign-expression"
+watch = ["code/01-fundamentals/sign-expression/src", "code/01-fundamentals/sign-expression/Cargo.toml"]
+default_watch = false
+
+[jobs.sign-expression-run]
+command = ["cargo", "run"]
+workdir = "code/01-fundamentals/sign-expression"
+watch = ["code/01-fundamentals/sign-expression/src", "code/01-fundamentals/sign-expression/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
 [jobs.temp-converter]
 command = ["cargo", "check"]
 workdir = "code/01-fundamentals/temp-converter"

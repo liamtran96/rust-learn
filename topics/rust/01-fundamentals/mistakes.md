@@ -117,6 +117,7 @@ Red path = my reflex (annotate the declaration). Green path = the real fix (`as`
 
 ### 2026-05-05 — Expressions vs statements ([[exercises/ch01-fundamentals#Expression practice|Ex 6]])
 - **What I wrote:** `// i dont know` for "rewrite `sign` without `return`".
+- **Review 2026-08-12:** First wrote a separate `if` whose string value was discarded by `;`, then connected the branches into one `if / else if / else` expression and correctly removed the semicolons.
 - **Why it's wrong:** Not "wrong" — just unfamiliar. But it's the **single most important** Ch 1 idiom and I haven't internalized it yet.
 - **The rule:**
   - `if / else if / else` is an **expression** in Rust — it produces a value.
@@ -152,7 +153,7 @@ flowchart LR
 
 The whole `if / else if / else` is one expression that evaluates to a `&str`. That value bubbles up as the block's value, which is the function's return.
 
-- **Status:** 🔴 fresh — re-read [[control-flow]] and [[functions]] before next attempt.
+- **Status:** 🟡 reviewed once — completed the exercise independently after one focused correction.
 
 ### 2026-05-05 — Keyword salad: `static const ... mut` ([[exercises/ch01-fundamentals#Expression practice|Ex 7]])
 - **What I wrote:** `static const result: i32 mut = 0`.

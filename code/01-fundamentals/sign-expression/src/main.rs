@@ -11,3 +11,4 @@ fn sign(n: i32) -> &'static str {
         "zero"
     }
 }
+// Ngăn chương trình return một giá trị tham chiếu mà đã bị xóa bỏ khỏi chương trình trước đó

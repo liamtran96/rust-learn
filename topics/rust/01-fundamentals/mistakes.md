@@ -254,6 +254,12 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **The rule:** Handle edge cases *before* the loop with an early `return`. Keep the loop body's logic uniform — `break count` is always correct once the edge case is filtered out.
 - **Status:** 🔴 fresh
 
+### 2026-08-12 — Lifetime and ownership do not mean permanent storage (`sign` follow-up)
+- **What I wrote:** “THIS MEAN THOSE 3 VALUES WILL BE SAVED IN MY COMPUTER FOREVER?” and then clarified that the question was about returning `String`.
+- **Why it's wrong:** A lifetime describes how long a reference is valid during program execution, while ownership describes which value must clean up runtime data. Neither promises that data remains stored on disk forever; an owned `String` is dropped when its owner leaves scope.
+- **The rule:** Separate three ideas: string literals are bytes embedded in the executable, `&'static str` may reference those bytes for the program run, and `String` owns a runtime allocation that is freed on drop.
+- **Status:** 🟥 fresh
+
 ## Resolved (kept for reference)
 
 > Move entries here once they feel obvious — don't delete. Future-you will skim this list as evidence of progress.

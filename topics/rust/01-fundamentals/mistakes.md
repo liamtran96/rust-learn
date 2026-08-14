@@ -260,6 +260,12 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **The rule:** Separate three ideas: string literals are bytes embedded in the executable, `&'static str` may reference those bytes for the program run, and `String` owns a runtime allocation that is freed on drop.
 - **Status:** 🟥 fresh
 
+### 2026-08-14 — `map` closure accidentally returned unit (FizzBuzz iterator variant)
+- **What I wrote:** Used `println!` inside every `map` branch, then changed to expressions such as `"FizzBuzz".to_string();` with trailing semicolons.
+- **Why it's wrong:** `map` yields whatever its closure returns. `println!` returns `()`, and a trailing semicolon discards a `String` expression and also makes the block return `()`, so the later loop tried to display unit rather than FizzBuzz text.
+- **The rule:** Use `map` to return transformed values; all branches must return the same type. A block returns its final expression only when that expression has no trailing semicolon.
+- **Status:** 🟥 fresh
+
 ## Resolved (kept for reference)
 
 > Move entries here once they feel obvious — don't delete. Future-you will skim this list as evidence of progress.

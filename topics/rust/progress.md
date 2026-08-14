@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
 | Total minutes | ~75 formally tracked + current session (duration not recorded) |
-| Total sessions | 6 (formally tracked) |
+| Total sessions | 7 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |
-| Last session | 2026-08-12 - String performance and heap follow-up |
+| Last session | 2026-08-14 - Iterator `map` FizzBuzz follow-up |
 | Days since last session | 0 |
 
 ## Template
@@ -115,6 +115,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/01-fundamentals/sign-expression` — added manual benchmark, Criterion benchmark, and heap visualization
 - Mood: —
 - Tomorrow's first move: Finish the iterator-`map` version of FizzBuzz
+
+### 2026-08-14 — Iterator `map` FizzBuzz follow-up
+- Duration: not recorded
+- Phase / chapter: Phase 1 / Ch 1 / iterators and expressions
+- What I did: Completed the third FizzBuzz variant with `(1..=100).map(...)`; learned closure syntax, lazy transformation, `String` output, unit `()`, and the tail-expression semicolon rule.
+- Exercises: Ch 1 FizzBuzz follow-up completed (official total remains 7 / 7)
+- Code: `code/01-fundamentals/fizzbuzz` — iterator variant completed; fmt, check, test, and Clippy clean
+- Mood: —
+- Tomorrow's first move: Refactor the temperature converter to accept one CLI argument such as `25C`
 
 ## Weekly review
 

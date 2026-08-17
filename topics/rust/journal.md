@@ -553,3 +553,29 @@ tags: [rust, journal]
   - **See also:** `topics/rust/04-collections/strings.md`
 **Question to answer later:** When should iterator code use `map` to transform values versus `for_each` for side effects?
 **Next:** Refactor `code/01-fundamentals/temp-converter/` to accept one CLI argument such as `25C`, then begin Phase 2 ownership.
+
+### 2026-08-17 — Semicolons and block values review
+**Working on:** FizzBuzz iterator review — `code/01-fundamentals/fizzbuzz/`
+**What clicked:** The practical rule is “no final semicolon gives the value back; a final semicolon performs the expression and discards its value.” A block without a returned value evaluates to unit, written `()`.
+**What didn't:** The difference between an expression that produces a value and a statement that discards it still feels abstract, so the explanation needed a “box gives back versus throws away” analogy.
+**Questions asked this session:**
+- **Q:** “What is the difference when I add `;` at the end of each line for this logic?”
+  - **Technical answer:** An expression produces a value, while adding `;` turns it into a statement and discards that value. In these `if` branches, no semicolon returns a `String`; adding one makes the branch return unit `()`, Rust's “no useful value” type.
+  - **Plain-English analogy / example:**
+    ```rust
+    let word = { "Fizz".to_string() };  // word: String
+    let empty = { "Fizz".to_string(); }; // empty: ()
+    println!("{word}");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** “It is hard to understand it.”
+  - **Technical answer:** The simplest mental model is that braces form a box: the final expression without `;` is handed out of the box. With `;`, the box performs the work but throws its result away, so it hands out `()` instead.
+  - **Plain-English analogy / example:**
+    ```text
+    { make_string()  }  -> box gives String back
+    { make_string(); }  -> box throws String away
+    Empty result         -> ()
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`
+**Question to answer later:** How does the same tail-expression rule determine the return value of functions and `match` arms?
+**Next:** Refactor `code/01-fundamentals/temp-converter/` to accept one CLI argument such as `25C`, then begin Phase 2 ownership.

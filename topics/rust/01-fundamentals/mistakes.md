@@ -264,6 +264,7 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **What I wrote:** Used `println!` inside every `map` branch, then changed to expressions such as `"FizzBuzz".to_string();` with trailing semicolons.
 - **Why it's wrong:** `map` yields whatever its closure returns. `println!` returns `()`, and a trailing semicolon discards a `String` expression and also makes the block return `()`, so the later loop tried to display unit rather than FizzBuzz text.
 - **The rule:** Use `map` to return transformed values; all branches must return the same type. A block returns its final expression only when that expression has no trailing semicolon.
+- **Review 2026-08-17:** Revisited the rule using the “box gives back versus throws away” analogy; it still feels difficult, so the mistake remains fresh.
 - **Status:** 🟥 fresh
 
 ## Resolved (kept for reference)

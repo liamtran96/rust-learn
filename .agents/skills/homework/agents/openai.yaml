@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rust Retrieval Homework"
+  short_description: "Create focused Rust retrieval-practice homework"
+  default_prompt: "Use $homework to create retrieval-practice homework from what I have learned."

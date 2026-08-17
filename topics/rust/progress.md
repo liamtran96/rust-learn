@@ -25,9 +25,9 @@ tags: [rust, progress, log]
 | Total sessions | 8 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
-| Current phase | Phase 1 — Foundations |
-| Current week | Week 1 |
-| Last session | 2026-08-17 - Temperature converter CLI argument follow-up |
+| Current phase | Phase 2 — Ownership |
+| Current week | Week 2 |
+| Last session | 2026-08-17 - Ownership moves and shared borrowing |
 | Days since last session | 0 |
 
 ## Template
@@ -134,17 +134,35 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: —
 - Tomorrow's first move: Remove debug/stale comments, run `cargo fmt`, then run fmt/check/test/Clippy before beginning Phase 2 ownership
 
+### 2026-08-17 — Temperature converter verification and Phase 1 closeout
+- Duration: not recorded
+- Phase / chapter: Phase 1 / Ch 1 / verification and closeout
+- What I did: Left the existing comments in place, formatted the crate, and verified it with `cargo fmt --check`, `cargo check`, `cargo test`, and `cargo clippy -- -D warnings`.
+- Exercises: no new exercise; official Ch 1 total remains 7 / 7
+- Code: `code/01-fundamentals/temp-converter` — verified; Phase 1 complete
+- Mood: —
+- Tomorrow's first move: Begin Phase 2 Week 2 by reading `topics/rust/02-ownership/ownership.md`
+
+### 2026-08-17 — Ownership moves and shared borrowing
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
+- What I did: Completed predict-and-fix snippets A and B; learned `String` moves, shared references with `&`, overlapping-borrow restrictions, `Vec` reallocation, and non-lexical lifetimes.
+- Exercises: Ch 2 predict-and-fix A–B reviewed; official Ch 1 total remains 7 / 7
+- Code: none — paper exercises
+- Mood: —
+- Tomorrow's first move: Read `topics/rust/02-ownership/slices.md`, then attempt Ch 2 predict-and-fix snippet D
+
 ## Weekly review
 
 > Fill in on Sunday. Five lines max. Be honest, not aspirational.
 
-### Week 1 — Toolchain & syntax (in progress)
+### Week 1 — Toolchain & syntax (complete)
 - Sessions this week: —
 - Minutes this week: —
-- Shipped: FizzBuzz, temp-converter (partial — refactor owed)
-- Skipped: drill exercises 4–7, guessing game, iterator-style FizzBuzz
-- Where I'm slipping: not logging daily; 9 days between sessions
-- Adjustment for next week: log every session, even the 0-min ones
+- Shipped: FizzBuzz (three ways), temperature converter (single CLI argument), guessing game
+- Skipped: none
+- Where I'm slipping: session durations are not consistently recorded
+- Adjustment for next week: begin ownership with move/copy/drop and keep logging each session
 
 ## Streak rules
 

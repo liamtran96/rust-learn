@@ -644,3 +644,65 @@ tags: [rust, journal]
   - **See also:** `topics/rust/01-fundamentals/functions.md`
 **Question to answer later:** How can the program extract the final unit character without relying on a one-byte ASCII boundary?
 **Next:** Remove the temporary `args` debug print and stale commented code, run `cargo fmt`, then verify `fmt`, `check`, `test`, and Clippy before beginning Phase 2 ownership.
+
+### 2026-08-17 — Temperature converter verification and Phase 1 closeout
+**Working on:** Temperature converter CLI follow-up — `code/01-fundamentals/temp-converter/`
+**What clicked:** A crate can pass formatting, compilation, tests, and Clippy even when optional cleanup comments remain; those checks verify defined formatting and code-quality rules, not whether every comment should be removed. Phase 1's seven exercises and three shipped projects are now closed out in the learning trackers.
+**What didn't:** The existing comments and temporary argument debug print remain by choice; they did not block verification.
+**Questions asked this session:**
+- **Q:** “Please don't care about the comment; run check and move to the next phase.”
+  - **Technical answer:** Comments do not affect compilation, so they can remain without preventing verification. `cargo fmt --check`, `cargo check`, `cargo test`, and `cargo clippy -- -D warnings` all passed, so the official tracker can advance to Phase 2, Week 2 while keeping the completed exercise and project counts unchanged.
+  - **Plain-English analogy / example:**
+    ```text
+    Comments kept     -> no compiler effect
+    Verification      -> all four checks passed
+    Official tracker  -> Phase 2, Week 2
+    Next concept      -> ownership
+    ```
+  - **See also:** `topics/rust/cheatsheets/cargo-commands.md`, `topics/rust/02-ownership/ownership.md`
+**Question to answer later:** How can the program extract the final unit character without relying on a one-byte ASCII boundary?
+**Next:** Read `topics/rust/02-ownership/ownership.md`, focusing on move, copy, and drop.
+
+### 2026-08-17 — Ownership moves and shared borrowing
+**Working on:** Ch 2 predict-and-fix snippets A–B — `topics/rust/exercises/ch02-ownership.md` (paper exercises; no crate)
+**What clicked:** Assigning a `String` moves ownership, while `&` creates a non-owning shared reference. A shared borrow lasts through its final use; after that, the owner may be mutably borrowed again. References are pointer-like but compiler-checked for validity and lifetime.
+**What didn't:** The ownership transfer in snippet A initially had no explanation or fix. In snippet B, the first prediction was that the code compiled and that `&v[0]` referred to the later value `4`; the correction connected indexing, `Vec` reallocation, and the rule that shared and mutable borrows cannot overlap.
+**Questions asked this session:**
+- **Q:** What does “borrow when you only need to read; move when ownership should transfer” mean?
+  - **Technical answer:** Borrowing gives temporary access through a reference while the original variable remains the owner. Moving transfers ownership—and therefore responsibility for eventually dropping the value—to a new variable.
+  - **Plain-English analogy / example:**
+    ```rust
+    let s = String::from("hi");
+    let borrowed = &s; // s still owns the String
+    let moved = s;     // moved now owns it
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`
+- **Q:** What does the symbol `&` mean?
+  - **Technical answer:** `&` creates a shared reference, which is a non-owning, read-only borrow of an existing value. The referenced value must remain valid for as long as that reference is used.
+  - **Plain-English analogy / example:**
+    ```rust
+    let text = String::from("hello");
+    let reference: &String = &text;
+    println!("{reference}");
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** Is a reference like a pointer?
+  - **Technical answer:** Yes: a reference identifies an existing value by address, but Rust checks that it is non-null, valid, and does not outlive its target. A shared reference `&T` also cannot be used to mutate the referenced value.
+  - **Plain-English analogy / example:**
+    ```text
+    owner: String ──owns──> heap text
+    &String       ──points─> same String
+    compiler      ──checks─> pointer stays valid
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** What comes next after learning references and completing snippets A–B?
+  - **Technical answer:** Continue with string slices and snippet D during Week 2. Snippet C uses explicit lifetime annotations and stays parked for the Week 3 lifetime lesson.
+  - **Plain-English analogy / example:**
+    ```text
+    completed: move ownership → shared borrowing
+    next:      string slices → snippet D
+    later:     named lifetimes → snippet C
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/02-ownership/lifetimes.md`
+**Question to answer later:** Why is `&str` usually preferred over `&String` in function parameters?
+**Next:** Read `topics/rust/02-ownership/slices.md`, then predict and improve Ch 2 snippet D.

@@ -4,18 +4,18 @@ use std::env;
 fn main() {
     let args: Vec<String> = env::args().collect();
     println!("{args:?}");
-      if args.len() < 2 {
-          println!("Usage: temp-converter <temperature>");
-          return;
-      }
+    if args.len() < 2 {
+        println!("Usage: temp-converter <temperature>");
+        return;
+    }
 
-      let input = &args[1];
-      if   input.is_empty(){
+    let input = &args[1];
+    if input.is_empty() {
         println!("Temperature can not be empty");
         return;
-      }
-    let (number_text, unit) = input.split_at(input.len() -1);
-    
+    }
+    let (number_text, unit) = input.split_at(input.len() - 1);
+
     // println!("Number: {number_text}");
     // println!("Unit: {unit}");
 
@@ -28,9 +28,9 @@ fn main() {
     };
 
     match unit {
-        "C" => println!("{temp:.2} C = {:.2} F",c_to_f(temp)),
-        "F" => println!("{temp:.2} F = {:.2} C",f_to_c(temp)),
-        _ => println!("Invalid unit: {unit}")
+        "C" => println!("{temp:.2} C = {:.2} F", c_to_f(temp)),
+        "F" => println!("{temp:.2} F = {:.2} C", f_to_c(temp)),
+        _ => println!("Invalid unit: {unit}"),
     }
 
     // println!("Parsed temperature: {temp}");
@@ -58,12 +58,10 @@ fn main() {
     //     _ => println!("Invalid unit"),
     // }
 }
- 
+
 fn c_to_f(c: f64) -> f64 {
     c * 9.0 / 5.0 + 32.0
 }
 fn f_to_c(f: f64) -> f64 {
     (f - 32.0) * 5.0 / 9.0
 }
-
-

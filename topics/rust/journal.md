@@ -579,3 +579,68 @@ tags: [rust, journal]
   - **See also:** `topics/rust/01-fundamentals/functions.md`
 **Question to answer later:** How does the same tail-expression rule determine the return value of functions and `match` arms?
 **Next:** Refactor `code/01-fundamentals/temp-converter/` to accept one CLI argument such as `25C`, then begin Phase 2 ownership.
+
+### 2026-08-17 — Temperature converter CLI arguments
+**Working on:** Temperature converter CLI follow-up — `code/01-fundamentals/temp-converter/`
+**What clicked:** `std::env::args()` exposes command-line arguments; the executable path is element 0 and the first user argument is element 1. Length checks prevent indexing panics, `split_at` separates the ASCII unit suffix, `parse()` returns a `Result`, `match` selects conversion behavior, and `:.2` formats a float to two decimal places.
+**What didn't:** The old stdin flow initially remained after argument collection, so the program still prompted for two values. The purpose of collecting into `Vec<String>`, borrowing `&args[1]`, `std::env` provenance, and the difference between `Display` and `Debug` formatting all needed explanation; cleanup and `cargo fmt` remain unfinished.
+**Questions asked this session:**
+- **Q:** What should I do next?
+  - **Technical answer:** Replace the stdin flow incrementally: first collect command-line arguments, inspect them, then extract and validate the first user argument. `env::args()` is an iterator, meaning it yields arguments one at a time, and `collect()` gathers them into a `Vec<String>`.
+  - **Plain-English analogy / example:**
+    ```rust
+    use std::env;
+    let args: Vec<String> = env::args().collect();
+    println!("{args:?}");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/data-types.md`, `topics/rust/exercises/ch01-fundamentals.md`
+- **Q:** Why did the program still print `Conver C to F`, prompt for a temperature, and then say `Invalid unit`?
+  - **Technical answer:** Collecting `args` did not remove or bypass the old stdin statements below it. The entered `12` became the old program's unit, did not match `"C"` or `"F"`, and therefore selected the wildcard invalid-unit arm.
+  - **Plain-English analogy / example:**
+    ```rust
+    let args = std::env::args().collect::<Vec<_>>();
+    println!("{args:?}"); // new flow runs
+    old_stdin_flow();     // old flow still runs afterward
+    ```
+  - **See also:** `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** How do I format output like `25.00 C = 77.00 F`?
+  - **Technical answer:** Rust format specifications go after a colon inside a placeholder. `:.2` requests fixed-point display with two digits after the decimal, and an unnamed placeholder consumes the next value passed to `println!`.
+  - **Plain-English analogy / example:**
+    ```rust
+    let c = 25.0;
+    let f = 77.0;
+    println!("{c:.2} C = {f:.2} F");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`
+- **Q:** What is the `args` length/input validation block doing?
+  - **Technical answer:** `args` is a vector whose first element is the executable path, so the user's temperature is at index 1. Checking `args.len() < 2` before indexing prevents a panic, `&args[1]` borrows the `String` rather than moving it, and `is_empty()` handles an explicitly empty argument.
+  - **Plain-English analogy / example:**
+    ```rust
+    if args.len() < 2 {
+        println!("Usage: temp-converter <temperature>");
+        return;
+    }
+    let input = &args[1];
+    ```
+  - **See also:** `topics/rust/01-fundamentals/data-types.md`
+- **Q:** Where does `use std::env;` come from?
+  - **Technical answer:** `std` is Rust's standard library and is available without adding a Cargo dependency. `env` is its environment module; `use std::env` brings that module into scope so `std::env::args()` can be written as `env::args()`.
+  - **Plain-English analogy / example:**
+    ```rust
+    use std::env;
+    let short = env::args();
+    let full = std::env::args();
+    // Both call the same standard-library function.
+    ```
+  - **See also:** `topics/rust/01-fundamentals/toolchain.md`
+- **Q:** How can I see the real value of `args`, and why does `println!("{}", args)` fail?
+  - **Technical answer:** `{}` requires `Display`, the trait for intentional user-facing text, and `Vec<String>` does not define one unambiguous display representation. Vectors implement `Debug`, the trait for inspecting structure, so `{:?}` prints the elements and `{:#?}` pretty-prints them across lines.
+  - **Plain-English analogy / example:**
+    ```rust
+    let args = vec!["program".to_string(), "77F".to_string()];
+    println!("{args:?}");
+    println!("{args:#?}");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`
+**Question to answer later:** How can the program extract the final unit character without relying on a one-byte ASCII boundary?
+**Next:** Remove the temporary `args` debug print and stale commented code, run `cargo fmt`, then verify `fmt`, `check`, `test`, and Clippy before beginning Phase 2 ownership.

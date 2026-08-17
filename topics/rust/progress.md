@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
 | Total minutes | ~75 formally tracked + current session (duration not recorded) |
-| Total sessions | 7 (formally tracked) |
+| Total sessions | 8 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |
-| Last session | 2026-08-14 - Iterator `map` FizzBuzz follow-up |
+| Last session | 2026-08-17 - Temperature converter CLI argument follow-up |
 | Days since last session | 0 |
 
 ## Template
@@ -124,6 +124,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/01-fundamentals/fizzbuzz` — iterator variant completed; fmt, check, test, and Clippy clean
 - Mood: —
 - Tomorrow's first move: Refactor the temperature converter to accept one CLI argument such as `25C`
+
+### 2026-08-17 — Temperature converter CLI argument follow-up
+- Duration: not recorded
+- Phase / chapter: Phase 1 / Ch 1 / command-line arguments, parsing, and formatting
+- What I did: Refactored the converter from two stdin prompts to one argument such as `25C`; inspected `Vec<String>` arguments, validated missing/empty input, split the numeric and unit parts, parsed `f64` with `Result`, dispatched with `match`, and formatted conversions to two decimal places.
+- Exercises: Ch 1 temperature-converter follow-up; official total remains 7 / 7
+- Code: `code/01-fundamentals/temp-converter` — CLI behavior works; temporary debug output, stale comments, formatting, and final verification remain
+- Mood: —
+- Tomorrow's first move: Remove debug/stale comments, run `cargo fmt`, then run fmt/check/test/Clippy before beginning Phase 2 ownership
 
 ## Weekly review
 

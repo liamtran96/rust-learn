@@ -35,6 +35,12 @@ cargo clippy -- -D warnings
 
 Scale verification to the exercise and do not claim checks that were not run.
 
+## Git commits
+
+- Use Conventional Commits for every new commit: `<type>(optional-scope): <imperative summary>`.
+- Prefer standard types such as `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`, and `style`.
+- Keep each commit focused on one logical change. Do not combine multiple commit subjects into one message.
+
 ## Rust review rules
 
 - Do not use `.clone()` merely to silence the borrow checker.

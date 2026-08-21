@@ -21,13 +21,13 @@ tags: [rust, progress, log]
 |---|---|
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
-| Total minutes | ~75 formally tracked + current session (duration not recorded) |
-| Total sessions | 8 (formally tracked) |
+| Total minutes | ~75 formally tracked + sessions with duration not recorded |
+| Total sessions | 9 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-17 - Ownership moves and shared borrowing |
+| Last session | 2026-08-21 - Retrieval homework review |
 | Days since last session | 0 |
 
 ## Template
@@ -151,6 +151,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: none — paper exercises
 - Mood: —
 - Tomorrow's first move: Read `topics/rust/02-ownership/slices.md`, then attempt Ch 2 predict-and-fix snippet D
+
+### 2026-08-21 — Retrieval homework review
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 1 retrieval review
+- What I did: Completed and reviewed all six questions in `topics/rust/homework/2026-08-18-retrieval-mixed.md`; practiced block values and unit, shadowing and assignment, loop values and binding scope, conditional return types, string-literal storage, and safe CLI parsing.
+- Exercises: Retrieval homework 6 / 6 reviewed; official Ch 1 total remains 7 / 7
+- Code: `code/01-fundamentals/homework-practice/` — saved Questions 4–6; Question 6 passed formatting, compilation, and runtime checks for missing, valid, text, and negative inputs
+- Mood: —
+- Tomorrow's first move: Resume Phase 2 by reading `topics/rust/02-ownership/slices.md`, then attempt Ch 2 predict-and-fix snippet D
 
 ## Weekly review
 

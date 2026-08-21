@@ -50,6 +50,13 @@ Scale verification to the exercise and do not claim checks that were not run.
 - Explain when iteration consumes, immutably borrows, or mutably borrows a collection.
 - Treat complete compiler and Clippy messages as learning material.
 
+## Official-source and answer verification
+
+- Treat official Rust sources as authoritative: the Rust Book, the Rust Reference, and standard-library documentation on `doc.rust-lang.org`.
+- Verify Rust explanations, homework premises, and version-sensitive claims against the relevant official documentation. Clearly label conventions, inferences, or uncertainty.
+- When reviewing Liam's answers, verify both the conclusion and the reasoning against official Rust documentation and the repository's completed-learning boundary.
+- Compile or test relevant snippets when practical, especially when an answer depends on exact compiler behavior. Do not claim verification that was not performed.
+
 ## Documentation required for repository changes
 
 For a bug fix, create or update `docs/root-causes/YYYY-MM-DD-<issue-or-topic>.md`. Include the symptom, root cause, changed files, implementation details, verification, remaining risk, and an issue link when available.

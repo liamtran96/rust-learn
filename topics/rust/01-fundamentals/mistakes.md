@@ -118,6 +118,7 @@ Red path = my reflex (annotate the declaration). Green path = the real fix (`as`
 ### 2026-05-05 — Expressions vs statements ([[exercises/ch01-fundamentals#Expression practice|Ex 6]])
 - **What I wrote:** `// i dont know` for "rewrite `sign` without `return`".
 - **Review 2026-08-12:** First wrote a separate `if` whose string value was discarded by `;`, then connected the branches into one `if / else if / else` expression and correctly removed the semicolons.
+- **Review 2026-08-21:** Recalled that expressions produce values but needed repeated retries to distinguish a block returning an integer from one returning `()`, and again placed `println!` where a `u32` value was required. Keep this in active review.
 - **Why it's wrong:** Not "wrong" — just unfamiliar. But it's the **single most important** Ch 1 idiom and I haven't internalized it yet.
 - **The rule:**
   - `if / else if / else` is an **expression** in Rust — it produces a value.
@@ -240,6 +241,7 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **What I wrote:** `let result_count = loop { result_count += 1; ... };`
 - **Why it's wrong:** `result_count` doesn't exist until the loop finishes — you can't read or write it inside the expression that creates it. The loop body runs *before* the binding is made.
 - **The rule:** Declare a separate counter *before* the loop (`let mut count = 0;`), use that inside the loop, and `break count` to produce the loop's value.
+- **Review 2026-08-21:** Initially proposed `let total =+ 1`, then correctly placed a separate mutable counter before the loop and wrote a working `digit_count` using `break counter`.
 - **Status:** 🔴 fresh
 
 ### 2026-05-24 — Assignment statement returns `()`, not the assigned value (Ex 7 count_digits)
@@ -258,6 +260,7 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **What I wrote:** “THIS MEAN THOSE 3 VALUES WILL BE SAVED IN MY COMPUTER FOREVER?” and then clarified that the question was about returning `String`.
 - **Why it's wrong:** A lifetime describes how long a reference is valid during program execution, while ownership describes which value must clean up runtime data. Neither promises that data remains stored on disk forever; an owned `String` is dropped when its owner leaves scope.
 - **The rule:** Separate three ideas: string literals are bytes embedded in the executable, `&'static str` may reference those bytes for the program run, and `String` owns a runtime allocation that is freed on drop.
+- **Review 2026-08-21:** Initially said the literals would be removed when `shipping_band` left scope. Corrected the model, compiled an executable, found the literal bytes inside it, and inspected their hexadecimal representation; keep fresh until the lifetime distinction is recalled without prompting.
 - **Status:** 🟥 fresh
 
 ### 2026-08-14 — `map` closure accidentally returned unit (FizzBuzz iterator variant)
@@ -265,6 +268,18 @@ No `Result`, no `Ok`/`Err` — there's no failure mode in this signature. Just a
 - **Why it's wrong:** `map` yields whatever its closure returns. `println!` returns `()`, and a trailing semicolon discards a `String` expression and also makes the block return `()`, so the later loop tried to display unit rather than FizzBuzz text.
 - **The rule:** Use `map` to return transformed values; all branches must return the same type. A block returns its final expression only when that expression has no trailing semicolon.
 - **Review 2026-08-17:** Revisited the rule using the “box gives back versus throws away” analogy; it still feels difficult, so the mistake remains fresh.
+- **Status:** 🟥 fresh
+
+### 2026-08-21 — Indexed before validating argument length (retrieval homework Q6)
+- **What I wrote:** `if args[1] < 1`
+- **Why it's wrong:** This indexes the vector before proving index 1 exists, so missing input can panic; it also compares a `String` argument with an integer instead of checking the vector's size.
+- **The rule:** Validate the collection first with `args.len() < 2`, return early when the user argument is absent, and only then borrow `&args[1]`.
+- **Status:** 🟥 fresh
+
+### 2026-08-21 — `match` arm returned unit instead of the parsed number (retrieval homework Q6)
+- **What I wrote:** `Ok(quantity) => println!("Quantity: {quantity}");,`
+- **Why it's wrong:** `let quantity: u32 = match ...` requires the selected arm to produce a `u32`, but `println!` performs a side effect and produces `()`. The extra `;,` also mixed statement and match-arm terminators.
+- **The rule:** Let `Ok(value) => value` supply the `u32`, finish the `let` statement with `};`, and print `quantity` afterward.
 - **Status:** 🟥 fresh
 
 ## Resolved (kept for reference)

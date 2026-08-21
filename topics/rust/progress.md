@@ -21,13 +21,13 @@ tags: [rust, progress, log]
 |---|---|
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
-| Total minutes | ~75 formally tracked + current session (duration not recorded) |
-| Total sessions | 8 (formally tracked) |
+| Total minutes | ~75 formally tracked + sessions with duration not recorded |
+| Total sessions | 9 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 1 — Foundations |
 | Current week | Week 1 |
-| Last session | 2026-08-17 - Temperature converter CLI argument follow-up |
+| Last session | 2026-08-21 - Retrieval homework review |
 | Days since last session | 0 |
 
 ## Template
@@ -133,6 +133,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/01-fundamentals/temp-converter` — CLI behavior works; temporary debug output, stale comments, formatting, and final verification remain
 - Mood: —
 - Tomorrow's first move: Remove debug/stale comments, run `cargo fmt`, then run fmt/check/test/Clippy before beginning Phase 2 ownership
+
+### 2026-08-21 — Retrieval homework review
+- Duration: not recorded
+- Phase / chapter: Phase 1 / Ch 1 / retrieval practice
+- What I did: Completed and reviewed all six questions in `topics/rust/homework/2026-08-18-retrieval-mixed.md`; practiced block values and unit, shadowing and assignment, loop values and binding scope, conditional return types, string-literal storage, and safe CLI parsing.
+- Exercises: Retrieval homework 6 / 6 reviewed; official Ch 1 total remains 7 / 7
+- Code: `code/01-fundamentals/homework-practice/` — saved Questions 4–6; Question 6 passed formatting, compilation, and runtime checks for missing, valid, text, and negative inputs
+- Mood: —
+- Tomorrow's first move: Remove the temperature converter's debug output and stale comments, then run fmt/check/test/Clippy before beginning Phase 2 ownership
 
 ## Weekly review
 

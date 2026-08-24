@@ -24,12 +24,15 @@ specifications, study-plan checkboxes, crate contents, or verification evidence.
 1. Read `topics/rust/progress.md`. From its summary and latest daily log, identify the current phase and week, completed exercises, last shipped project, and any explicit “Tomorrow's first move.”
 2. Read the matching week in `topics/rust/study-plan.md` and all bullets beneath it.
 3. Read the matching `topics/rust/exercises/ch<NN>-*.md` and list its exercises internally.
-4. Inspect `code/<phase>/`; an existing directory means the exercise is at least scaffolded.
+4. Inspect `code/<phase>/`; an existing directory means the exercise is at least scaffolded. If a `code/<phase>/drills-<topic>/` crate exists for the current chapter, check its drill status: a drill is unfinished when its test target is not green or its `WHY:` line is empty.
 5. Select exactly one next action using the first applicable rule:
    1. Follow a specific “Tomorrow's first move.”
-   2. Choose the next unchecked exercise whose crate does not exist.
-   3. Choose the next unchecked `**Ship:**` bullet for the current week.
-   4. If the week is complete, choose the first task of the next week.
+   2. Choose the next unfinished drill in the current chapter's `code/<phase>/drills-<topic>/` crate. Name the exact command (`cargo test --test dNN`) and point at the crate's `WORKFLOW.md`.
+   3. Choose the next unchecked exercise whose crate does not exist.
+   4. Choose the next unchecked `**Ship:**` bullet for the current week.
+   5. If the week is complete, choose the first task of the next week.
+
+Prefer a task that has Liam typing code within two minutes over one that starts with reading; name the concept note as the unblock resource, not the first step (repo rule: code first, read to unblock — see `WORKFLOW.md` at the repository root).
 6. Run a status-fidelity check before replying: every phase, week, exercise-count, and shipped-project claim must match `progress.md`. Mention conflicting unchecked work in one tracker-note line without changing the official status.
 7. Name the chapter concept note alongside the exercise specification. Suggest a lowercase kebab-case slug of at most three words when a crate is needed.
 8. Reply in this shape:

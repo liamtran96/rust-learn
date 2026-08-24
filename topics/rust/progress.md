@@ -168,7 +168,7 @@ Keep it terse. The journal is for prose; this is for facts.
 - Exercises: Ch 2 predict-and-fix D reviewed; official Ch 1 total remains 7 / 7
 - Code: none — paper exercise
 - Mood: —
-- Tomorrow's first move: Implement `strip_margin` from `topics/rust/exercises/ch02-ownership.md`
+- Tomorrow's first move: Ownership drills d01–d03 in `code/02-ownership/drills-ownership/` (`cargo test --test d01_move`); `strip_margin` comes after the drills
 
 ## Weekly review
 

@@ -8,23 +8,26 @@ Tell Liam exactly what he should do next, based on his materials. He should neve
 
 ## Steps
 
-1. **Read `~/Workspaces/rust-learn/topics/rust/progress.md`** — find the "Summary" table and the most recent daily-log entry. From them, derive:
+1. **Read `topics/rust/progress.md`** (repo-relative) — find the "Summary" table and the most recent daily-log entry. From them, derive:
    - Current phase + week (e.g. "Phase 1 · Week 1")
    - Exercises completed count for current chapter (e.g. "2 / 7")
    - Last shipped project
    - Any explicit "Tomorrow's first move" line in the most recent daily log
 
-2. **Read `~/Workspaces/rust-learn/topics/rust/study-plan.md`** — find the week heading that matches the current week. Read every bullet under that week. These are the to-do list.
+2. **Read `topics/rust/study-plan.md`** — find the week heading that matches the current week. Read every bullet under that week. These are the to-do list.
 
-3. **Read `~/Workspaces/rust-learn/topics/rust/exercises/ch<NN>-*.md`** for the chapter that matches the current week. List every exercise.
+3. **Read `topics/rust/exercises/ch<NN>-*.md`** for the chapter that matches the current week. List every exercise.
 
-4. **List `~/Workspaces/rust-learn/code/<phase>/`** to see which crates already exist. A folder existing = that exercise is at least scaffolded.
+4. **List `code/<phase>/`** to see which crates already exist. A folder existing = that exercise is at least scaffolded. If a `code/<phase>/drills-<topic>/` crate exists for the current chapter, check its drill status: a drill is unfinished when its test target isn't green or its `WHY:` line is empty.
 
 5. **Decide the single best next action** by walking this priority list, top to bottom, stopping at the first match:
    1. The "Tomorrow's first move" line from the latest daily log, if it points to something specific.
-   2. The next unchecked exercise in `exercises/ch<NN>-*.md` whose corresponding crate doesn't yet exist under `code/<phase>/`.
-   3. The next unchecked `**Ship:**` bullet in `study-plan.md` for the current week.
-   4. If everything in the current week is done → tell him to start the next week and point to its first bullet.
+   2. The next unfinished drill in the current chapter's `code/<phase>/drills-<topic>/` crate — name the exact command (`cargo test --test dNN`) and point at the crate's `WORKFLOW.md`.
+   3. The next unchecked exercise in `exercises/ch<NN>-*.md` whose corresponding crate doesn't yet exist under `code/<phase>/`.
+   4. The next unchecked `**Ship:**` bullet in `study-plan.md` for the current week.
+   5. If everything in the current week is done → tell him to start the next week and point to its first bullet.
+
+   Repo rule (root `WORKFLOW.md`): code first, read to unblock. Prefer the task that has Liam typing code within two minutes; name the concept note as the unblock resource, not the first step.
 
 6. **Reply in chat with exactly this format:**
 

@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 9 (formally tracked) |
+| Total sessions | 10 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-21 - Retrieval homework review |
+| Last session | 2026-08-24 - String slices and borrowed return values |
 | Days since last session | 0 |
 
 ## Template
@@ -160,6 +160,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/01-fundamentals/homework-practice/` — saved Questions 4–6; Question 6 passed formatting, compilation, and runtime checks for missing, valid, text, and negative inputs
 - Mood: —
 - Tomorrow's first move: Resume Phase 2 by reading `topics/rust/02-ownership/slices.md`, then attempt Ch 2 predict-and-fix snippet D
+
+### 2026-08-24 — String slices and borrowed return values
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / slices and borrowing
+- What I did: Completed predict-and-fix snippet D; confirmed that `first_word` returns a borrowed slice, improved its parameter from `&String` to `&str`, and reasoned about why the result cannot outlive its source `String`.
+- Exercises: Ch 2 predict-and-fix D reviewed; official Ch 1 total remains 7 / 7
+- Code: none — paper exercise
+- Mood: —
+- Tomorrow's first move: Implement `strip_margin` from `topics/rust/exercises/ch02-ownership.md`
 
 ## Weekly review
 

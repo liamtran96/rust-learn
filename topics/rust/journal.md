@@ -853,3 +853,31 @@ tags: [rust, journal]
   - **See also:** `topics/rust/01-fundamentals/control-flow.md`, `topics/rust/01-fundamentals/functions.md`
 **Question to answer later:** —
 **Next:** Resume Phase 2 by reading `topics/rust/02-ownership/slices.md`, then predict and improve Ch 2 snippet D.
+
+### 2026-08-24 — String slices and borrowed return values
+**Working on:** Ch 2 predict-and-fix snippet D — `topics/rust/exercises/ch02-ownership.md` (paper exercise; no crate)
+**What clicked:** `first_word` compiles and returns a borrowed `&str` rather than owning a new string. Changing its parameter from `&String` to `&str` lets it accept string literals directly while still accepting `&String` through deref coercion. A returned slice remains valid only while the input text it points into is alive.
+**What didn't:** Initially predicted that `word` could be printed after the inner block dropped its owning `String`. The lifetime relationship became clear after moving the print into the scope where both the owner and its borrowed slice were still valid.
+**Questions asked this session:**
+- **Q:** “And then?”
+  - **Technical answer:** After improving the parameter to `&str`, the next check was whether the returned slice could outlive its source. A lifetime is the span during which a reference is valid; Rust rejects code that stores a slice from a local `String` and uses it after that owner has been dropped.
+  - **Plain-English analogy / example:**
+    ```rust
+    let text = String::from("hello world");
+    let word = first_word(&text);
+    println!("{word}"); // owner and borrow are both alive
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/02-ownership/lifetimes.md`
+- **Q:** “`println!("{word}");` — this one, right?”
+  - **Technical answer:** Yes. Moving the print into the inner block uses `word` before `text` is dropped, so the reference still points to valid string data. Moving the reference itself does not extend the lifetime of the value it borrows.
+  - **Plain-English analogy / example:**
+    ```rust
+    {
+        let text = String::from("hello world");
+        let word = first_word(&text);
+        println!("{word}");
+    }
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+**Question to answer later:** How does Rust infer that the returned `&str` is tied to the input `&str` without a written lifetime annotation?
+**Next:** Implement `strip_margin` from `topics/rust/exercises/ch02-ownership.md`.

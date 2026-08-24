@@ -8,6 +8,8 @@ tags: [rust, exercises, ownership]
 ## Predict & fix
 For each snippet: predict whether it compiles; if not, explain why and make the minimal fix.
 
+> **These snippets are now runnable drills** at `code/02-ownership/drills-ownership/` (plus eight more). Do them there — the compiler grades you. Start with `cargo test --test d01_move` and see the crate's `BRIEF.md`. The snippets below stay as reference.
+
 ```rust
 // A
 let s = String::from("hi");

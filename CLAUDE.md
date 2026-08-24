@@ -11,6 +11,12 @@ A personal Rust learning workspace, not a product codebase. Two halves:
 
 `dashboard.html` is a standalone learning dashboard. `.obsidian/` is vault config.
 
+## Session workflow
+
+`WORKFLOW.md` at the repo root is the operating manual for every learning session: pick up the recorded next action (or `/next`) → short retrieval warm-up → code-first work → close out by recording "Tomorrow's first move" and journaling on "done". Follow it when guiding a session and point Liam back to it instead of improvising a different routine.
+
+Drill crates (`code/<phase>/drills-<topic>/`, currently `code/02-ownership/drills-ownership/`) carry their own `WORKFLOW.md` + `BRIEF.md`: Liam fills each drill's `PREDICT:` line before running, runs one drill at a time (`cargo test --test dNN`), fixes minimally, and fills the `WHY:` line before moving on. Never fill PREDICT/WHY lines, fix drill code, or reveal a drill's intended fix — the compiler error is the curriculum.
+
 ## Working with Liam on exercises
 
 Liam is **learning Rust by writing code himself** — he is not asking you to implement the exercises. Default to:

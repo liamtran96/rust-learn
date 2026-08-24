@@ -4,6 +4,12 @@
 
 This is Liam's personal Rust learning workspace. Curriculum and learning records live under `topics/rust/`; independent Cargo exercise crates live under `code/<phase>/<exercise>/`. There is no top-level Cargo workspace.
 
+## Session workflow
+
+`WORKFLOW.md` at the repository root defines how every learning session runs: pick up the recorded next action (or `$next`) → short retrieval warm-up → code-first work → close out by recording "Tomorrow's first move" and journaling on "done". Follow it when guiding a session, and point Liam back to it rather than improvising a different routine.
+
+For drill crates (`code/<phase>/drills-<topic>/`, e.g. `code/02-ownership/drills-ownership/`), the crate's own `WORKFLOW.md` and `BRIEF.md` govern: Liam fills the `PREDICT:` line before running, runs one drill at a time (`cargo test --test dNN`), fixes minimally, and fills the `WHY:` line before moving on. Never fill PREDICT/WHY lines, fix drill code, or reveal a drill's intended fix — the compiler error is the teaching material.
+
 ## Teaching approach
 
 - Let Liam write exercise solutions. Give a short brief, identify the relevant concepts and one likely pitfall, then wait for his attempt.
@@ -67,6 +73,7 @@ Keep documentation practical and concise. Pure learning-record updates and expla
 
 ## Useful paths
 
+- Session workflow: `WORKFLOW.md`
 - Roadmap: `topics/rust/roadmap.md`
 - Current plan: `topics/rust/study-plan.md`
 - Progress: `topics/rust/progress.md`

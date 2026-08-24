@@ -66,6 +66,19 @@ watch = ["code/01-fundamentals/sign-expression/src", "code/01-fundamentals/sign-
 default_watch = false
 need_stdout = true
 
+[jobs.drills-ownership]
+command = ["cargo", "check"]
+workdir = "code/02-ownership/drills-ownership"
+watch = ["code/02-ownership/drills-ownership/src", "code/02-ownership/drills-ownership/tests", "code/02-ownership/drills-ownership/Cargo.toml"]
+default_watch = false
+
+[jobs.drills-ownership-test]
+command = ["cargo", "test"]
+workdir = "code/02-ownership/drills-ownership"
+watch = ["code/02-ownership/drills-ownership/src", "code/02-ownership/drills-ownership/tests", "code/02-ownership/drills-ownership/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
 [jobs.temp-converter]
 command = ["cargo", "check"]
 workdir = "code/01-fundamentals/temp-converter"

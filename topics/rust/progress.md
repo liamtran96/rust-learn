@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 1 day |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 10 (formally tracked) |
+| Total sessions | 11 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-24 - String slices and borrowed return values |
+| Last session | 2026-08-25 - Ownership drills d01-d04: moves and borrow lifetimes |
 | Days since last session | 0 |
 
 ## Template
@@ -169,6 +169,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: none — paper exercise
 - Mood: —
 - Tomorrow's first move: Ownership drills d01–d03 in `code/02-ownership/drills-ownership/` (`cargo test --test d01_move`); `strip_margin` comes after the drills
+
+### 2026-08-25 - Ownership drills d01-d04: moves and borrow lifetimes
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
+- What I did: Completed d01-d04; distinguished moves, `Copy`, shared and mutable borrowing, `Vec` reallocation risk, and how a borrow can end after a reference's last use before its surrounding scope ends.
+- Exercises: ownership drills d01-d04 completed; official Ch 1 total remains 7 / 7
+- Code: `code/02-ownership/drills-ownership/tests/` - individual d01-d04 test targets passed
+- Mood: -
+- Tomorrow's first move: Ownership drill d05 (`cargo test --test d05_for_consumes`)
 
 ## Weekly review
 

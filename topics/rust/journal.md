@@ -881,3 +881,94 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
 **Question to answer later:** How does Rust infer that the returned `&str` is tied to the input `&str` without a written lifetime annotation?
 **Next:** Implement `strip_margin` from `topics/rust/exercises/ch02-ownership.md`.
+
+### 2026-08-25 - Ownership moves and shared borrowing
+**Working on:** Ownership drill d01 - `code/02-ownership/drills-ownership/tests/d01_move.rs`
+**What clicked:** Assigning an owned `String` with `let t = s` moves ownership from `s` to `t`, so `s` is no longer usable. Creating `t` with `&s` instead makes a shared reference: `t` can read the same `String` without taking ownership from `s`.
+**What didn't:** The first explanation reversed the direction of the move (`t` to `s`) and needed correction before the drill counted as complete. The first Cargo command was also run from the parent directory instead of the crate directory.
+**Questions asked this session:**
+- **Q:** Why did Cargo report that it could not find `Cargo.toml`?
+  - **Technical answer:** Cargo searches the current directory and its parents for a package manifest named `Cargo.toml`. The command ran from `code/02-ownership/`, but this independent crate's manifest is one level deeper in `drills-ownership/`.
+  - **Plain-English analogy / example:**
+    ```text
+    code/02-ownership/                    # no Cargo.toml here
+    `-- drills-ownership/
+        |-- Cargo.toml                    # run Cargo here
+        `-- tests/d01_move.rs
+    ```
+  - **See also:** `topics/rust/cheatsheets/cargo-commands.md`
+- **Q:** What does `let t = s` do to ownership, and why does `let t = &s` leave `s` usable?
+  - **Technical answer:** Because `String` does not implement `Copy`, assigning `s` by value moves ownership from `s` to `t` and invalidates `s`. The `&` operator creates a shared reference, so `t` borrows the value without becoming its owner and both names can read it while the borrow is valid.
+  - **Plain-English analogy / example:**
+    ```rust
+    let s = String::from("hi");
+    let t = &s;
+    assert_eq!(s, "hi");
+    assert_eq!(t, "hi");
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+**Question to answer later:** Which common Rust types implement `Copy`, and why does `String` not implement it?
+**Next:** Complete ownership drill d02 in the same crate: fill `PREDICT:`, run `cargo test --test d02_copy_vs_move`, fix minimally, then fill `WHY:`.
+
+### 2026-08-25 - Copy, move, borrow, and clone
+**Working on:** Ownership drill d02 - `code/02-ownership/drills-ownership/tests/d02_copy_vs_move.rs`
+**What clicked:** Assignment copies an `i32` implicitly because it implements `Copy`, leaving the original usable. A `String` moves on assignment, `&String` borrows without taking ownership, and `String::clone` explicitly allocates an independently owned copy; the drill only needed shared reading, so borrowing was the appropriate choice.
+**What didn't:** Initially treated `String` as a `Copy` type, described `Copy` as merely having ownership, and repeatedly used `.clone()` to make the test green. After switching to a borrow, the assertion still needed operands at the same reference level because `String` and `&String` were not directly comparable in that expression.
+**Questions asked this session:**
+- **Q:** Why did direct `assert_eq!(a, b)` fail with a borrowed string while `format!("{s} {t}")` passed?
+  - **Technical answer:** With `a: String` and `b: &String`, the direct equality expression asked for a comparison between different operand types that was not implemented. `format!` does not compare the two values; it formats each through `Display` into a new `String`, which can then be compared with the expected text.
+  - **Plain-English analogy / example:**
+    ```rust
+    let s = String::from("hi");
+    let t = &s;
+    let rendered = format!("{s} {t}");
+    assert_eq!(rendered, "hi hi");
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** When should `&` be used instead of `.clone()`?
+  - **Technical answer:** Use `&` or `&mut` for temporary access when another variable should remain the owner. Use `.clone()` only when the program genuinely needs a second independently owned value that can outlive or be changed separately from the original; cloning a `String` copies its heap data.
+  - **Plain-English analogy / example:**
+    ```rust
+    let owner = String::from("notes");
+    let reader = &owner;          // temporary access, no text copied
+    let backup = owner.clone();   // independent owned text
+    assert_eq!(reader, &backup);
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/ownership.md`
+- **Q:** What is the difference between borrowing, copying, and moving?
+  - **Technical answer:** A move transfers ownership and invalidates the source; a `Copy` assignment implicitly duplicates a small copyable value and leaves the source usable. A borrow creates a reference without transferring ownership, and its validity is limited by the owner's lifetime and Rust's aliasing rules.
+  - **Plain-English analogy / example:**
+    ```text
+    Move   -> give away the book
+    Copy   -> duplicate a small page; both copies remain
+    Borrow -> lend the book; the original person stays owner
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+**Question to answer later:** How do mutable borrows change the rules compared with shared borrows?
+**Next:** Complete ownership drill d03: fill `PREDICT:`, run `cargo test --test d03_borrow_then_mutate`, fix minimally, then fill `WHY:`.
+
+### 2026-08-25 - Shared borrow across `Vec` mutation
+**Working on:** Ownership drill d03 - `code/02-ownership/drills-ownership/tests/d03_borrow_then_mutate.rs`
+**What clicked:** A reference to `v[0]` points into the vector's heap buffer. `Vec::push` requires mutable access and may reallocate that buffer, so Rust rejects a shared reference that remains live across the push; performing the mutation before creating the reference removes the overlap.
+**What didn't:** The first `WHY:` only said mutation might change the original and did not connect `push`, capacity, reallocation, and the risk of invalidating the element reference.
+**Questions asked this session:** -
+**Question to answer later:** How does non-lexical lifetime analysis determine the exact point where a borrow ends?
+**Next:** Complete ownership drill d04: fill `PREDICT:`, run `cargo test --test d04_two_mut_borrows`, fix minimally, then fill `WHY:`.
+
+### 2026-08-25 - Sequential mutable borrows and last use
+**Working on:** Ownership drill d04 - `code/02-ownership/drills-ownership/tests/d04_two_mut_borrows.rs`
+**What clicked:** Only one mutable reference to `score` may be live at a time, but the borrows can occur sequentially. Rust's non-lexical lifetime analysis ends `a`'s borrow after `*a += 1`, its final use, allowing `b` to borrow `score` before the surrounding function scope ends.
+**What didn't:** Initially said a borrow ends when it returns a value, then assumed it lasts until the reference variable goes out of scope. The key distinction is that lexical scope controls where a name may appear, while the borrow can become inactive earlier after its last use.
+**Questions asked this session:**
+- **Q:** Does a borrow end when it goes out of scope?
+  - **Technical answer:** Leaving scope always ends a borrow, but modern Rust can end it earlier after the reference's last use. This is called non-lexical lifetimes: the compiler infers the portion of the scope where the reference is actually needed.
+  - **Plain-English analogy / example:**
+    ```rust
+    let first = &mut score;
+    *first += 1;              // first's last use
+    let second = &mut score;  // allowed before function scope ends
+    *second += 1;
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/lifetimes.md`
+**Question to answer later:** When is an explicit inner block preferable to relying on the compiler to infer a borrow's last use?
+**Next:** Complete ownership drill d05: fill `PREDICT:`, run `cargo test --test d05_for_consumes`, fix minimally, then fill `WHY:`.

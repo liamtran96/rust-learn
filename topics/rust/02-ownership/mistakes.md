@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-26 - `todo!()` and a discarded tail value (ownership drill d09)
+- **What I wrote:** Predicted "no" to whether the file with `todo!()` compiles, then wrote `first.unwrap_or("");` before leaving `todo!()` in place.
+- **Why it's wrong:** `todo!()` has the never type and can stand where a `&str` is expected, so the file compiles but panics when that line executes. The semicolon turns the desired `&str` into a discarded statement result; it must be the tail expression to become the function's return value.
+- **The rule:** `todo!()` is a compiling runtime panic placeholder. A block returns its final expression only when that expression has no trailing semicolon.
+- **Status:** 🟥 fresh
+
 ### 2026-08-26 - Lifetime annotation treated as extending values (ownership drill d08)
 - **What I wrote:** "`<'a>` ... keep those parameter valid during run time"
 - **Why it's wrong:** A lifetime annotation does not keep a value alive or alter runtime behavior. It names a relationship the compiler checks: both possible source references must be valid for `'a`, and the returned reference may be used for no longer than that shared period.

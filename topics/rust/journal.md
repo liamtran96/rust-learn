@@ -1090,3 +1090,21 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/lifetimes.md`
 **Question to answer later:** If a two-parameter function always returns only `x`, how can its output lifetime be tied to `x` without tying it to `y`?
 **Next:** Complete ownership drill d09: fill `PREDICT:`, run `cargo test --test d09_slice_window`, implement it, then fill `WHY:`.
+
+### 2026-08-26 - Returning a borrowed word slice
+**Working on:** Ownership drill d09 - `code/02-ownership/drills-ownership/tests/d09_slice_window.rs`
+**What clicked:** `split_whitespace` iterates over `&str` subslices borrowed from the input, `next` produces `Option<&str>`, and `unwrap_or("")` supplies a borrowed empty fallback. Leaving that final expression without a semicolon returns the slice without allocating or copying text.
+**What didn't:** Initially predicted that `todo!()` prevented compilation, but it compiles and panics only when executed. The first implementation discarded the desired `&str` with a semicolon and then reached the remaining `todo!()`; the explanation also described the slice as being removed rather than borrowed from the still-existing input.
+**Questions asked this session:**
+- **Q:** How do I implement the borrowed first-word function when I do not know how to combine the APIs?
+  - **Technical answer:** Break the transformation into typed stages: `split_whitespace` creates an iterator of borrowed slices, `next` returns the first as `Option<&str>`, and `unwrap_or` converts that option into a `&str` using `""` for `None`. The final `&str` must be the function's tail expression so it is returned rather than discarded.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut pieces = "one two".split_whitespace();
+    let first: Option<&str> = pieces.next();
+    let word: &str = first.unwrap_or("");
+    assert_eq!(word, "one");
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/01-fundamentals/functions.md`
+**Question to answer later:** How would a byte-index implementation safely find the same slice boundary without allocating?
+**Next:** Complete ownership drill d10: fill `PREDICT:`, run `cargo test --test d10_mut_through_ref`, implement it, then fill `WHY:`.

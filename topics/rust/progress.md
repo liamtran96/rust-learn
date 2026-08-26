@@ -27,7 +27,7 @@ tags: [rust, progress, log]
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-26 - Ownership drills d05-d08: borrowing through lifetime relationships |
+| Last session | 2026-08-26 - Ownership drills d05-d09: borrowed iteration and slices |
 | Days since last session | 0 |
 
 ## Template
@@ -179,14 +179,14 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Ownership drill d05 (`cargo test --test d05_for_consumes`)
 
-### 2026-08-26 - Ownership drills d05-d08: borrowing through lifetime relationships
+### 2026-08-26 - Ownership drills d05-d09: borrowed iteration and slices
 - Duration: not recorded
 - Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
-- What I did: Completed d05-d08; distinguished owned and borrowed iteration, learned deref coercion and owned returns, and connected two possible input borrows to an output with a named lifetime.
-- Exercises: ownership drills d05-d08 completed; official Ch 1 total remains 7 / 7
-- Code: `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs` through `d08_lifetime_elision.rs` - isolated tests passed
+- What I did: Completed d05-d09; practiced borrowed iteration, deref coercion, owned returns, explicit lifetime relationships, and returning a word as a borrowed `&str` slice without allocation.
+- Exercises: ownership drills d05-d09 completed; official Ch 1 total remains 7 / 7
+- Code: `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs` through `d09_slice_window.rs` - isolated tests passed
 - Mood: -
-- Tomorrow's first move: Ownership drill d09 (`cargo test --test d09_slice_window`)
+- Tomorrow's first move: Ownership drill d10 (`cargo test --test d10_mut_through_ref`)
 
 ## Weekly review
 

@@ -27,7 +27,7 @@ tags: [rust, progress, log]
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-26 - Ownership drills d05-d06: borrowed iteration and `&str` parameters |
+| Last session | 2026-08-26 - Ownership drills d05-d07: borrowing, coercion, and owned returns |
 | Days since last session | 0 |
 
 ## Template
@@ -179,14 +179,14 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Ownership drill d05 (`cargo test --test d05_for_consumes`)
 
-### 2026-08-26 - Ownership drills d05-d06: borrowed iteration and `&str` parameters
+### 2026-08-26 - Ownership drills d05-d07: borrowing, coercion, and owned returns
 - Duration: not recorded
 - Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
-- What I did: Completed d05-d06; distinguished consuming an owned `Vec<i32>` from borrowed iteration, identified `i32` versus `&i32`, and learned that deref coercion lets an `&str` parameter accept `&String`.
-- Exercises: ownership drills d05-d06 completed; official Ch 1 total remains 7 / 7
-- Code: `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs` and `d06_str_params.rs` - isolated tests passed
+- What I did: Completed d05-d07; distinguished owned and borrowed iteration, learned `&String` to `&str` deref coercion, and fixed a dangling local reference by moving the owned `String` to the caller.
+- Exercises: ownership drills d05-d07 completed; official Ch 1 total remains 7 / 7
+- Code: `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs` through `d07_dangling.rs` - isolated tests passed
 - Mood: -
-- Tomorrow's first move: Ownership drill d07 (`cargo test --test d07_dangling`)
+- Tomorrow's first move: Ownership drill d08 (`cargo test --test d08_lifetime_elision`)
 
 ## Weekly review
 

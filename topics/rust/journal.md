@@ -1030,3 +1030,43 @@ tags: [rust, journal]
 **Questions asked this session:** -
 **Question to answer later:** In which contexts does deref coercion happen automatically, and when must a slice be written explicitly?
 **Next:** Complete ownership drill d07: fill `PREDICT:`, run `cargo test --test d07_dangling`, fix minimally, then fill `WHY:`.
+
+### 2026-08-26 - Returning ownership instead of a dangling reference
+**Working on:** Ownership drill d07 - `code/02-ownership/drills-ownership/tests/d07_dangling.rs`
+**What clicked:** A function cannot return a reference to a local `String` because that local owner is dropped when the function ends. Returning the owned `String` moves ownership to the caller, so the heap allocation remains valid until the caller's returned value is dropped.
+**What didn't:** The return-type syntax and the reason for choosing an owned value over `&String` were initially unclear. The final `WHY:` located the text on the heap but did not yet identify the caller as the new owner of the returned `String`.
+**Questions asked this session:**
+- **Q:** How can I explain d07?
+  - **Technical answer:** The original function returned `&String`, a borrowed reference, but the referenced owner `s` was local to the function. When the function ended, `s` would be dropped, so Rust rejected the reference because it would dangle—point to data that was no longer valid.
+  - **Plain-English analogy / example:**
+    ```text
+    function creates a house
+    function returns only its address
+    function demolishes the house on exit
+    caller receives an address to nothing
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/lifetimes.md`
+- **Q:** What does the return syntax mean, and why do we need it?
+  - **Technical answer:** In `fn greeting() -> &String`, `->` introduces the return type and `&String` promises a borrowed string owned elsewhere. References are useful when returning a view into caller-owned input, but this function creates new data and has no longer-lived input owner from which to borrow.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn identity(text: &str) -> &str {
+        text // returned view borrows from caller-owned input
+    }
+    let owner = String::from("hello");
+    assert_eq!(identity(&owner), "hello");
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** What should I use to fix this?
+  - **Technical answer:** Transfer ownership of the newly created value instead of returning a reference to the local binding. Moving a `String` out of the function prevents it from being dropped there; the caller becomes responsible for the value and its eventual cleanup.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn make_value() -> String {
+        let value = String::from("owned");
+        value // ownership moves to the caller
+    }
+    let value = make_value();
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`
+**Question to answer later:** How can a function safely return a reference when that reference is tied to one of its input parameters?
+**Next:** Complete ownership drill d08: fill `PREDICT:`, run `cargo test --test d08_lifetime_elision`, fix minimally, then fill `WHY:`.

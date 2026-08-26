@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-26 - Heap location confused with returned ownership (ownership drill d07)
+- **What I wrote:** "WHY:in the heap"
+- **Why it's wrong:** A `String` does store its text buffer on the heap, but memory location alone does not explain why the return is safe. The decisive change is that ownership of the `String` moves out of the function to the caller, so the heap buffer is not freed when the local function scope ends.
+- **The rule:** A function may return an owned local value by moving it to the caller. It cannot return a reference to that local because the local owner would be dropped when the function returns.
+- **Status:** 🟥 fresh
+
 ### 2026-08-26 - Owned `String` confused with deref coercion (ownership drill d06)
 - **What I wrote:** "String is copy type" and "String will be automatically change to &str type."
 - **Why it's wrong:** `String` is not `Copy`, and the owned `String` does not change its type. At the call to a function expecting `&str`, Rust coerces the argument from `&String` to `&str` because `String` dereferences to `str`.

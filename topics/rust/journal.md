@@ -1070,3 +1070,23 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/ownership.md`
 **Question to answer later:** How can a function safely return a reference when that reference is tied to one of its input parameters?
 **Next:** Complete ownership drill d08: fill `PREDICT:`, run `cargo test --test d08_lifetime_elision`, fix minimally, then fill `WHY:`.
+
+### 2026-08-26 - Explicit lifetime relationships
+**Working on:** Ownership drill d08 - `code/02-ownership/drills-ownership/tests/d08_lifetime_elision.rs`
+**What clicked:** With one borrowed input, lifetime elision can connect the returned reference to that input automatically. Because `longest` may return either of two inputs, the shared `'a` annotation explicitly connects both input references to the output and restricts the result to a period valid for both.
+**What didn't:** Initially described `'a` as identifying which parameter is returned and then as keeping the parameters valid at runtime. Lifetime annotations neither choose the returned value nor extend any value's lifetime; they describe constraints that the borrow checker verifies.
+**Questions asked this session:**
+- **Q:** Why does `longest` need the same named lifetime on both inputs and the output?
+  - **Technical answer:** The function chooses between `x` and `y` at runtime, so its result might borrow from either input. The shared `'a` gives the caller a safe contract: both inputs must be valid for `'a`, and the returned reference cannot be used beyond that common period.
+  - **Plain-English analogy / example:**
+    ```rust
+    let outer = String::from("outside");
+    {
+        let inner = String::from("inside");
+        let result = longest(&outer, &inner);
+        println!("{result}"); // both possible sources are alive
+    }
+    ```
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`
+**Question to answer later:** If a two-parameter function always returns only `x`, how can its output lifetime be tied to `x` without tying it to `y`?
+**Next:** Complete ownership drill d09: fill `PREDICT:`, run `cargo test --test d09_slice_window`, implement it, then fill `WHY:`.

@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-26 - Lifetime annotation treated as extending values (ownership drill d08)
+- **What I wrote:** "`<'a>` ... keep those parameter valid during run time"
+- **Why it's wrong:** A lifetime annotation does not keep a value alive or alter runtime behavior. It names a relationship the compiler checks: both possible source references must be valid for `'a`, and the returned reference may be used for no longer than that shared period.
+- **The rule:** Lifetimes describe and constrain relationships between references; they do not extend the lifetimes of the referenced values.
+- **Status:** 🟥 fresh
+
 ### 2026-08-26 - Heap location confused with returned ownership (ownership drill d07)
 - **What I wrote:** "WHY:in the heap"
 - **Why it's wrong:** A `String` does store its text buffer on the heap, but memory location alone does not explain why the return is safe. The decisive change is that ownership of the `String` moves out of the function to the caller, so the heap buffer is not freed when the local function scope ends.

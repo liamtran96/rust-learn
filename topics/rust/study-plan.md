@@ -36,7 +36,7 @@ Stop at the timer even mid-problem. Resume tomorrow. The compiler is teaching yo
 
 > Code first: the drills are the curriculum; the notes are the rescue rope.
 
-- [ ] Do drills d01–d08 in `code/02-ownership/drills-ownership/` — predict → run → fix → explain (its `WORKFLOW.md` has the loop)
+- [x] Do drills d01–d08 in `code/02-ownership/drills-ownership/` — predict → run → fix → explain (its `WORKFLOW.md` has the loop)
 - [ ] Read [[02-ownership/ownership|ownership]], [[02-ownership/borrowing|borrowing]], [[02-ownership/slices|slices]] — **only to unblock a drill**, ≤10 min per sitting
 - [ ] Do [[exercises/ch02-ownership|Ch 2 exercises]] first half: `strip_margin`, `split_at_mut`
 

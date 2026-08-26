@@ -972,3 +972,61 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/lifetimes.md`
 **Question to answer later:** When is an explicit inner block preferable to relying on the compiler to infer a borrow's last use?
 **Next:** Complete ownership drill d05: fill `PREDICT:`, run `cargo test --test d05_for_consumes`, fix minimally, then fill `WHY:`.
+
+### 2026-08-26 - Borrowed iteration over a vector
+**Working on:** Ownership drill d05 - `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs`
+**What clicked:** `for x in v` consumes the owned `Vec<i32>` and gives the loop `x: i32`; `for x in &v` borrows the vector and gives the loop `x: &i32`. Borrowing provides temporary access without moving ownership or cloning the vector, so `v` remains usable after the loop.
+**What didn't:** Initially described `x` as taking ownership of the whole vector and focused on whether types were `Copy`. The `WHY:` needed several revisions before it named the actual type change from `i32` to `&i32` and separated borrowing from copying.
+**Questions asked this session:**
+- **Q:** Which type is `Copy`, and which is not?
+  - **Technical answer:** `Vec<i32>` is not `Copy`, while `i32` and shared references such as `&i32` are `Copy`. Nevertheless, `for x in v` consumes `v` because the owned-vector iterator takes the `Vec` by value; the fact that its elements are `Copy` does not preserve the vector binding.
+  - **Plain-English analogy / example:**
+    ```rust
+    let n: i32 = 3;
+    let copied = n;          // i32 is Copy; n remains usable
+    let values = vec![n];    // Vec<i32> is not Copy
+    let borrowed = &values;  // borrow instead of moving values
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** What does "iterating through `&v` borrows the vector instead of consuming it" mean?
+  - **Technical answer:** Consuming means transferring ownership of `v` into its iterator, after which the original `v` binding cannot be used. Passing `&v` gives the iterator only a shared reference, so `v` remains the owner and is usable after that temporary borrow ends.
+  - **Plain-English analogy / example:**
+    ```rust
+    let values = vec![1, 2, 3];
+    for value in &values {
+        println!("{value}");
+    }
+    println!("{}", values.len()); // still owned here
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** What is the difference between `i32` and `&i32`?
+  - **Technical answer:** An `i32` is an integer value; an `&i32` is a shared reference that temporarily points to an integer owned elsewhere. Dereferencing with `*` accesses the referred-to value, while creating the reference does not copy or transfer ownership of that value.
+  - **Plain-English analogy / example:**
+    ```rust
+    let number: i32 = 42;
+    let reference: &i32 = &number;
+    assert_eq!(number, 42);
+    assert_eq!(*reference, 42);
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** Why do references exist; what root problem led to using pointer-like `&` values?
+  - **Technical answer:** Ownership prevents multiple values from independently managing the same resource, but always moving ownership would make temporary access awkward and cloning could be expensive. A reference is a compiler-checked, non-owning handle that permits temporary access while Rust verifies that the owner stays alive and the access obeys borrowing rules.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn length(values: &[i32]) -> usize {
+        values.len() // inspect without owning or cloning
+    }
+    let values = vec![1, 2, 3];
+    assert_eq!(length(&values), 3);
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+**Question to answer later:** How does `.iter().copied()` borrow the vector while yielding copied `i32` values?
+**Next:** Complete ownership drill d06: fill `PREDICT:`, run `cargo test --test d06_str_params`, fix minimally, then fill `WHY:`.
+
+### 2026-08-26 - `&str` parameters and deref coercion
+**Working on:** Ownership drill d06 - `code/02-ownership/drills-ownership/tests/d06_str_params.rs`
+**What clicked:** A function parameter of `&str` accepts a string literal directly and also accepts `&String` through deref coercion. `String` implements `Deref<Target = str>`, allowing Rust to adapt `&String` to `&str` at a function-call boundary without cloning the string.
+**What didn't:** The prediction again described `String` as `Copy`, although it is not. The first explanation also said the owned `String` changes type; more precisely, the `&String` argument is coerced to `&str` while the original `String` remains unchanged.
+**Questions asked this session:** -
+**Question to answer later:** In which contexts does deref coercion happen automatically, and when must a slice be written explicitly?
+**Next:** Complete ownership drill d07: fill `PREDICT:`, run `cargo test --test d07_dangling`, fix minimally, then fill `WHY:`.

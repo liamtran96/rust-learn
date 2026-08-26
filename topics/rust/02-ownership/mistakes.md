@@ -10,6 +10,18 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-26 - Owned `String` confused with deref coercion (ownership drill d06)
+- **What I wrote:** "String is copy type" and "String will be automatically change to &str type."
+- **Why it's wrong:** `String` is not `Copy`, and the owned `String` does not change its type. At the call to a function expecting `&str`, Rust coerces the argument from `&String` to `&str` because `String` dereferences to `str`.
+- **The rule:** String literals already have type `&str`; an owned `String` remains a `String`, while a shared `&String` can undergo deref coercion to `&str` for function and method arguments.
+- **Status:** 🟥 fresh
+
+### 2026-08-26 - Copy confused with borrowing and iteration ownership (ownership drill d05)
+- **What I wrote:** "because v is not a copy type and i use & to reference to the v we use it temporary"; the prediction also said "the x take the ownership from v."
+- **Why it's wrong:** Whether the element type is `Copy` does not decide whether the vector is consumed. The owned-vector iterator takes `v` by value, while `x` receives one element at a time; iterating over `&v` instead borrows the vector and changes `x` from `i32` to `&i32`.
+- **The rule:** `for x in collection` follows the collection's `IntoIterator` implementation. An owned `Vec<T>` is consumed and yields `T`; a shared borrow `&Vec<T>` is not consumed and yields `&T`.
+- **Status:** 🟥 fresh
+
 ### 2026-08-17 — Reference target and `Vec` mutation (predict-and-fix B)
 - **What I wrote:** Said the snippet compiled, that `r = &v[0]` referred to `4`, and that the concern was “maybe the original `v` can be reused somewhere.”
 - **Why it's wrong:** Index `0` refers to the existing first element, `1`; the later `push(4)` appends at index `3`. More importantly, `push` may reallocate the vector's buffer, so Rust cannot allow that mutable borrow while `r` still needs an address inside the old buffer.

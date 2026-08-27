@@ -104,3 +104,16 @@ workdir = "code/02-ownership/strip-margin"
 watch = ["code/02-ownership/strip-margin/src", "code/02-ownership/strip-margin/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.split-at-mut]
+command = ["cargo", "check"]
+workdir = "code/02-ownership/split-at-mut"
+watch = ["code/02-ownership/split-at-mut/src", "code/02-ownership/split-at-mut/Cargo.toml"]
+default_watch = false
+
+[jobs.split-at-mut-run]
+command = ["cargo", "run"]
+workdir = "code/02-ownership/split-at-mut"
+watch = ["code/02-ownership/split-at-mut/src", "code/02-ownership/split-at-mut/Cargo.toml"]
+default_watch = false
+need_stdout = true

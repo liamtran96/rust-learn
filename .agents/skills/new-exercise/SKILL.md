@@ -15,7 +15,7 @@ Treat the repository root as the base for every path. Interpret text following `
 6. Read the relevant chapter notes and `topics/rust/pitfalls.md`.
 7. Create `code/<phase>/<slug>/BRIEF.md` for a learner who may not recognize the Rust syntax yet. Explain only the syntax required to start the exercise; Liam still chooses the algorithm and writes every implementation line. Never include a complete or near-complete solution.
 
-   Include one small input/output example when the specification defines behavior clearly. Decode the required function or type signature token by token (`fn`, parameter names and types, borrowing markers, return arrow, generics, or lifetimes as applicable). Then give incremental coding milestones that let Liam compile early without prescribing specific methods or control flow.
+   Always include a dedicated `## Expected input and output` section. State whether input/output means function arguments and return values, stdin/stdout, file data, or another observable behavior. Give one small concrete example when the specification defines behavior clearly. If exact input or output is intentionally open-ended, say what is variable instead of inventing a requirement. Decode the required function or type signature token by token (`fn`, parameter names and types, borrowing markers, return arrow, generics, or lifetimes as applicable). Then give incremental coding milestones that let Liam compile early without prescribing specific methods or control flow.
 
    Use this structure and fill every field from the source material:
 
@@ -28,7 +28,8 @@ Treat the repository root as the base for every path. Interpret text following `
    ## What you are building
    <Restate the relevant exercise prompt in plain language.>
 
-   <One small input/output example when behavior is unambiguous.>
+   ## Expected input and output
+   <Clarify the kind of input/output. Give one concrete Input/Output example, or state what is intentionally unspecified.>
 
    ## Required Rust syntax
    `<Required signature or declaration from the exercise spec>`

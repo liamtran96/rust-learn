@@ -11,6 +11,8 @@ A personal Rust learning workspace, not a product codebase. Two halves:
 
 `dashboard.html` is a standalone learning dashboard. `.obsidian/` is vault config.
 
+Journal entries are stored by subject under `topics/rust/journal/<NN-chapter>/<topic>.md`; `topics/rust/journal.md` is their index and template.
+
 ## Session workflow
 
 `WORKFLOW.md` at the repo root is the operating manual for every learning session: pick up the recorded next action (or `/next`) → short retrieval warm-up → code-first work → close out by recording "Tomorrow's first move" and journaling on "done". Follow it when guiding a session and point Liam back to it instead of improvising a different routine.
@@ -31,7 +33,7 @@ Only write code yourself if he explicitly asks ("write it for me", "show me the 
 
 When Liam finishes an exercise (compiles, runs, he says it's done), do both without being asked:
 
-1. **Append a dated entry** to `topics/rust/journal.md` under `## Entries`, using the template at the top of that file. Use today's absolute date from `date +%Y-%m-%d`, never "today". Fill the **Questions asked this session** field with every question Liam asked during the session and a one-line answer summary — this is a tracked behavior, not optional.
+1. **Append a dated entry** to the closest matching `topics/rust/journal/<NN-chapter>/<topic>.md` under `## Entries`, using the template in `topics/rust/journal.md`. Use today's absolute date from `date +%Y-%m-%d`, never "today". Fill the **Questions asked this session** field with every question Liam asked during the session and a one-line answer summary - this is a tracked behavior, not optional.
 2. **Tick the corresponding milestone** in `topics/rust/roadmap.md` by prefixing the milestone line with `✅ `. Also update relevant boxes in `topics/rust/study-plan.md` and the Summary table in `topics/rust/progress.md` if a session is being closed out.
 
 The `/journal` slash command (`.claude/commands/journal.md`) automates step 1 and the roadmap tick — invoke it rather than reimplementing the logic.

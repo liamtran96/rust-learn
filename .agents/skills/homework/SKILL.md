@@ -13,8 +13,9 @@ as an optional focus, question count, or request to review an existing homework 
 1. Read `topics/rust/progress.md` first. Treat its completed exercises, phase, and week as
    the authoritative boundary for what Liam has learned. Do not test later material merely
    because it appears in the study plan or notes.
-2. Read all entries in `topics/rust/journal.md`, emphasizing substantive questions,
-   confusion, follow-up questions, and concepts that needed correction.
+2. Read `topics/rust/journal.md`, then read all topic journals it lists under
+   `topics/rust/journal/`. Emphasize substantive questions, confusion, follow-up
+   questions, and concepts that needed correction.
 3. Read every `topics/rust/<NN-chapter>/mistakes.md` relevant to completed material.
    Prioritize mistakes in this order:
    1. fresh mistakes that were repeated or still felt difficult;

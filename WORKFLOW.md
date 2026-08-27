@@ -47,7 +47,7 @@ Stuck >10 minutes? Ask the agent about the **error message** — it reads errors
 
 - Note the exact next action ("Tomorrow's first move") in `topics/rust/progress.md` — one line, template at the top of that file.
 - **Finished something** (compiles, runs, you'd call it done)? Say **"done"** — the agent runs `$journal` / `/journal`, which:
-  appends the dated entry to `topics/rust/journal.md` (including every question you asked),
+  appends the dated entry to the closest subject file under `topics/rust/journal/<NN-chapter>/` (including every question you asked),
   ticks the milestone in `roadmap.md`, and updates `study-plan.md` / `progress.md`.
 - Stopping mid-task is fine; a recorded next action beats a rushed finish.
 

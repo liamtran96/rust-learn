@@ -8,13 +8,13 @@ description: Record a completed Rust learning session, update learning records, 
 Treat the repository root as the base for every path. Interpret text following `$journal` as an optional topic or exercise hint.
 
 1. Determine today's absolute date as `YYYY-MM-DD` from the current environment.
-2. Read `topics/rust/journal.md`, including its template and existing entries.
+2. Read the template and topic list in `topics/rust/journal.md`. Determine the chapter from the current phase or exercise path, then select the closest existing subject file under `topics/rust/journal/<NN-chapter>/`. If no existing subject fits cleanly, create a concise kebab-case topic file with frontmatter, a link back to `[[../../journal|Journal index]]`, and an `## Entries` heading; add its wikilink to the index.
 3. When closing a completed drill under `code/<phase>/drills-<topic>/tests/`:
    - Verify its isolated test target passes and Liam's `PREDICT:` and `WHY:` lines are non-empty before treating it as complete.
    - Preserve Liam's `PREDICT:` and `WHY:` text exactly; never rewrite, correct, or replace either answer.
    - Immediately below Liam's `WHY:` line, add a separate `//! REVIEW:` comment with a concise, technically correct version of the explanation. Directly answer the drill's `WHY:` prompt and correct any remaining misconception by naming the relevant types and Rust rule.
    - Add `REVIEW:` only after Liam has attempted the explanation and the drill is green, so it cannot reveal the intended fix early. If a `REVIEW:` comment already exists, update only that comment and continue preserving Liam's answer.
-4. Append a new entry under `## Entries`; never overwrite or reorder prior entries.
+4. Append a new entry under `## Entries` in the matching topic journal; never overwrite or reorder prior entries. Keep `topics/rust/journal.md` as an index and template, not an entry store.
 5. Populate the entry from the current conversation. Capture the exercise path, concepts that clicked, confusion, every question Liam asked, unresolved questions, and the next roadmap action.
 6. For every recorded question, include:
    - the question, verbatim or nearly so;

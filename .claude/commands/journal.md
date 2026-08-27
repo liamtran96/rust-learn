@@ -4,15 +4,15 @@ argument-hint: [optional: topic / exercise name]
 allowed-tools: Read, Edit, Write, Bash(date *)
 ---
 
-Append a new entry to `~/Workspaces/rust-learn/topics/rust/journal.md` capturing what Liam just worked on in this conversation, AND append any mistakes / misunderstandings from the session to the relevant chapter's `mistakes.md`.
+Append a new entry to the matching topic file under `topics/rust/journal/` capturing what Liam just worked on in this conversation, AND append any mistakes / misunderstandings from the session to the relevant chapter's `mistakes.md`.
 
 **Optional topic hint from the user:** $ARGUMENTS
 
 ## Steps
 
 1. Run `date +%Y-%m-%d` to get today's absolute date.
-2. Read `~/Workspaces/rust-learn/topics/rust/journal.md` to see existing entries and the template at the top.
-3. Append a new entry **below any existing entries** (under the `## Entries` heading), using exactly this template:
+2. Read `topics/rust/journal.md` for the template and topic list. Determine the chapter from the current phase or exercise path, then select the closest subject file under `topics/rust/journal/<NN-chapter>/`. Create and index a concise topic file when no existing subject fits.
+3. Append a new entry **below any existing entries** in the selected topic journal (under the `## Entries` heading), using exactly this template:
 
    ```
    ### YYYY-MM-DD — <Topic>
@@ -64,6 +64,6 @@ Append a new entry to `~/Workspaces/rust-learn/topics/rust/journal.md` capturing
 7. Reply in chat with one line: the date + topic you logged, which milestone (if any) you ticked, and how many mistakes (if any) you appended to which `mistakes.md`. Nothing else.
 
 ## Rules
-- Never overwrite prior entries — append only (in both `journal.md` and `mistakes.md`).
+- Never overwrite prior entries - append only (in topic journals and `mistakes.md`). Keep `topics/rust/journal.md` as the index and template.
 - Use the absolute date from `date`, never a relative one like "today".
 - Keep each field to one or two lines. If there's nothing to say, write `—`.

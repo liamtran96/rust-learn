@@ -21,7 +21,7 @@ For drill crates (`code/<phase>/drills-<topic>/`, e.g. `code/02-ownership/drills
 
 When Liam completes or successfully reviews an exercise:
 
-1. Append a dated entry under `## Entries` in `topics/rust/journal.md`. Record every substantive question from the session, its concise technical answer, an example or analogy, and the relevant note path.
+1. Append a dated entry under `## Entries` in the closest matching subject file under `topics/rust/journal/<NN-chapter>/`; `topics/rust/journal.md` is the index and template. Record every substantive question from the session, its concise technical answer, an example or analogy, and the relevant note path.
 2. Update `topics/rust/progress.md`. Update `topics/rust/study-plan.md` and `topics/rust/roadmap.md` only when the corresponding checkbox or milestone is genuinely completed.
 3. Add meaningful conceptual mistakes to `topics/rust/<NN-chapter>/mistakes.md`; do not log routine compiler feedback that was immediately corrected.
 4. Use the repository's `journal` skill when applicable.
@@ -77,7 +77,8 @@ Keep documentation practical and concise. Pure learning-record updates and expla
 - Roadmap: `topics/rust/roadmap.md`
 - Current plan: `topics/rust/study-plan.md`
 - Progress: `topics/rust/progress.md`
-- Journal: `topics/rust/journal.md`
+- Journal index: `topics/rust/journal.md`
+- Topic journals: `topics/rust/journal/<NN-chapter>/<topic>.md`
 - Exercises: `topics/rust/exercises/`
 - Cargo reference: `topics/rust/cheatsheets/cargo-commands.md`
 - Common pitfalls: `topics/rust/pitfalls.md`

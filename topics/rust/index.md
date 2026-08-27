@@ -14,7 +14,7 @@ tags: [rust, moc, index]
 3. Work through the numbered folders in order — each builds on the last.
 4. After every chapter, do the linked [[exercises/index|exercises]] before moving on. **Active recall > re-reading.**
 5. When stuck, consult the [[cheatsheets/index|cheatsheets]] and [[pitfalls|common pitfalls]].
-6. Keep a personal journal at `topics/rust/journal.md` — log confusions, aha-moments, and open questions.
+6. Open [[journal|the journal index]], then use the matching chapter journal for confusions, aha-moments, and open questions.
 
 ## 🗺️ Curriculum
 

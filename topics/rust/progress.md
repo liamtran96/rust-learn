@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 3 days |
 | Streak (best) | 3 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 15 (formally tracked) |
-| Exercises completed | 8 total (7 / 7 Ch 1 + `strip_margin` Ch 2) |
+| Total sessions | 16 (formally tracked) |
+| Exercises completed | 9 total (7 / 7 Ch 1 + `strip_margin` and `split_at_mut` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
-| Current week | Week 2 |
-| Last session | 2026-08-27 - `strip_margin` |
+| Current week | Week 3 |
+| Last session | 2026-08-27 - `split_at_mut` |
 | Days since last session | 0 |
 
 ## Template
@@ -214,6 +214,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/02-ownership/strip-margin` - formatted; check, test, and strict Clippy clean; no unit tests are defined yet
 - Mood: -
 - Tomorrow's first move: Scaffold and begin the Week 2 `split_at_mut` exercise
+
+### 2026-08-27 - `split_at_mut`
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / mutable slices, generics, and exclusive borrowing
+- What I did: Implemented the generic `split_at_mut` wrapper, observed why two separately indexed mutable borrows are rejected, used the standard slice method that guarantees disjoint outputs, mutated through both returned slices, and checked split positions `0`, `len`, and beyond `len`.
+- Exercises: Ch 2 `split_at_mut` completed (9 total exercises officially recorded)
+- Code: `code/02-ownership/split-at-mut` - formatted; check, zero-test harness, strict Clippy, and runtime behavior verified
+- Mood: -
+- Tomorrow's first move: Resume ownership drill d12 in `code/02-ownership/drills-ownership/` by filling `PREDICT:` before running `cargo test --test d12_scanner_peek`
 
 ## Weekly review
 

@@ -189,3 +189,59 @@ tags: [rust, journal, ownership]
 **Question to answer later:** Should `strip_margin` preserve a final newline, and should a prefix after non-whitespace text count as a margin marker?
 **Next:** Scaffold and begin Ch 2 `split_at_mut`; d12 remains deferred to Week 3.
 
+### 2026-08-27 - Generic mutable-slice splitting
+**Working on:** `split_at_mut` - `code/02-ownership/split-at-mut/`
+**What clicked:** A generic type parameter `T` lets one function split slices of any element type while preserving compile-time type checking. The standard `slice::split_at_mut` method returns two non-overlapping mutable slice references in a tuple; tuple destructuring names those results in the caller, and mutations through either slice update the original array.
+**What didn't:** Generic function syntax, method-call syntax, dereferencing, tuple returns, and block scope were initially unfamiliar. Separate range indexing looked safe but the borrow checker could not prove the ranges disjoint; split positions were also briefly treated as if splitting padded, duplicated, or rearranged elements.
+**Questions asked this session:**
+- **Q:** What is a generic in Rust?
+  - **Technical answer:** A generic type parameter such as `T` is a compile-time placeholder for a concrete type selected at each use. Every `T` in one instantiation means the same concrete type, so `&mut [T]` is a mutable slice whose elements are all that type; generics preserve type checking rather than accepting arbitrary mixed values.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn length<T>(items: &[T]) -> usize {
+        items.len()
+    }
+    assert_eq!(length(&[10, 20]), 2);
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** Can I get hints because I am not familiar with the syntax?
+  - **Technical answer:** The signature declares `T` in `<T>`, takes `v` as an exclusive borrowed slice with `&mut [T]`, takes the split index as `usize`, and returns a tuple `(&mut [T], &mut [T])`. A temporary `todo!()` body allows the call site and tuple destructuring to be set up before implementing the split.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn example<T>(values: &mut [T], index: usize) -> (&mut [T], &mut [T]) {
+        todo!()
+    }
+    ```
+  - **See also:** `code/02-ownership/split-at-mut/BRIEF.md`, `topics/rust/02-ownership/slices.md`
+- **Q:** What is `*v`?
+  - **Technical answer:** The unary `*` operator dereferences a reference, meaning it accesses the value behind that reference. With `v: &mut [T]`, `v` is the mutable reference and `*v` denotes the underlying slice; slice indexing can perform this dereference automatically.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut number = 10;
+    let reference = &mut number;
+    *reference = 20;
+    assert_eq!(number, 20);
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** Why is `let right = &mut v[mid..];` rejected after `let left = &mut v[..mid];`?
+  - **Technical answer:** Returning `left` keeps its mutable borrow active while the second borrow is created. Although the two ranges are mathematically disjoint, separate slice-indexing expressions are both treated as mutable borrows from `*v`, and the borrow checker does not prove their non-overlap from those expressions.
+  - **Plain-English analogy / example:**
+    ```text
+    first request:  borrow part of one strip exclusively
+    second request: borrow from that same strip again
+    indexing alone: does not provide a proof that the parts differ
+    split_at_mut:   provides that non-overlap guarantee
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+- **Q:** What does `v.split_at_mut(mid)` return?
+  - **Technical answer:** It returns one tuple containing two mutable slice references with type `(&mut [T], &mut [T])`. The first covers indices `0..mid`, the second covers `mid..len`, and both borrow the original data rather than copying it; the method panics at runtime when `mid > len`.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut values = [10, 20, 30, 40];
+    let (left, right) = values.split_at_mut(2);
+    assert_eq!(left, [10, 20]);
+    assert_eq!(right, [30, 40]);
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+**Question to answer later:** How can the standard library implement `split_at_mut` internally when the straightforward safe indexing version is rejected?
+**Next:** Resume ownership drill d12: fill `PREDICT:` in Liam's own words, then run `cargo test --test d12_scanner_peek`.

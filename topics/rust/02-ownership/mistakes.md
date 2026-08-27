@@ -10,6 +10,18 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-27 - Split position treated as padding or overlap (`split_at_mut`)
+- **What I wrote:** "left= [10, 0] right [30,40]" and later "left = [10, 20, 30, 40] right=[40]" for split positions inside `[10, 20, 30, 40]`.
+- **Why it's wrong:** Splitting a slice neither inserts placeholder values nor duplicates an element across the outputs. A split at `mid` returns the first `mid` elements on the left and every remaining element on the right, preserving order and keeping the mutable slices disjoint.
+- **The rule:** For a valid split, `left.len() == mid`, `left.len() + right.len() == original.len()`, and concatenating left then right reconstructs the original without overlap, padding, or copying.
+- **Status:** 🟥 fresh
+
+### 2026-08-27 - Variables used outside their declaring block (`split_at_mut`)
+- **What I wrote:** Put `(left, right)` and later `left[0] = 10; right[0] = 20;` inside `split_at_mut`, although `left` and `right` were declared by tuple destructuring inside `main`.
+- **Why it's wrong:** A local binding exists only within the block where it is declared. The generic helper knows only its parameters `v` and `mid`; the names `left` and `right` belong to the caller after it destructures the returned tuple.
+- **The rule:** Function bodies are separate scopes. A callee returns values using its own parameters and locals; the caller chooses names for those returned values and uses them within the caller's block.
+- **Status:** 🟥 fresh
+
 ### 2026-08-27 - Borrowing a substring seemed redundant (`strip_margin`)
 - **What I wrote:** "do we need borrow here" and asked why `line[start..]` cannot be used as a standalone `str` value.
 - **Why it's wrong:** `line` is a `&str` for the whole line, but range indexing selects a region whose output type is `str`, a dynamically sized string value. The leading `&` creates a fixed-size `&str` containing the selected region's address and length; it does not copy the text or create `&&str`.

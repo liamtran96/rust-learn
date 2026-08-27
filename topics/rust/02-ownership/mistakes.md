@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-27 - Borrowing a substring seemed redundant (`strip_margin`)
+- **What I wrote:** "do we need borrow here" and asked why `line[start..]` cannot be used as a standalone `str` value.
+- **Why it's wrong:** `line` is a `&str` for the whole line, but range indexing selects a region whose output type is `str`, a dynamically sized string value. The leading `&` creates a fixed-size `&str` containing the selected region's address and length; it does not copy the text or create `&&str`.
+- **The rule:** A `str` is variable-length text data and is used behind a pointer; write `&text[start..]` to create a borrowed `&str` view of a substring.
+- **Status:** 🆕 fresh
+
 ### 2026-08-27 - Word splitting destroyed line structure (`strip_margin`)
 - **What I wrote:** `let words = s.split_whitespace();` followed by `words.collect::<Vec<&str>>().join(" ")`
 - **Why it's wrong:** `split_whitespace` treats every run of whitespace, including newlines, as a separator. Joining with a space therefore flattens the input into words and loses the line boundaries that `strip_margin` must process independently.

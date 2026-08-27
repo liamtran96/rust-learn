@@ -27,7 +27,7 @@ tags: [rust, progress, log]
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-27 - Ownership drill d10: mutable slice elements |
+| Last session | 2026-08-27 - Ownership drills d10-d11: mutable slices and tail expressions |
 | Days since last session | 0 |
 
 ## Template
@@ -188,14 +188,14 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Ownership drill d10 (`cargo test --test d10_mut_through_ref`)
 
-### 2026-08-27 - Ownership drill d10: mutable slice elements
+### 2026-08-27 - Ownership drills d10-d11: mutable slices and tail expressions
 - Duration: not recorded
 - Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
-- What I did: Completed d10; accepted a vector through `&mut [i32]` coercion, iterated as `&mut i32`, and mutated every element in place through dereferencing.
-- Exercises: ownership drill d10 completed; official Ch 1 total remains 7 / 7
-- Code: `code/02-ownership/drills-ownership/tests/d10_mut_through_ref.rs` - isolated test passed
+- What I did: Completed d10-d11; mutated elements through `&mut [i32]` and confirmed that a semicolon discards a tail expression's value, causing the enclosing block to evaluate to `()`.
+- Exercises: ownership drills d10-d11 completed; official Ch 1 total remains 7 / 7
+- Code: `code/02-ownership/drills-ownership/tests/d10_mut_through_ref.rs` and `d11_scoped_return.rs` - isolated tests passed
 - Mood: -
-- Tomorrow's first move: Ownership drill d11 (`cargo test --test d11_scoped_return`)
+- Tomorrow's first move: Ownership drill d12 (`cargo test --test d12_scanner_peek`)
 
 ## Weekly review
 

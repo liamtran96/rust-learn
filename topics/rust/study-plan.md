@@ -38,10 +38,12 @@ Stop at the timer even mid-problem. Resume tomorrow. The compiler is teaching yo
 
 - [x] Do drills d01–d08 in `code/02-ownership/drills-ownership/` — predict → run → fix → explain (its `WORKFLOW.md` has the loop)
 - [ ] Read [[02-ownership/ownership|ownership]], [[02-ownership/borrowing|borrowing]], [[02-ownership/slices|slices]] — **only to unblock a drill**, ≤10 min per sitting
-- [ ] Do [[exercises/ch02-ownership|Ch 2 exercises]] first half: `strip_margin`, `split_at_mut`
+- [x] Do [[exercises/ch02-ownership|Ch 2 exercise]] `strip_margin`
+- [ ] Do [[exercises/ch02-ownership|Ch 2 exercise]] `split_at_mut`
 
 ### Week 3 — Lifetimes
-- [ ] Do drills d09–d12 in `code/02-ownership/drills-ownership/` (borrowed returns, `&mut` slices, `Scanner<'a>`)
+- [x] Do drills d09–d11 in `code/02-ownership/drills-ownership/` (borrowed returns, `&mut` slices, tail expressions)
+- [ ] Do drill d12 in `code/02-ownership/drills-ownership/` (`Scanner<'a>`)
 - [ ] Read [[02-ownership/lifetimes|lifetimes]] after drill d08 — read it twice; it doesn't click the first time
 - [ ] Skim [[cheatsheets/lifetimes-cheatsheet|lifetimes cheatsheet]] daily
 - [ ] Do [[exercises/ch02-ownership|Ch 2 exercises]] second half: `Scanner` full version

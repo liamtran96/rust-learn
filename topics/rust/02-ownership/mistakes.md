@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-27 - Word splitting destroyed line structure (`strip_margin`)
+- **What I wrote:** `let words = s.split_whitespace();` followed by `words.collect::<Vec<&str>>().join(" ")`
+- **Why it's wrong:** `split_whitespace` treats every run of whitespace, including newlines, as a separator. Joining with a space therefore flattens the input into words and loses the line boundaries that `strip_margin` must process independently.
+- **The rule:** Choose an iterator whose units match the transformation: use `lines` for line-by-line work, and use `split_whitespace` only when whitespace-separated words are the intended units.
+- **Status:** 🆕 fresh
+
 ### 2026-08-27 - Arithmetic result discarded instead of assigned (ownership drill d10)
 - **What I wrote:** `let _ = *value * 2;` and then `*value * 2;`
 - **Why it's wrong:** Both expressions calculate a doubled integer without writing it through the mutable reference, so the original slice remains unchanged. The empty-input test still passes because the loop body never runs, which does not verify mutation behavior.

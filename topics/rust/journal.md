@@ -1172,3 +1172,40 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`
 **Question to answer later:** After filling the prediction, can Liam identify which field `peek` only reads and which field `advance` must change?
 **Next:** Reopen `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`, then fill d12's `PREDICT:` in Liam's own words before running `cargo test --test d12_scanner_peek`.
+
+### 2026-08-27 - `strip_margin`: line iterators, slices, and `Option`
+**Working on:** `strip_margin` - `code/02-ownership/strip-margin/`
+**What clicked:** `str::lines` preserves the line-sized units needed by the problem; `Iterator::map` transforms every line, while `Option::map` transforms a found prefix index only when it exists. `find` returns a UTF-8 byte index, `char::len_utf8` moves beyond the prefix safely, the intermediate slices keep borrowing from the input, and `join` finally creates the owned `String` required by the signature.
+**What didn't:** The first attempt used `split_whitespace` and joined words with spaces, which erased line boundaries. The unfamiliar closure, iterator, `Option`, slicing, and type-inference syntax made the working pipeline difficult to read even after it produced the expected output.
+**Questions asked this session:**
+- **Q:** Can you change the way you write the brief because I am not familiar with the syntax in Rust, while I still implement it by hand?
+  - **Technical answer:** The exercise brief now separates syntax literacy from implementation: it explains `fn`, borrowed `&str` input, `char`, and owned `String` output without filling the function body. Future briefs follow the same rule, so syntax is decoded while the algorithm and every implementation line remain Liam's work.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn transform(input: &str, marker: char) -> String {
+        todo!() // signature explained; implementation remains yours
+    }
+    ```
+  - **See also:** `code/02-ownership/strip-margin/BRIEF.md`, `topics/rust/02-ownership/slices.md`
+- **Q:** What should I do next for `strip_margin`; can I get some hints?
+  - **Technical answer:** `split_whitespace` produces whitespace-separated words, so it cannot retain line boundaries. `lines` instead produces an iterator whose items are borrowed `&str` lines, matching the unit that this exercise needs to transform.
+  - **Plain-English analogy / example:**
+    ```rust
+    let text = "first\nsecond";
+    for line in text.lines() {
+        println!("{line}");
+    }
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/pitfalls.md`
+- **Q:** Can you check the implementation and explain it to me?
+  - **Technical answer:** The outer `Iterator::map` transforms each input line, while `find` returns `Option<usize>` because the prefix may be absent. The inner `Option::map` creates a slice after a found prefix, `unwrap_or(line)` preserves a line without a prefix, and collecting plus joining converts the borrowed slices into the returned owned `String`.
+  - **Plain-English analogy / example:**
+    ```text
+    input text -> borrowed lines
+    each line  -> suffix after prefix, or original line
+    slices     -> collect and join with newlines
+    result     -> owned String
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+**Question to answer later:** Should `strip_margin` preserve a final newline, and should a prefix after non-whitespace text count as a margin marker?
+**Next:** Scaffold and begin Ch 2 `split_at_mut`; d12 remains deferred to Week 3.

@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 3 days |
 | Streak (best) | 3 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 14 (formally tracked) |
-| Exercises completed | 7 / 7 (Ch 1) |
+| Total sessions | 15 (formally tracked) |
+| Exercises completed | 8 total (7 / 7 Ch 1 + `strip_margin` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-27 - d12 borrowing-struct visual preview |
+| Last session | 2026-08-27 - `strip_margin` |
 | Days since last session | 0 |
 
 ## Template
@@ -201,10 +201,19 @@ Keep it terse. The journal is for prose; this is for facts.
 - Duration: not recorded
 - Phase / chapter: Phase 2 / Ch 2 / borrowing structs and lifetimes
 - What I did: Previewed the unfamiliar `struct`, `impl`, lifetime, `&self`, and `&mut self` syntax using a bookmark-style SVG diagram; confirmed that no tldraw connector is installed in this Codex session.
-- Exercises: ownership drill d12 previewed but not completed
+- Exercises: ownership drill d12 previewed and deferred to Week 3
 - Code: `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg` - created and XML-validated
 - Mood: -
-- Tomorrow's first move: Reopen the visual, fill d12's `PREDICT:` in my own words, then run `cargo test --test d12_scanner_peek`
+- Tomorrow's first move: Begin the Week 2 `strip_margin` exercise from `topics/rust/exercises/ch02-ownership.md`
+
+### 2026-08-27 - `strip_margin`
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / string slices and iterators
+- What I did: Implemented `strip_margin` by iterating over lines, finding the prefix, returning the suffix as a borrowed slice, collecting the slices, and joining them into an owned `String`; reviewed the iterator and `Option` pipeline.
+- Exercises: Ch 2 `strip_margin` completed (8 total exercises officially recorded)
+- Code: `code/02-ownership/strip-margin` - formatted; check, test, and strict Clippy clean; no unit tests are defined yet
+- Mood: -
+- Tomorrow's first move: Scaffold and begin the Week 2 `split_at_mut` exercise
 
 ## Weekly review
 

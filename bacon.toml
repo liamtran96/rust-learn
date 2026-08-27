@@ -91,3 +91,16 @@ workdir = "code/01-fundamentals/temp-converter"
 watch = ["code/01-fundamentals/temp-converter/src", "code/01-fundamentals/temp-converter/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.strip-margin]
+command = ["cargo", "check"]
+workdir = "code/02-ownership/strip-margin"
+watch = ["code/02-ownership/strip-margin/src", "code/02-ownership/strip-margin/Cargo.toml"]
+default_watch = false
+
+[jobs.strip-margin-run]
+command = ["cargo", "run"]
+workdir = "code/02-ownership/strip-margin"
+watch = ["code/02-ownership/strip-margin/src", "code/02-ownership/strip-margin/Cargo.toml"]
+default_watch = false
+need_stdout = true

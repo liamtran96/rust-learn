@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="#f8fafc"/>
+  <text x="70" y="62" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">d12: Scanner borrows text instead of owning a copy</text>
+
+  <rect x="70" y="110" width="500" height="210" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="100" y="155" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0f172a">The text lives outside Scanner</text>
+  <text x="100" y="205" font-family="monospace" font-size="20" fill="#172554">let text = String::from("ab");</text>
+  <rect x="100" y="235" width="410" height="52" rx="10" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+  <text x="120" y="269" font-family="monospace" font-size="20" fill="#172554">String owns bytes: [ a ][ b ]</text>
+
+  <rect x="830" y="110" width="500" height="300" rx="20" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="860" y="155" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0f172a">Scanner value</text>
+  <text x="860" y="202" font-family="monospace" font-size="20" fill="#172554">Scanner&lt;'a&gt; {</text>
+  <text x="900" y="246" font-family="monospace" font-size="20" fill="#172554">source: &amp;'a str,</text>
+  <text x="900" y="290" font-family="monospace" font-size="20" fill="#172554">pos: usize,</text>
+  <text x="860" y="334" font-family="monospace" font-size="20" fill="#172554">}</text>
+  <text x="860" y="382" font-family="Arial, sans-serif" font-size="17" fill="#475569">source = borrowed view • pos = owned number</text>
+
+  <path d="M830 235 C710 235, 690 260, 515 260" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="590" y="215" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">&amp; means “look there”</text>
+  <text x="580" y="246" font-family="Arial, sans-serif" font-size="17" fill="#475569">No second String is created</text>
+
+  <rect x="70" y="465" width="390" height="250" rx="20" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="100" y="510" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0f172a">&amp;self</text>
+  <text x="100" y="555" font-family="monospace" font-size="20" fill="#172554">fn peek(&amp;self)</text>
+  <text x="100" y="606" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">Borrow Scanner read-only.</text>
+  <text x="100" y="647" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">May inspect source and pos.</text>
+  <text x="100" y="688" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">Cannot change pos.</text>
+
+  <rect x="505" y="465" width="390" height="250" rx="20" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <text x="535" y="510" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0f172a">&amp;mut self</text>
+  <text x="535" y="555" font-family="monospace" font-size="20" fill="#172554">fn advance(&amp;mut self)</text>
+  <text x="535" y="606" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">Borrow Scanner temporarily.</text>
+  <text x="535" y="647" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">May inspect fields.</text>
+  <text x="535" y="688" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">May also change pos.</text>
+
+  <rect x="940" y="465" width="390" height="250" rx="20" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="970" y="510" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0f172a">'a</text>
+  <text x="970" y="555" font-family="monospace" font-size="20" fill="#172554">Scanner&lt;'a&gt;</text>
+  <text x="970" y="606" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">A relationship label:</text>
+  <text x="970" y="647" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">Scanner cannot outlive</text>
+  <text x="970" y="688" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">the text it points to.</text>
+
+  <rect x="180" y="770" width="1040" height="82" rx="18" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="220" y="805" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">Mental model: Scanner is a bookmark. The book owns the words;</text>
+  <text x="220" y="835" font-family="Arial, sans-serif" font-size="19" fill="#1e293b">the bookmark only remembers which book and the current position.</text>
+</svg>

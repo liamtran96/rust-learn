@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 3 days |
 | Streak (best) | 3 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 13 (formally tracked) |
+| Total sessions | 14 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-27 - Ownership drills d10-d11: mutable slices and tail expressions |
+| Last session | 2026-08-27 - d12 borrowing-struct visual preview |
 | Days since last session | 0 |
 
 ## Template
@@ -196,6 +196,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/02-ownership/drills-ownership/tests/d10_mut_through_ref.rs` and `d11_scoped_return.rs` - isolated tests passed
 - Mood: -
 - Tomorrow's first move: Ownership drill d12 (`cargo test --test d12_scanner_peek`)
+
+### 2026-08-27 - d12 borrowing-struct visual preview
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / borrowing structs and lifetimes
+- What I did: Previewed the unfamiliar `struct`, `impl`, lifetime, `&self`, and `&mut self` syntax using a bookmark-style SVG diagram; confirmed that no tldraw connector is installed in this Codex session.
+- Exercises: ownership drill d12 previewed but not completed
+- Code: `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg` - created and XML-validated
+- Mood: -
+- Tomorrow's first move: Reopen the visual, fill d12's `PREDICT:` in my own words, then run `cargo test --test d12_scanner_peek`
 
 ## Weekly review
 

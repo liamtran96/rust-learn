@@ -1135,3 +1135,40 @@ tags: [rust, journal]
 **Questions asked this session:** -
 **Question to answer later:** Which Rust expressions commonly look like statements but can produce values when used without a semicolon?
 **Next:** Complete ownership drill d12: fill `PREDICT:`, run `cargo test --test d12_scanner_peek`, implement it, then fill `WHY:`.
+
+### 2026-08-27 - Borrowing struct preview (d12 in progress)
+**Working on:** Ownership drill d12 - `code/02-ownership/drills-ownership/tests/d12_scanner_peek.rs`
+**What clicked:** The visual model separates the owned text from the borrowing `Scanner`: the text is the book, while `Scanner` is a bookmark containing a borrowed view and its own cursor position. `&self` means read the bookmark, while `&mut self` permits moving its position.
+**What didn't:** Rust struct and `impl` syntax is new material from the later types chapter, so combining it with a lifetime and two receiver forms made the drill difficult to parse before any implementation attempt. The drill remains incomplete: `PREDICT:` and `WHY:` are empty and both method bodies still contain `todo!()`.
+**Questions asked this session:**
+- **Q:** What is a struct in Rust, and how does it compare with a struct in Go?
+  - **Technical answer:** A Rust struct is a custom type that groups named fields into one value; Go structs serve the same basic data-grouping purpose. Rust places associated functions and methods in an `impl Type` block and uses `self`, `&self`, or `&mut self` to state ownership and borrowing, whereas Go declares methods separately with value or pointer receiver parameters.
+  - **Plain-English analogy / example:**
+    ```rust
+    struct Bookmark { page: usize }
+    impl Bookmark {
+        fn page(&self) -> usize { self.page }
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`
+- **Q:** Why does d12 need this unfamiliar syntax: `Scanner<'a>`, `impl<'a>`, `&self`, and `&mut self`?
+  - **Technical answer:** `Scanner<'a>` says the value contains a reference valid for a compiler-checked lifetime relationship named `'a`, and `impl<'a>` makes that name available while defining behavior for the type. `&self` temporarily borrows the scanner read-only; `&mut self` temporarily borrows it exclusively so a field such as the cursor position may change.
+  - **Plain-English analogy / example:**
+    ```text
+    source: &'a str -> which book the bookmark refers to
+    pos: usize      -> where the bookmark currently sits
+    &self           -> look at the bookmark
+    &mut self       -> move the bookmark
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/lifetimes.md`, `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`
+- **Q:** Can Codex connect to my tldraw account through MCP to explain this visually?
+  - **Technical answer:** tldraw publishes an MCP App that exposes canvas shape creation, editing, and deletion to supported MCP clients. No tldraw connector is installed in this Codex session, so the safe fallback was a standalone SVG rather than claiming account access that was not available.
+  - **Plain-English analogy / example:**
+    ```text
+    MCP connector installed -> agent can operate the shared canvas
+    no connector here        -> agent creates a portable SVG
+    SVG                      -> open directly or bring into a canvas
+    ```
+  - **See also:** `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`
+**Question to answer later:** After filling the prediction, can Liam identify which field `peek` only reads and which field `advance` must change?
+**Next:** Reopen `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`, then fill d12's `PREDICT:` in Liam's own words before running `cargo test --test d12_scanner_peek`.

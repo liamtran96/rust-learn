@@ -1108,3 +1108,22 @@ tags: [rust, journal]
   - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/01-fundamentals/functions.md`
 **Question to answer later:** How would a byte-index implementation safely find the same slice boundary without allocating?
 **Next:** Complete ownership drill d10: fill `PREDICT:`, run `cargo test --test d10_mut_through_ref`, implement it, then fill `WHY:`.
+
+### 2026-08-27 - Mutating through a slice reference
+**Working on:** Ownership drill d10 - `code/02-ownership/drills-ownership/tests/d10_mut_through_ref.rs`
+**What clicked:** `&mut Vec<i32>` can coerce to `&mut [i32]`, allowing a function to accept a general mutable slice while callers still pass vectors. `iter_mut` yields `&mut i32` values, and dereferencing each one permits in-place mutation with `*=`.
+**What didn't:** The first attempts calculated `*value * 2` but discarded the result, first explicitly with `let _ =` and then as an unused expression. The empty-vector test passed because its loop had no iterations, so only the non-empty assertion demonstrated that mutation actually happened.
+**Questions asked this session:**
+- **Q:** How should d10 mutate every element, and why can `&mut Vec<i32>` satisfy a `&mut [i32]` parameter?
+  - **Technical answer:** Iterating with `iter_mut` yields exclusive references to individual elements; dereferencing and compound-assigning changes the original storage. `Vec<T>` implements mutable dereferencing to `[T]`, so Rust can coerce a mutable vector reference into the mutable slice view required by the function.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut values = [1, 2];
+    for value in values.iter_mut() {
+        *value *= 2;
+    }
+    assert_eq!(values, [2, 4]);
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+**Question to answer later:** When should a function require `&mut Vec<T>` rather than the more general `&mut [T]`?
+**Next:** Complete ownership drill d11: fill `PREDICT:`, run `cargo test --test d11_scoped_return`, fix minimally, then fill `WHY:`.

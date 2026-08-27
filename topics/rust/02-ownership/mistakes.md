@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-27 - Arithmetic result discarded instead of assigned (ownership drill d10)
+- **What I wrote:** `let _ = *value * 2;` and then `*value * 2;`
+- **Why it's wrong:** Both expressions calculate a doubled integer without writing it through the mutable reference, so the original slice remains unchanged. The empty-input test still passes because the loop body never runs, which does not verify mutation behavior.
+- **The rule:** Dereference an `&mut T` and assign through it to change the referent; compound assignment such as `*value *= 2` both calculates and stores the result.
+- **Status:** 🟥 fresh
+
 ### 2026-08-26 - `todo!()` and a discarded tail value (ownership drill d09)
 - **What I wrote:** Predicted "no" to whether the file with `todo!()` compiles, then wrote `first.unwrap_or("");` before leaving `todo!()` in place.
 - **Why it's wrong:** `todo!()` has the never type and can stand where a `&str` is expected, so the file compiles but panics when that line executes. The semicolon turns the desired `&str` into a discarded statement result; it must be the tail expression to become the function's return value.

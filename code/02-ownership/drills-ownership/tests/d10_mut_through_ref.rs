@@ -3,14 +3,17 @@
 //!
 //! PREDICT (before running): the test passes `&mut v` where `v: Vec<i32>`. Why does that
 //! satisfy a `&mut [i32]` parameter?
-//! PREDICT:
+//! PREDICT: because rust will be automatically convert &mut Vec<i32> to &mut [i32]
 //!
 //! WHY (after it passes): why is `&mut [i32]` the better signature than `&mut Vec<i32>`?
-//! WHY:
+//! WHY: because double_all does not need vector-specific operations and only need mytauble element access-not vector operations
+//! REVIEW: `&mut [i32]` grants exactly the exclusive element access `double_all` needs and accepts vectors, arrays, or subslices; `&mut Vec<i32>` would unnecessarily require a vector and expose operations such as `push`. `&mut Vec<i32>` coerces to `&mut [i32]` because `Vec<T>` dereferences mutably to `[T]`.
 
 /// Doubles every element in place.
 fn double_all(values: &mut [i32]) {
-    todo!("mutate through the exclusive borrow")
+    for value in values.iter_mut(){
+     *value *=2;
+    }
 }
 
 #[test]

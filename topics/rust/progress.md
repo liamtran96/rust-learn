@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 2 days |
-| Streak (best) | 2 days |
+| Streak (current) | 3 days |
+| Streak (best) | 3 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 12 (formally tracked) |
+| Total sessions | 13 (formally tracked) |
 | Exercises completed | 7 / 7 (Ch 1) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 2 |
-| Last session | 2026-08-26 - Ownership drills d05-d09: borrowed iteration and slices |
+| Last session | 2026-08-27 - Ownership drill d10: mutable slice elements |
 | Days since last session | 0 |
 
 ## Template
@@ -187,6 +187,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/02-ownership/drills-ownership/tests/d05_for_consumes.rs` through `d09_slice_window.rs` - isolated tests passed
 - Mood: -
 - Tomorrow's first move: Ownership drill d10 (`cargo test --test d10_mut_through_ref`)
+
+### 2026-08-27 - Ownership drill d10: mutable slice elements
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership and borrowing
+- What I did: Completed d10; accepted a vector through `&mut [i32]` coercion, iterated as `&mut i32`, and mutated every element in place through dereferencing.
+- Exercises: ownership drill d10 completed; official Ch 1 total remains 7 / 7
+- Code: `code/02-ownership/drills-ownership/tests/d10_mut_through_ref.rs` - isolated test passed
+- Mood: -
+- Tomorrow's first move: Ownership drill d11 (`cargo test --test d11_scoped_return`)
 
 ## Weekly review
 

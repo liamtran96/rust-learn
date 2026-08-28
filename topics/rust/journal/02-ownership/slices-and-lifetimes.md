@@ -245,3 +245,51 @@ tags: [rust, journal, ownership]
   - **See also:** `topics/rust/02-ownership/slices.md`
 **Question to answer later:** How can the standard library implement `split_at_mut` internally when the straightforward safe indexing version is rejected?
 **Next:** Resume ownership drill d12: fill `PREDICT:` in Liam's own words, then run `cargo test --test d12_scanner_peek`.
+
+### 2026-08-28 - A borrowing scanner with methods
+**Working on:** Ownership drill d12 - `code/02-ownership/drills-ownership/tests/d12_scanner_peek.rs`
+**What clicked:** A `Scanner` groups a borrowed source and an owned cursor; `peek(&self)` reads without moving the cursor, while `advance(&mut self)` may update it. A suffix slice plus `chars().next()` returns `Option<char>`, and a scanner is a reduced form of the cursor used by parsers for commands, configuration, and expressions.
+**What didn't:** `struct`, `impl`, `Self`, receiver, and lifetime syntax were still outside the learned syntax boundary and needed to be decoded before implementation. The first `peek` copied demonstration constants literally, then bound `self.pos` to a variable without using it as the slice start. The final `WHY:` still described `'a` as creating a lifetime rather than naming a validity relationship.
+**Questions asked this session:**
+- **Q:** "I don't familiar with the syntax; please remember that and don't make me say that again and again."
+  - **Technical answer:** New syntax must be introduced before it is required in an implementation. `struct Scanner<'a>` declares a type with a lifetime parameter, `impl<'a> Scanner<'a>` defines its methods, and `&self` versus `&mut self` states whether a method only reads or may mutate the current scanner.
+  - **Plain-English analogy / example:**
+    ```text
+    source: &'a str -> borrowed book
+    pos: usize      -> owned bookmark position
+    &self           -> inspect the bookmark
+    &mut self       -> move the bookmark
+    ```
+  - **See also:** `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`, `topics/rust/03-types-and-traits/structs.md`
+- **Q:** "I still don't understand what should I do."
+  - **Technical answer:** `advance` first asks `peek` for the current `Option<char>`. It increments `pos` only when that option is `Some`, then returns the original option; this preserves `None` at end-of-input and avoids moving beyond the ASCII source.
+  - **Plain-English analogy / example:**
+    ```rust
+    let next = queue.front();
+    if next.is_some() {
+        // move the cursor only when an item exists
+    }
+    ```
+  - **See also:** `topics/rust/05-error-handling/result-option.md`
+- **Q:** "Why do I need to learn this, and how do I apply it to build a real application?"
+  - **Technical answer:** The scanner is a small stateful parser: it combines input with a cursor and separates observation from mutation. Real applications use this shape to parse commands, configuration, search filters, logs, and expressions; the lifetime prevents the parser from retaining a reference after its input is no longer valid.
+  - **Plain-English analogy / example:**
+    ```text
+    peek digit  -> decide to parse a number
+    advance     -> consume that digit
+    peek '+'    -> decide to parse an operator
+    end of text -> return None safely
+    ```
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`, `topics/rust/02-ownership/visuals/d12-scanner-borrowing.svg`
+- **Q:** "Make sure in the future you explain the code for me."
+  - **Technical answer:** Future sessions will introduce unfamiliar code in three layers before implementation: its purpose, its connection to a real application, and the meaning of each new syntax element. The repository instructions now make this a persistent teaching rule rather than relying on Liam to repeat the preference.
+  - **Plain-English analogy / example:**
+    ```text
+    why it exists       -> destination
+    application example -> map
+    syntax walkthrough  -> road signs
+    implementation      -> Liam drives
+    ```
+  - **See also:** `AGENTS.md`, `WORKFLOW.md`
+**Question to answer later:** Can Liam explain that `'a` constrains the scanner/source relationship without saying that it creates or extends a lifetime?
+**Next:** Read `topics/rust/02-ownership/lifetimes.md`, then explain how `Scanner<'a>` prevents a borrowed scanner from outliving its source text.

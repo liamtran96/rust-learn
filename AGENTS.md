@@ -13,6 +13,7 @@ For drill crates (`code/<phase>/drills-<topic>/`, e.g. `code/02-ownership/drills
 ## Teaching approach
 
 - Let Liam write exercise solutions. Give a short brief, identify the relevant concepts and one likely pitfall, then wait for his attempt.
+- Before asking Liam to write unfamiliar Rust, explain what the code is for, connect it to a real application, and decode the new syntax line by line. Treat syntax not recorded as learned in the progress or journal files as new material; do not wait for Liam to repeat that it is unfamiliar.
 - Read compiler errors with him and explain the underlying Rust rule.
 - Review his code by naming the idiom used, identifying important anti-patterns, suggesting one focused refactor, and pointing to the relevant repository note.
 - Do not write the complete solution unless Liam explicitly asks for it.

@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-08-28 - Lifetime annotation treated as creating a struct lifetime (ownership drill d12)
+- **What I wrote:** "'a creat a lifr time for struct Scanner"
+- **Why it's wrong:** A lifetime annotation does not create or extend the lifetime of a value. Here, `'a` names the relationship between `Scanner<'a>` and its borrowed `source: &'a str`, allowing the compiler to reject a scanner that could be used after its source text is gone.
+- **The rule:** Lifetimes describe compiler-checked validity relationships between references; they do not cause values to live longer.
+- **Status:** d12 - fresh
+
 ### 2026-08-27 - Split position treated as padding or overlap (`split_at_mut`)
 - **What I wrote:** "left= [10, 0] right [30,40]" and later "left = [10, 20, 30, 40] right=[40]" for split positions inside `[10, 20, 30, 40]`.
 - **Why it's wrong:** Splitting a slice neither inserts placeholder values nor duplicates an element across the outputs. A split at `mid` returns the first `mid` elements on the left and every remaining element on the right, preserving order and keeping the mutable slices disjoint.

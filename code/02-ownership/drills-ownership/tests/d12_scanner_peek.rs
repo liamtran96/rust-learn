@@ -3,10 +3,11 @@
 //! ASCII input only for now — Unicode widths come in a later chapter.
 //!
 //! PREDICT (before running): `peek` takes `&self` but `advance` takes `&mut self`. Why must they differ?
-//! PREDICT:
+//! PREDICT: &self allow method read the data without chaning any data, on the other hand &mut self can read and change data
 //!
 //! WHY (after it passes): what does the `'a` on the struct tie together?
-//! WHY:
+//! WHY: 'a creat a lifr time for struct Scanner
+//! REVIEW: `'a` ties `Scanner<'a>` to its borrowed `source: &'a str`, so the scanner cannot outlive the source text.
 
 struct Scanner<'a> {
     source: &'a str,
@@ -20,12 +21,19 @@ impl<'a> Scanner<'a> {
 
     /// Returns the next character without consuming it.
     fn peek(&self) -> Option<char> {
-        todo!("look at the character at pos, if any")
+        let world = self.source;
+        let start = self.pos;
+        let suffix = &world[start..];
+        suffix.chars().next()
     }
 
     /// Returns the next character and moves past it.
     fn advance(&mut self) -> Option<char> {
-        todo!("return the character at pos and step the cursor")
+        let next = self.peek();
+        if next.is_some() {
+            self.pos += 1;
+        }
+        next
     }
 }
 

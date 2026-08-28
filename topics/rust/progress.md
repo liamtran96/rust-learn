@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 3 days |
-| Streak (best) | 3 days |
+| Streak (current) | 4 days |
+| Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 16 (formally tracked) |
+| Total sessions | 17 (formally tracked) |
 | Exercises completed | 9 total (7 / 7 Ch 1 + `strip_margin` and `split_at_mut` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-08-27 - `split_at_mut` |
+| Last session | 2026-08-28 - ownership drill d12 |
 | Days since last session | 0 |
 
 ## Template
@@ -223,6 +223,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/02-ownership/split-at-mut` - formatted; check, zero-test harness, strict Clippy, and runtime behavior verified
 - Mood: -
 - Tomorrow's first move: Resume ownership drill d12 in `code/02-ownership/drills-ownership/` by filling `PREDICT:` before running `cargo test --test d12_scanner_peek`
+
+### 2026-08-28 - Ownership drill d12: borrowing struct scanner
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / borrowing structs and lifetimes
+- What I did: Implemented `Scanner<'a>::peek` and `advance`; decoded unfamiliar `struct`, `impl`, `Self`, method-receiver, lifetime, slicing, and `Option<char>` syntax; connected the scanner cursor pattern to parsers used in real applications.
+- Exercises: ownership drill d12 completed; official exercise total remains 9
+- Code: `code/02-ownership/drills-ownership/tests/d12_scanner_peek.rs` - formatting, isolated target, and full crate tests passed; strict Clippy is blocked by the earlier d07 `let_and_return` warning
+- Mood: -
+- Tomorrow's first move: Read `topics/rust/02-ownership/lifetimes.md`, then explain how `Scanner<'a>` prevents a borrowed scanner from outliving its source text
 
 ## Weekly review
 

@@ -5,9 +5,9 @@ fn main() {
         strip_margin("  |hello\n    |world        asjdhajdh", '|')
     );
     let text: &str = "hello";
-  let tail: &str = &text[1..];
+    let tail: &str = &text[1..];
 
-  println!("{tail}"); // "ello"
+    println!("{tail}"); // "ello"
 }
 
 fn strip_margin(s: &str, prefix: char) -> String {

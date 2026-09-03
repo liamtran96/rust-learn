@@ -3,7 +3,7 @@
 //! statement, and the block's value becomes `()`.
 //!
 //! PREDICT (before running): does this compile? what will the error say the function returns?
-//! PREDICT: no because the trailling semicolon at the return is this case it returen unit type 
+//! PREDICT: no because the trailling semicolon at the return is this case it returen unit type
 //!
 //! WHY (after it passes): expression vs statement — one sentence each.
 //! WHY: expression return value and statement is like decalare something

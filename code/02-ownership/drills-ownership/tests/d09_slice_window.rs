@@ -2,7 +2,7 @@
 //! A `&str` return that borrows from the parameter — elision handles the lifetime here.
 //!
 //! PREDICT (before running): with `todo!()` in place, does this file compile? do the tests pass?
-//! PREDICT: no 
+//! PREDICT: no
 //!
 //! WHY (after it passes): why is returning `&str` here free (no allocation), and what
 //! would returning `String` cost instead?

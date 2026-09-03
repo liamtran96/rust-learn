@@ -11,8 +11,8 @@
 
 /// Doubles every element in place.
 fn double_all(values: &mut [i32]) {
-    for value in values.iter_mut(){
-     *value *=2;
+    for value in values.iter_mut() {
+        *value *= 2;
     }
 }
 

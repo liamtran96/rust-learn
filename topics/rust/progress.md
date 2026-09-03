@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 4 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 17 (formally tracked) |
+| Total sessions | 18 (formally tracked) |
 | Exercises completed | 9 total (7 / 7 Ch 1 + `strip_margin` and `split_at_mut` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-08-28 - ownership drill d12 |
+| Last session | 2026-09-03 - ownership homework review started |
 | Days since last session | 0 |
 
 ## Template
@@ -232,6 +232,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/02-ownership/drills-ownership/tests/d12_scanner_peek.rs` - formatting, isolated target, and full crate tests passed; strict Clippy is blocked by the earlier d07 `let_and_return` warning
 - Mood: -
 - Tomorrow's first move: Read `topics/rust/02-ownership/lifetimes.md`, then explain how `Scanner<'a>` prevents a borrowed scanner from outliving its source text
+
+
+### 2026-09-03 - Ownership retrieval homework started
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership retrieval review
+- What I did: Started Question 1 of topics/rust/homework/2026-08-28-retrieval-02-ownership.md; reviewed the differences between moving, copying, borrowing, and cloning, including who owns a String after each operation.
+- Exercises: homework Question 1 attempted but not completed; official exercise total remains 9
+- Code: none - retrieval review
+- Mood: -
+- Tomorrow's first move: Resume homework Question 1 by explaining why using .clone() only to silence the borrow checker can hide the intended ownership decision
 
 ## Weekly review
 

@@ -49,11 +49,20 @@ Treat the repository root as the base for every path. Interpret text following `
    - **Status:** 🟥 fresh
    ```
 
-11. After the session files are updated and relevant verification passes, commit and push the completed session:
+11. If this session changes a chapter from incomplete to complete, automatically generate
+    one retrieval homework set focused on that chapter by following the **Generate
+    homework** and **Automatic chapter closeout** sections in
+    `.agents/skills/homework/SKILL.md`:
+    - Run this only for a new completion transition, not whenever an already-complete
+      chapter is journaled again.
+    - Generate after updating progress, journals, and mistakes, and before staging files.
+    - Include the generated homework file in the same focused closeout commit.
+    - Report the homework path in the final response.
+12. After the session files are updated and relevant verification passes, commit and push the completed session:
    - Confirm the current branch is `main`. If it is not, do not switch branches, merge, commit, or push; report the mismatch.
    - Inspect `git status` and the diff. Stage only the exercise and learning-record files changed for this completed session; never include unrelated user changes. If session changes cannot be isolated safely, stop before committing and explain why.
    - Review the staged diff, then create one focused Conventional Commit whose message describes the completed learning work. Do not amend an existing commit.
    - Push `main` to its configured upstream with an ordinary push. Never force-push. Request any tool or network approval required at push time; if the remote, authentication, network, or push fails, keep the local commit and report the failure without retrying destructively.
-12. Reply with one line containing the date and topic, the milestone updated if any, the number and destination of mistake entries, the commit hash, and the push result.
+13. Reply with one line containing the date and topic, the milestone updated if any, the number and destination of mistake entries, the chapter homework path when generated, the commit hash, and the push result.
 
 Keep fields concise. Use `—` for genuinely inapplicable fields. Never use a relative date such as “today.”

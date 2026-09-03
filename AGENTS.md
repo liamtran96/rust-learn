@@ -26,6 +26,7 @@ When Liam completes or successfully reviews an exercise:
 2. Update `topics/rust/progress.md`. Update `topics/rust/study-plan.md` and `topics/rust/roadmap.md` only when the corresponding checkbox or milestone is genuinely completed.
 3. Add meaningful conceptual mistakes to `topics/rust/<NN-chapter>/mistakes.md`; do not log routine compiler feedback that was immediately corrected.
 4. Use the repository's `journal` skill when applicable.
+5. When the session newly completes an entire chapter, automatically generate exactly one chapter-focused retrieval set with the `homework` skill after updating the learning records. Include it in the same closeout commit; do not generate another set merely because an already-complete chapter is journaled again.
 
 Use absolute dates in `YYYY-MM-DD` form. Preserve the existing Obsidian `[[wikilink]]` style in curriculum notes.
 

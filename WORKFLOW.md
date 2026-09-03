@@ -49,6 +49,7 @@ Stuck >10 minutes? Ask the agent about the **error message** — it reads errors
 - **Finished something** (compiles, runs, you'd call it done)? Say **"done"** — the agent runs `$journal` / `/journal`, which:
   appends the dated entry to the closest subject file under `topics/rust/journal/<NN-chapter>/` (including every question you asked),
   ticks the milestone in `roadmap.md`, and updates `study-plan.md` / `progress.md`.
+- **Finished an entire chapter?** The same closeout automatically creates one chapter-focused retrieval homework set under `topics/rust/homework/` after the learning records are current.
 - Stopping mid-task is fine; a recorded next action beats a rushed finish.
 
 ## Weekly (Sundays, ~10 min)

@@ -52,6 +52,13 @@ non-copy type the original one can useable
 **Revision 3 (2026-09-04):** because the ownership of title was moved to published and
 String does not implement borrowing
 
+**Revision 4 (2026-09-04):**
+
+2. copy is value dupliacted automatically both can be usable
+3. borrowing: borrow the reference both can usable
+4. clone is explicit clne creates new resouce
+
+**Revision 4 review:** Partly correct
 **Review status:** Retry — the basic categories were identified, but the line-by-line
 ownership state and the reason not to use clone() merely to silence the borrow checker
 still need an answer.

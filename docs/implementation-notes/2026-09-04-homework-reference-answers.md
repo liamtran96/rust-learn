@@ -15,7 +15,9 @@ canonical answer for comparison and future review.
 
 The homework review loop continues to grade attempts and use narrower follow-ups for
 retries. Once the complete numbered question is correct, it presents a clearly labeled
-reference answer and saves that answer alongside the tracked attempts.
+reference answer and saves that answer alongside the tracked attempts. Attempts remain
+uncommitted during the question; the complete review is committed once after the reference
+answer is saved.
 
 ## Important decisions
 
@@ -23,6 +25,8 @@ reference answer and saves that answer alongside the tracked attempts.
   retrieval practice.
 - Learner attempts remain unchanged so progress in reasoning stays visible.
 - The reference answers cover the original prompt, not only the final follow-up.
+- Individual retries are not committed. One focused commit records the entire completed
+  numbered question, while unrelated working-tree changes remain unstaged.
 
 ## Verification
 
@@ -35,9 +39,9 @@ reference answer and saves that answer alongside the tracked attempts.
 
 Keep reference answers concise and verify Rust claims against official Rust documentation.
 Do not reveal or save a reference answer while a question is still marked partly correct
-or retry.
+or retry. Do not commit a tracked answer until its entire numbered question is correct.
 
 ## Source request
 
 Liam's request on 2026-09-04 to always receive a final reference answer after completing
-each whole homework question.
+each whole homework question, and to commit only after the whole question is finished.

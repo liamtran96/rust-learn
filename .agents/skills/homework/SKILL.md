@@ -98,9 +98,13 @@ When called by the journal workflow after a chapter changes from incomplete to c
    after the learner has completed the question, never during a retry. When answers are
    being tracked in the homework file, save the same reference answer beneath that
    question without replacing the learner's attempts.
-
-4. End with one focused review recommendation and name the relevant repository note only
+4. When answers are tracked in the homework file, keep all attempts and review statuses
+   for the current numbered question uncommitted. After the entire question is correct and
+   its reference answer is saved, create one focused commit containing that question's
+   accumulated review. Never commit each retry separately, and leave unrelated changes
+   unstaged.
+5. End with one focused review recommendation and name the relevant repository note only
    after the attempt has been assessed.
-5. Do not update progress, journal, roadmap, or mistake logs merely for generating or
+6. Do not update progress, journal, roadmap, or mistake logs merely for generating or
    grading homework. If Liam completes the review and asks to record the session, use the
    `$journal` workflow.

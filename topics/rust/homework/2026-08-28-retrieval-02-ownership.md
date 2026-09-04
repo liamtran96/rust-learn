@@ -367,9 +367,15 @@ method panics.
 
 ### 6. Transfer: a borrowed command parser
 
-A command-line application receives an owned `String` such as `"deploy production"`.
-It needs a function that returns only the first whitespace-separated word without
-allocating a new string.
+A command-line application owns a `String` and passes a shared borrow of it to a helper:
+
+```rust
+let command = String::from("deploy production");
+let word = first_word(&command);
+```
+
+The helper must return only the first whitespace-separated word without allocating a new
+string. The caller keeps ownership of `command`; the helper does not take ownership.
 
 Describe an appropriate function signature using `&str`, including the return type. Then
 explain:
@@ -377,8 +383,8 @@ explain:
 - who owns the original text;
 - what the returned value contains and whether it owns or copies the word;
 - why the returned value cannot be stored and used after the original `String` is dropped;
-- what ownership and allocation tradeoff would change if the function returned `String`
-  instead.
+- assuming the input remains `&str`, what ownership and allocation tradeoff would change
+  if the function returned `String` instead of `&str`.
 
 You do not need to implement the function.
 
@@ -407,6 +413,52 @@ returned slice can refer to that text.
 **Review status:** Partly correct - the complete signature is now
 fn first_word(text: &str) -> &str. The ownership, returned-view validity, and
 String-return tradeoff explanations remain.
+
+**Your answer (fourth attempt, 2026-09-04):**
+
+command
+
+**Review status:** Partly correct - command remains the owner of the original String. The
+input and returned &str borrow from that owned text. The returned-view validity and
+String-return tradeoff explanations remain.
+
+**Your answer (fifth attempt, 2026-09-04):**
+
+borrow a view into command's existing characters
+
+**Review status:** Partly correct - the returned &str is a non-owning view into command's
+existing characters and performs no copy or allocation. The validity-after-drop and
+String-return tradeoff explanations remain.
+
+**Your answer (sixth attempt, 2026-09-04):**
+
+the word can not be use because world is borrowing a reference once command removed world is invalid
+
+**Review status:** Partly correct - word cannot be used after command is dropped because
+its borrowed text would no longer exist; Rust rejects that dangling-reference use. Only
+the ownership and allocation tradeoff of returning String remains.
+
+**Your answer (seventh attempt, 2026-09-04):**
+
+1. yes the return String own its character
+2. yes
+3. yes
+
+**Review status:** Correct.
+
+**Reference answer:**
+
+```rust
+fn first_word(text: &str) -> &str
+```
+
+The caller's command variable owns the original String. The input &str temporarily borrows
+that text, and the returned &str is a non-owning view of the first word in the same storage;
+it does not copy or allocate the characters. Rust ties the returned reference's validity
+to the borrowed input, so it cannot be used after command is dropped. If the function
+instead returned String while still accepting &str, the returned word would own a newly
+allocated copy of its characters and could remain usable after command is dropped, at the
+cost of that allocation and copy.
 
 ## Confidence check
 

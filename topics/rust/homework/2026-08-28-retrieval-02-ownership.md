@@ -337,6 +337,34 @@ Requirements:
 than the slice length, split_at_mut panics instead of returning two empty slices. The
 function body still needs a brief explanation of its two disjoint mutable slices.
 
+**Your answer (correction, 2026-09-04):**
+
+mid > values.len(): split_at_mut panics. And the index of [] start with 0 or 1?
+
+**Review status:** Correct.
+
+**Reference answer:**
+
+```rust
+fn adjust_halves(values: &mut [i32], mid: usize) {
+    let (left, right) = values.split_at_mut(mid);
+
+    for value in left.iter_mut() {
+        *value += 10;
+    }
+
+    for value in right.iter_mut() {
+        *value += 100;
+    }
+}
+```
+
+split_at_mut returns two disjoint mutable slices without copying or allocating. The left
+slice contains the first mid elements and the right slice contains the remaining elements.
+When mid is 0, left is empty and right contains all values. When mid equals values.len(),
+left contains all values and right is empty. When mid is greater than values.len(), the
+method panics.
+
 ### 6. Transfer: a borrowed command parser
 
 A command-line application receives an owned `String` such as `"deploy production"`.

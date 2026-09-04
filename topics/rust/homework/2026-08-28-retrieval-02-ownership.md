@@ -274,6 +274,14 @@ if the vector's current memory is full can not push. i dont know
 buffer and move its elements there, which would make an existing reference into the old
 buffer invalid. The answer still needs a safe reordering and the shared borrow's final use.
 
+**Your answer (fifth attempt, 2026-09-04):**
+
+push may allocate the vector's buffer, so first could point to new memory and the old will be released
+
+**Review status:** Partly correct - push may allocate a new buffer and release the old
+one, but first would still point to the old memory, not automatically follow the elements
+to the new memory. The answer still needs a safe reordering and the final shared use.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value

@@ -298,6 +298,34 @@ before
 the mutable borrow finish before the shared borrow begins. Only the point where the shared
 borrow ends under NLL remains to complete the question.
 
+**Your answer (eighth attempt, 2026-09-04):**
+
+the shared borrow end at println! finish because it is the last time first used
+
+**Review status:** Correct.
+
+**Reference answer:**
+
+The original code does not compile. Creating first with &scores[0] starts a shared borrow
+into scores, while scores.push(40) requires a mutable borrow of the vector. These borrows
+overlap because first is used afterward. push matters because it may allocate a larger
+buffer, move the elements, and release the old buffer, which would leave first pointing
+to invalid memory.
+
+A minimal safe reordering is:
+
+```rust
+let mut scores = vec![10, 20, 30];
+scores.push(40);
+
+let first = &scores[0];
+println!("first={first}");
+```
+
+The mutable borrow used by push ends when the call finishes. The shared borrow begins when
+first is created and ends after println!, its final use, under non-lexical lifetime
+analysis. The vector retains all four values.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value

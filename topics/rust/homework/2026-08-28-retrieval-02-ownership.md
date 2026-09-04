@@ -327,6 +327,16 @@ Requirements:
 
 **Your answer:**
 
+**Edge-case attempt (2026-09-04):**
+
+1. mid = 0 then left is [] and right is values
+2. mid == values.len() then left is values and right is []
+3. mid > values.len() then left and right is []
+
+**Review status:** Partly correct - the first two cases are correct. When mid is greater
+than the slice length, split_at_mut panics instead of returning two empty slices. The
+function body still needs a brief explanation of its two disjoint mutable slices.
+
 ### 6. Transfer: a borrowed command parser
 
 A command-line application receives an owned `String` such as `"deploy production"`.

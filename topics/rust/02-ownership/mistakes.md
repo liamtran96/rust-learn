@@ -10,6 +10,30 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-04 - Copy elements treated as a Copy vector (retrieval Question 3)
+- **What I wrote:** "Yes, It prints 3 because Vec<i32> is a copy type so we can reuse it"
+- **Why it's wrong:** The element type i32 implements Copy, but Vec<i32> owns heap storage and does not implement Copy. The vector remains usable only when the loop iterates over &values and borrows the container instead of consuming it.
+- **The rule:** Element traits do not automatically apply to the containing collection; for x in values consumes a Vec, while for x in &values borrows it.
+- **Status:** 🟥 fresh
+
+### 2026-09-04 - Vector mutation described without reallocation and NLL (retrieval Question 4)
+- **What I wrote:** "it does not compile because first was changes" and later "if the vector's current memory is full can not push"
+- **Why it's wrong:** first is not changed, and a full Vec can still grow. push may allocate a larger buffer and move the elements, so a shared reference into the old buffer cannot overlap the mutable borrow; under NLL the shared borrow ends after its final use.
+- **The rule:** A shared reference into a Vec and a mutable borrow of that Vec cannot overlap; Vec growth may relocate elements, and a borrow lasts through its last actual use.
+- **Status:** 🟥 fresh
+
+### 2026-09-04 - Invalid slice split expected empty outputs (retrieval Question 5)
+- **What I wrote:** "mid > values.len() then left and right is []"
+- **Why it's wrong:** split_at_mut accepts boundary positions from 0 through len inclusive, but a position greater than len is outside the slice and panics at runtime. An empty slice has length zero and no valid element index, although zero is a valid split boundary.
+- **The rule:** Slice indices are zero-based, split boundaries include len, and split_at_mut panics when mid > len.
+- **Status:** 🟥 fresh
+
+### 2026-09-04 - Owned parser input confused with a borrowed input (retrieval Question 6)
+- **What I wrote:** Chose String for the input of a helper intended to borrow text and return &str.
+- **Why it's wrong:** Taking String by value moves ownership into the helper. An &str input lets the caller remain the owner and lets the returned &str borrow the same storage; returning String instead creates an independently owned copy that can outlive the source.
+- **The rule:** Use &str for a non-owning text input and borrowed output; use String when the result must own its characters, accepting the allocation and copy.
+- **Status:** 🟥 fresh
+
 ### 2026-08-28 - Lifetime annotation treated as creating a struct lifetime (ownership drill d12)
 - **What I wrote:** "'a creat a lifr time for struct Scanner"
 - **Why it's wrong:** A lifetime annotation does not create or extend the lifetime of a value. Here, `'a` names the relationship between `Scanner<'a>` and its borrowed `source: &'a str`, allowing the compiler to reject a scanner that could be used after its source text is gone.

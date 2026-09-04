@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 4 days |
+| Streak (current) | 2 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 18 (formally tracked) |
+| Total sessions | 19 (formally tracked) |
 | Exercises completed | 9 total (7 / 7 Ch 1 + `strip_margin` and `split_at_mut` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-03 - ownership homework review started |
+| Last session | 2026-09-04 - ownership retrieval homework completed |
 | Days since last session | 0 |
 
 ## Template
@@ -242,6 +242,15 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: none - retrieval review
 - Mood: -
 - Tomorrow's first move: Resume homework Question 1 by explaining why using .clone() only to silence the borrow checker can hide the intended ownership decision
+
+### 2026-09-04 - Ownership retrieval homework completed
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership, borrowing, slices, and lifetimes
+- What I did: Completed and reviewed all six questions in topics/rust/homework/2026-08-28-retrieval-02-ownership.md; added canonical reference answers after each complete question.
+- Exercises: retrieval homework 6 / 6 reviewed; official exercise total remains 9
+- Code: none - retrieval review; a temporary strip-margin experiment remains outside this closeout
+- Mood: -
+- Tomorrow's first move: Read topics/rust/02-ownership/lifetimes.md, then begin the full Scanner exercise from topics/rust/exercises/ch02-ownership.md
 
 ## Weekly review
 

@@ -293,3 +293,77 @@ tags: [rust, journal, ownership]
   - **See also:** `AGENTS.md`, `WORKFLOW.md`
 **Question to answer later:** Can Liam explain that `'a` constrains the scanner/source relationship without saying that it creates or extends a lifetime?
 **Next:** Read `topics/rust/02-ownership/lifetimes.md`, then explain how `Scanner<'a>` prevents a borrowed scanner from outliving its source text.
+
+### 2026-09-04 - Ownership retrieval homework completion
+**Working on:** `topics/rust/homework/2026-08-28-retrieval-02-ownership.md`
+**What clicked:** Completed all six retrieval questions and connected moves, Copy, borrowing, cloning, lifetime relationships, iteration ownership, Vec reallocation, non-lexical lifetimes, disjoint mutable slices, and borrowed parser output. Canonical reference answers now sit beneath each completed question for later comparison.
+**What didn't:** Several rules needed narrow retries: Copy on i32 was applied to Vec<i32>, push was first treated as unable to grow a full vector, an invalid split was expected to return empty slices, String was chosen where a borrowed &str input was required, and NLL needed to be rebuilt from its full name and a last-use timeline. The original parser prompt also blurred ownership by saying the function "receives an owned String," so it was clarified to show the caller owning command and passing &command.
+**Questions asked this session:**
+- **Q:** What is the root reason for a lifetime annotation, and does `'a` create or extend a lifetime?
+  - **Technical answer:** A lifetime annotation names a validity relationship that the compiler checks; it does not create time, keep a value alive, or add runtime work. It lets Rust reject a value containing a reference when that value might be used after the referenced source is dropped.
+  - **Plain-English analogy / example:**
+    ```text
+    source text -> owned book
+    &'a str     -> bookmark into that book
+    'a          -> rule: bookmark cannot outlast book
+    check       -> compile time only
+    ```
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`
+- **Q:** Why does i32 being Copy not make Vec<i32> Copy, and why does iterating over &values preserve the vector?
+  - **Technical answer:** i32 values can be copied, but Vec<i32> separately owns a heap allocation and is not Copy. An owned-vector iterator consumes the Vec and yields i32, while iterating over &values borrows the Vec and yields &i32, leaving the container owned by values.
+  - **Plain-English analogy / example:**
+    ```rust
+    let values = vec![1, 2, 3];
+    for item in &values { println!("{item}"); }
+    println!("{}", values.len()); // values was borrowed
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** Why does Vec::push conflict with a reference to an element, and what does NLL stand for?
+  - **Technical answer:** push mutably borrows the Vec and may move its elements into a larger allocation, so it cannot overlap a still-needed shared reference into the old buffer. NLL means non-lexical lifetimes: a borrow can end at its final use rather than automatically lasting to the closing brace.
+  - **Plain-English analogy / example:**
+    ```rust
+    scores.push(40);              // mutable borrow ends
+    let first = &scores[0];       // shared borrow begins
+    println!("{first}");          // final use; shared borrow ends
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** What does split_at_mut panicking mean, and does an empty slice start at index 0 or 1?
+  - **Technical answer:** A panic is a runtime failure, not a compile error; split_at_mut panics when mid is greater than the slice length. Rust indices start at zero, but an empty slice contains no valid element index; zero is still a valid boundary at which to split.
+  - **Plain-English analogy / example:**
+    ```text
+    values length:       3
+    element indices:     0, 1, 2
+    split boundaries:    0, 1, 2, 3
+    split boundary 4:    panic
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+- **Q:** Why could adjust_halves not be printed directly with `{}`?
+  - **Technical answer:** adjust_halves mutates through &mut [i32] and returns unit (), which does not implement Display for `{}`. Call the function first, then print the mutated array with debug formatting; the array binding must be mutable to pass &mut values.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut values = [10, 20, 30, 40];
+    adjust_halves(&mut values, 2);
+    println!("{values:?}");
+    ```
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** How should a first-word helper borrow input and return a word without allocation, and what changes if it returns String?
+  - **Technical answer:** The signature `fn first_word(text: &str) -> &str` borrows the caller's text and returns a non-owning slice into the same storage. The result cannot outlive the source; returning String instead allocates and copies an independently owned word that can remain valid after the source is dropped.
+  - **Plain-English analogy / example:**
+    ```rust
+    let command = String::from("deploy production");
+    let word = first_word(&command); // borrowed "deploy"
+    println!("{word}");
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/02-ownership/lifetimes.md`
+- **Q:** How should homework attempts and final answers be tracked and committed?
+  - **Technical answer:** Preserve each attempt and its review status, but do not create a commit for every retry. After the entire numbered question is correct, add its canonical reference answer and make one focused completion commit while leaving unrelated changes unstaged.
+  - **Plain-English analogy / example:**
+    ```text
+    retries -> saved, uncommitted
+    whole question correct -> add reference answer
+    completed question -> one focused commit
+    unrelated code -> remains unstaged
+    ```
+  - **See also:** `.agents/skills/homework/SKILL.md`
+**Question to answer later:** After spacing, can Liam explain Vec reallocation, NLL, split boundaries, and borrowed parser output without step-by-step prompts?
+**Next:** Read `topics/rust/02-ownership/lifetimes.md`, then begin the full Scanner exercise from `topics/rust/exercises/ch02-ownership.md`.

@@ -44,6 +44,9 @@ the real ownership decision.
 2. let reader = &title;
 3. no because it was moved the ownership and because the String is non-copy type so it is usable
 
+**Revision (2026-09-04):** moving: move the ownership from one to another and for the
+non-copy type the original one can useable
+
 **Review status:** Retry — the basic categories were identified, but the line-by-line
 ownership state and the reason not to use clone() merely to silence the borrow checker
 still need an answer.

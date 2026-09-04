@@ -49,6 +49,9 @@ non-copy type the original one can useable
 
 **Revision 2 (2026-09-04):** dont compile
 
+**Revision 3 (2026-09-04):** because the ownership of title was moved to published and
+String does not implement borrowing
+
 **Review status:** Retry — the basic categories were identified, but the line-by-line
 ownership state and the reason not to use clone() merely to silence the borrow checker
 still need an answer.

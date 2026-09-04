@@ -384,6 +384,14 @@ You do not need to implement the function.
 
 **Your answer:**
 
+**Your answer (first attempt, 2026-09-04):**
+
+the function should return &str
+
+**Review status:** Partly correct - &str is the correct borrowed return type and avoids a
+new allocation. The answer still needs the complete signature and the ownership,
+validity, and String-return tradeoff explanations.
+
 ## Confidence check
 
 For each question, rate confidence from 1 (guessing) to 5 (certain) before checking notes.

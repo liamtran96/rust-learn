@@ -173,6 +173,12 @@ println!("{}", values.len());
 3. decide whether the final println! compile: each item in the vector
 4. because of the interation
 
+**Revision (2026-09-04):**
+
+- Version A moves each element out of Vec<i32>; item has type i32.
+- Version B borrows each element through &values; item has type &i32.
+
+**Revision review:** Correct item types
 **Review status:** Partly correct - Version A correctly identifies consumption and the
 final use error, and Version B correctly identifies borrowing. The item types, Version B
 final println result, and the distinction between Vec ownership and Copy elements still

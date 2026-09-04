@@ -111,9 +111,25 @@ reumtime, and it does not keep the source alive
 
 **Revision 2 review:** Partly correct - no runtime effect and no lifetime extension are
 correct; Rust checks the lifetime relationship at compile time, not runtime.
-**Review status:** Partly correct - the source and Cursor relationship is now correct. The
-answer still needs to state whether the annotation keeps the source alive or changes runtime
-behavior.
+**Revision 3 (2026-09-04):** 'a is checked at complie time. It has no effect at runtime,
+and it does not keep the source alive
+
+**Review status:** Correct
+**Review:** The answer now identifies the compile-time relationship, rejects runtime
+effects, and explains why Cursor cannot safely outlive its borrowed source.
+
+**Reference answer:**
+
+- 'a is a generic lifetime parameter that names a validity relationship; it does not
+  create a fixed duration or make a value live longer.
+- In Cursor<'a>, the field source: &'a str says that the stored string slice must remain
+  valid for the lifetime represented by 'a.
+- Rust therefore permits a Cursor to be used only while its referenced source text is
+  still valid.
+- If the source owner were dropped first, source would become a dangling reference.
+  Rust rejects that situation at compile time rather than allowing unsafe runtime access.
+- Lifetime annotations do not allocate, keep the source alive, or change runtime behavior;
+  they describe constraints checked by the borrow checker.
 
 ### 3. Trace two kinds of iteration
 

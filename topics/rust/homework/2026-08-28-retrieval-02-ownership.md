@@ -159,7 +159,24 @@ for item in &values {
 println!("{}", values.len());
 ```
 
-**Your answer:**
+**Your answer (attempted 2026-09-04):**
+
+**Version A**
+1. state the type of item inside the loop: unit
+2. state whether the loop consumes or borrors values: consume value
+3. decide whether the final println! compile: error
+4. because of the interation
+
+**Version B**
+1. state the type of item inside the loop: the value with i32 type
+2. state whether the loop consumes or borrors values: borrow the value
+3. decide whether the final println! compile: each item in the vector
+4. because of the interation
+
+**Review status:** Partly correct - Version A correctly identifies consumption and the
+final use error, and Version B correctly identifies borrowing. The item types, Version B
+final println result, and the distinction between Vec ownership and Copy elements still
+require correction.
 
 ### 4. Diagnose the overlapping borrows
 

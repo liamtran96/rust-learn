@@ -189,6 +189,12 @@ creating shared reference instead of moving the ownership.
 
 **Revision 3 review:** Retry - the borrowing idea is right, but i32 is the yielded element
 type; the loop expression being iterated is &values.
+**Revision 4 (2026-09-04):** the loop iterate over &value, so it borrow the Vec instead of
+consuming it. i32: Copy applies to the reference, not to the Vec container.
+
+**Revision 4 review:** Partly correct - the loop borrows &values, so the Vec is not
+consumed. The Copy statement applies to the i32 element type, not to the reference or Vec.
+
 **Review status:** Partly correct - Version A correctly identifies consumption and the
 final use error, and Version B correctly identifies borrowing. The item types, Version B
 final println result, and the distinction between Vec ownership and Copy elements still

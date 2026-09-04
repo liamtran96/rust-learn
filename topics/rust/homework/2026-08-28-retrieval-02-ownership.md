@@ -400,6 +400,14 @@ String
 The input should instead borrow the caller's text so the caller remains its owner and the
 returned slice can refer to that text.
 
+**Your answer (third attempt, 2026-09-04):**
+
+&str
+
+**Review status:** Partly correct - the complete signature is now
+fn first_word(text: &str) -> &str. The ownership, returned-view validity, and
+String-return tradeoff explanations remain.
+
 ## Confidence check
 
 For each question, rate confidence from 1 (guessing) to 5 (certain) before checking notes.

@@ -117,3 +117,16 @@ workdir = "code/02-ownership/split-at-mut"
 watch = ["code/02-ownership/split-at-mut/src", "code/02-ownership/split-at-mut/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.scanner]
+command = ["cargo", "check"]
+workdir = "code/02-ownership/scanner"
+watch = ["code/02-ownership/scanner/src", "code/02-ownership/scanner/Cargo.toml"]
+default_watch = false
+
+[jobs.scanner-run]
+command = ["cargo", "run"]
+workdir = "code/02-ownership/scanner"
+watch = ["code/02-ownership/scanner/src", "code/02-ownership/scanner/Cargo.toml"]
+default_watch = false
+need_stdout = true

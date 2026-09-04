@@ -59,9 +59,12 @@ String does not implement borrowing
 4. clone is explicit clne creates new resouce
 
 **Revision 4 review:** Partly correct
-**Review status:** Retry — the basic categories were identified, but the line-by-line
-ownership state and the reason not to use clone() merely to silence the borrow checker
-still need an answer.
+**Revision 5 (2026-09-04):** give it &title because clone create a new resouce but we just
+want to read the title
+
+**Review status:** Correct
+**Review:** Borrowing gives read access without transferring ownership or allocating a
+second String. Cloning is appropriate only when an independent owned value is required.
 
 ### 2. What a lifetime annotation actually says
 

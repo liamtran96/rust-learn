@@ -266,6 +266,14 @@ it does not compile because first shared borrow, while scroes.push(40) need a mu
 mutable borrows. The answer still needs to explain why push can affect an existing
 element reference, give a safe reordering, and identify the shared borrow's final use.
 
+**Your answer (fourth attempt, 2026-09-04):**
+
+if the vector's current memory is full can not push. i dont know
+
+**Review status:** Retry - a full Vec can still accept push. It may allocate a larger
+buffer and move its elements there, which would make an existing reference into the old
+buffer invalid. The answer still needs a safe reordering and the shared borrow's final use.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value

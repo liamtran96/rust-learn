@@ -392,6 +392,14 @@ the function should return &str
 new allocation. The answer still needs the complete signature and the ownership,
 validity, and String-return tradeoff explanations.
 
+**Your answer (second attempt, 2026-09-04):**
+
+String
+
+**Review status:** Retry - taking String by value would move ownership into the function.
+The input should instead borrow the caller's text so the caller remains its owner and the
+returned slice can refer to that text.
+
 ## Confidence check
 
 For each question, rate confidence from 1 (guessing) to 5 (certain) before checking notes.

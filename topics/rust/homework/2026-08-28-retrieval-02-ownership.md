@@ -195,10 +195,35 @@ consuming it. i32: Copy applies to the reference, not to the Vec container.
 **Revision 4 review:** Partly correct - the loop borrows &values, so the Vec is not
 consumed. The Copy statement applies to the i32 element type, not to the reference or Vec.
 
-**Review status:** Partly correct - Version A correctly identifies consumption and the
-final use error, and Version B correctly identifies borrowing. The item types, Version B
-final println result, and the distinction between Vec ownership and Copy elements still
-require correction.
+**Revision 5 (2026-09-04):** the loop iterates over &values, so it borrows the Vec instead
+of consuming it. i32: Copy means each interger element is copyable. It does not maje the
+containing Vec<i32> copyable.
+
+**Review status:** Correct
+**Review:** Both iterator item types, the ownership effect of each loop, the final-use
+results, and the distinction between Copy elements and a non-Copy Vec are now correct.
+
+**Reference answer:**
+
+**Version A**
+
+- item has type i32 because the owned-vector iterator yields elements by value.
+- The loop iterates over values by value, so IntoIterator consumes the Vec and moves each
+  element out through the iterator.
+- The final println does not compile because values was moved into the loop and consumed.
+- The fact that i32 implements Copy applies to each element. It does not make Vec<i32>
+  implement Copy or preserve the vector binding after owned iteration.
+
+**Version B**
+
+- item has type &i32 because the borrowed-vector iterator yields shared references.
+- The loop iterates over &values, so it borrows the Vec instead of transferring ownership.
+  The shared borrow ends after the loop.
+- The final println compiles because values still owns the vector, and values.len() prints
+  3.
+- The Copy property of i32 is not why values survives. The Vec remains usable because it
+  was borrowed rather than consumed.
+
 
 ### 4. Diagnose the overlapping borrows
 

@@ -47,6 +47,8 @@ the real ownership decision.
 **Revision (2026-09-04):** moving: move the ownership from one to another and for the
 non-copy type the original one can useable
 
+**Revision 2 (2026-09-04):** dont compile
+
 **Review status:** Retry — the basic categories were identified, but the line-by-line
 ownership state and the reason not to use clone() merely to silence the borrow checker
 still need an answer.

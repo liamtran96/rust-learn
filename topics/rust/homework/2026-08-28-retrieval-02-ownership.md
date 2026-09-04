@@ -179,6 +179,11 @@ println!("{}", values.len());
 - Version B borrows each element through &values; item has type &i32.
 
 **Revision review:** Correct item types
+**Revision 2 (2026-09-04):** Yes, it prints 3 because Vec<i32> is a copy type so we can
+reuse it.
+
+**Revision 2 review:** Partly correct - the output and compilation result are correct,
+but Vec<i32> is not Copy; the vector remains usable because the loop borrows it.
 **Review status:** Partly correct - Version A correctly identifies consumption and the
 final use error, and Version B correctly identifies borrowing. The item types, Version B
 final println result, and the distinction between Vec ownership and Copy elements still

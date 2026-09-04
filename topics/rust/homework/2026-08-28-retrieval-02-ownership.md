@@ -66,6 +66,23 @@ want to read the title
 **Review:** Borrowing gives read access without transferring ownership or allocating a
 second String. Cloning is appropriate only when an independent owned value is required.
 
+**Reference answer:**
+
+- **Move:** Assigning title to published transfers ownership of the original String to
+  published. Because String is not Copy, title is no longer usable afterward.
+- **Copy:** Assigning count to other_count copies the i32 automatically. Both variables
+  remain usable and independently contain 8.
+- **Borrow:** Assigning &title to reader creates a shared reference. title remains the
+  owner, reader can read the value, and no second String is allocated. The reference
+  cannot outlive the borrowed value.
+  In this snippet reader is not used again, so the shared borrow ends before title moves.
+  If reader were used afterward, Rust would reject moving title while it is borrowed.
+- **Clone:** Calling title.clone() explicitly creates a separate owned String. Both values
+  remain usable until title is later moved to published.
+- Using clone() only to silence the borrow checker can hide whether code should borrow or
+  take ownership, and it can add an unnecessary allocation and data copy. Use &title when
+  only temporary read access is required; clone only when independent ownership is needed.
+
 ### 2. What a lifetime annotation actually says
 
 In your own words, explain what `'a` means in this type and what relationship Rust checks:

@@ -93,6 +93,12 @@ When called by the journal workflow after a chapter changes from incomplete to c
    rule concisely. Distinguish syntax mistakes from conceptual mistakes.
 3. For `retry`, ask one narrower follow-up before giving the full answer. Follow the
    repository teaching approach and do not write a complete solution unless Liam asks.
+   After an entire numbered question is marked correct, always provide a concise,
+   canonical **Reference answer** that fully answers the original prompt. Show it only
+   after the learner has completed the question, never during a retry. When answers are
+   being tracked in the homework file, save the same reference answer beneath that
+   question without replacing the learner's attempts.
+
 4. End with one focused review recommendation and name the relevant repository note only
    after the attempt has been assessed.
 5. Do not update progress, journal, roadmap, or mistake logs merely for generating or

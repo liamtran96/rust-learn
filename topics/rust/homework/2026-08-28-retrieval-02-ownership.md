@@ -290,6 +290,14 @@ invalid
 the released old buffer. The borrow conflict and reallocation explanation are now correct;
 the answer still needs a safe reordering and the shared borrow's final use under NLL.
 
+**Your answer (seventh attempt, 2026-09-04):**
+
+before
+
+**Review status:** Partly correct - moving push before the creation of first safely makes
+the mutable borrow finish before the shared borrow begins. Only the point where the shared
+borrow ends under NLL remains to complete the question.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value
@@ -298,6 +306,14 @@ in the left slice, and add `100` to every value in the right slice.
 ```rust
 fn adjust_halves(values: &mut [i32], mid: usize) {
     // Your implementation
+    let (left, right) = values.split_at_mut(mid);
+    for value in left.iter_mut() {
+          *value += 10;
+      }
+
+      for value in right.iter_mut() {
+          *value += 100;
+      }
 }
 ```
 

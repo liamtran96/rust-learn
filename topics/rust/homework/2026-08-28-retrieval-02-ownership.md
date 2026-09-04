@@ -31,7 +31,22 @@ let published = title;
 Also explain why using `clone()` merely to make a borrow-checker error disappear can hide
 the real ownership decision.
 
-**Your answer:**
+**Your answer (attempted 2026-09-03):**
+
+1. moving is move the ownership from one to another
+2. copying is copy to the new value
+3. borrowing: borrow the reference
+4. cloning: clone the value and the reference
+
+**Follow-up attempt:**
+
+1. let archived = title.clone();
+2. let reader = &title;
+3. no because it was moved the ownership and because the String is non-copy type so it is usable
+
+**Review status:** Retry — the basic categories were identified, but the line-by-line
+ownership state and the reason not to use clone() merely to silence the borrow checker
+still need an answer.
 
 ### 2. What a lifetime annotation actually says
 

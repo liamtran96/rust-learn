@@ -258,6 +258,14 @@ scores.push(40) modify the original one
 it requires mutable access. The answer still needs to explain why that mutable borrow
 conflicts with the shared reference first while first remains needed later.
 
+**Your answer (third attempt, 2026-09-04):**
+
+it does not compile because first shared borrow, while scroes.push(40) need a mutable borrow
+
+**Review status:** Partly correct - this correctly identifies the overlapping shared and
+mutable borrows. The answer still needs to explain why push can affect an existing
+element reference, give a safe reordering, and identify the shared borrow's final use.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value

@@ -98,7 +98,13 @@ Does `'a` create a lifetime, keep `source` alive, or change anything at runtime?
 why Rust must reject using a `Cursor` after the text referenced by `source` has been
 dropped.
 
-**Your answer:**
+**Your answer (attempted 2026-09-04):**
+
+'a create a lifetime to tell Rust that this struct should be alive during runtime
+Rust reject using a Cursor after the text referenced by source because it will be dropped
+
+**Review status:** Retry - the dangling-reference consequence is partly correct, but the
+lifetime annotation is incorrectly described as creating a runtime lifetime.
 
 ### 3. Trace two kinds of iteration
 

@@ -242,7 +242,13 @@ Then describe a minimal reordering that preserves all four values and makes the 
 non-overlapping. Name the point where the shared borrow ends under non-lexical lifetime
 analysis.
 
-**Your answer:**
+**Your answer (attempted 2026-09-04):**
+
+it does not compile because first was changes
+
+**Review status:** Retry - the compile result is correct, but first is not changed. The
+answer still needs to identify the shared borrow and mutable borrow that overlap, why
+push matters, a safe reordering, and the shared borrow's final use.
 
 ### 5. Write a disjoint-slice transformation
 

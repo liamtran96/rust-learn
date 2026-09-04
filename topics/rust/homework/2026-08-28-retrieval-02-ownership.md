@@ -184,6 +184,11 @@ reuse it.
 
 **Revision 2 review:** Partly correct - the output and compilation result are correct,
 but Vec<i32> is not Copy; the vector remains usable because the loop borrows it.
+**Revision 3 (2026-09-04):** values remains usable becasue the loop interates over i32
+creating shared reference instead of moving the ownership.
+
+**Revision 3 review:** Retry - the borrowing idea is right, but i32 is the yielded element
+type; the loop expression being iterated is &values.
 **Review status:** Partly correct - Version A correctly identifies consumption and the
 final use error, and Version B correctly identifies borrowing. The item types, Version B
 final println result, and the distinction between Vec ownership and Copy elements still

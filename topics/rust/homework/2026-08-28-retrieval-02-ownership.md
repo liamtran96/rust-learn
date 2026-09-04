@@ -106,6 +106,11 @@ Rust reject using a Cursor after the text referenced by source because it will b
 **Revision (2026-09-04):** 'a does not create a lifetime it names the relatonship between
 Cursor and its borrowed reference ensuring the Cursor can not be used after the source is dropped
 
+**Revision 2 (2026-09-04):** 'a is check at runtime. It has not reference effect at
+reumtime, and it does not keep the source alive
+
+**Revision 2 review:** Partly correct - no runtime effect and no lifetime extension are
+correct; Rust checks the lifetime relationship at compile time, not runtime.
 **Review status:** Partly correct - the source and Cursor relationship is now correct. The
 answer still needs to state whether the annotation keeps the source alive or changes runtime
 behavior.

@@ -103,8 +103,12 @@ dropped.
 'a create a lifetime to tell Rust that this struct should be alive during runtime
 Rust reject using a Cursor after the text referenced by source because it will be dropped
 
-**Review status:** Retry - the dangling-reference consequence is partly correct, but the
-lifetime annotation is incorrectly described as creating a runtime lifetime.
+**Revision (2026-09-04):** 'a does not create a lifetime it names the relatonship between
+Cursor and its borrowed reference ensuring the Cursor can not be used after the source is dropped
+
+**Review status:** Partly correct - the source and Cursor relationship is now correct. The
+answer still needs to state whether the annotation keeps the source alive or changes runtime
+behavior.
 
 ### 3. Trace two kinds of iteration
 

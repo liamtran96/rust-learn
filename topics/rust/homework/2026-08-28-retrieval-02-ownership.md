@@ -250,6 +250,14 @@ it does not compile because first was changes
 answer still needs to identify the shared borrow and mutable borrow that overlap, why
 push matters, a safe reordering, and the shared borrow's final use.
 
+**Your answer (second attempt, 2026-09-04):**
+
+scores.push(40) modify the original one
+
+**Review status:** Retry - this correctly recognizes that push modifies scores, meaning
+it requires mutable access. The answer still needs to explain why that mutable borrow
+conflicts with the shared reference first while first remains needed later.
+
 ### 5. Write a disjoint-slice transformation
 
 Write the body of this function. It must split `values` at `mid`, add `10` to every value

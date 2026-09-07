@@ -10,6 +10,36 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-07 - Printing mistaken for returning an Option (Scanner)
+- **What I wrote:** `println!("Found: {letter}")` as the final expression of the `Some(ch)` branch, including a retry removing its semicolon.
+- **Why it's wrong:** Printing produces unit `()`, not the printed value. `letter` is the whole `Option<char>` and does not support default Display formatting; the character bound as `ch` does.
+- **The rule:** Return the required value as the branch's tail expression; `Some(ch)` returns an Option, while printing only writes output.
+- **Status:** ?? fresh
+
+### 2026-09-07 - Local setup and receiver syntax mixed across functions (Scanner tests)
+- **What I wrote:** `assert_eq!(scanner.peek(), Some('r'));` without a scanner local in the test, then `assert_eq!(peek(&self), Some('r'));` in the advancement test.
+- **Why it's wrong:** A test cannot access a local declared inside main. `self` names a receiver inside a method; the test instead has its own local scanner and calls methods with dot syntax.
+- **The rule:** Set up each test's own instance and call `scanner.advance()` or `scanner.peek()`; use a mutable binding when calling a method taking `&mut self`.
+- **Status:** ?? fresh
+
+### 2026-09-07 - Repeated peeking treated as accumulated characters (Scanner tests)
+- **What I wrote:** `assert_eq!(scanner.peek(), Some('ru'));`
+- **Why it's wrong:** `'ru'` is not a valid char literal, and changing it to a string would still mismatch Option<char>. Peeking reads one character at the current position and does not advance or collect text.
+- **The rule:** Separate char from string and observation from advancement; repeated peeks at the same position return the same Option<char>.
+- **Status:** ?? fresh
+
+### 2026-09-07 - One advance expected to exhaust a longer source (Scanner tests)
+- **What I wrote:** `source: "rust"` followed by one advance and `assert_eq!(scanner.peek(), None);`
+- **Why it's wrong:** After consuming r, the source still has ust left and peek returns Some('u'). The expected result must follow from the test's actual starting text and sequence of operations.
+- **The rule:** Trace state before each assertion; use a one-character input to test reaching the end in one advance.
+- **Status:** ?? fresh
+
+### 2026-09-07 - Next character confused with numeric byte cursor (Scanner recall)
+- **What I wrote:** "make it more flexible" for why len_utf8 is used, then "r" for the cursor position after advancing over é in "ér".
+- **Why it's wrong:** r is the next character, but the cursor is a usize byte position and becomes 2 because é occupies two UTF-8 bytes. The method preserves character boundaries, not merely flexibility.
+- **The rule:** Advance the byte cursor by the consumed char's UTF-8 width; distinguish the position from the character found there.
+- **Status:** ?? fresh
+
 ### 2026-09-04 - Copy elements treated as a Copy vector (retrieval Question 3)
 - **What I wrote:** "Yes, It prints 3 because Vec<i32> is a copy type so we can reuse it"
 - **Why it's wrong:** The element type i32 implements Copy, but Vec<i32> owns heap storage and does not implement Copy. The vector remains usable only when the loop iterates over &values and borrows the container instead of consuming it.

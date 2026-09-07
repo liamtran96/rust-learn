@@ -367,3 +367,57 @@ tags: [rust, journal, ownership]
   - **See also:** `.agents/skills/homework/SKILL.md`
 **Question to answer later:** After spacing, can Liam explain Vec reallocation, NLL, split boundaries, and borrowed parser output without step-by-step prompts?
 **Next:** Read `topics/rust/02-ownership/lifetimes.md`, then begin the full Scanner exercise from `topics/rust/exercises/ch02-ownership.md`.
+
+### 2026-09-07 - Full borrowed Scanner: syntax, state, and tests
+**Working on:** Ch 2 exercise 3, borrowed `Scanner` - `code/02-ownership/scanner/`
+**What clicked:** Built a struct and instance, added methods, returned `Option<char>` from a `match`, and wrote three passing tests. Liam correctly explained that advancing needs mutation of the cursor; the final code uses a shared receiver for peeking and an exclusive receiver for advancing. Codex performed the requested final tail-expression cleanup and formatting.
+**What didn't:** Syntax needed small explicit examples throughout. Repeated difficulties included printing versus returning a value, using a local from another function, method definitions versus calls, one character versus a string, and relating test input to cursor state. UTF-8 byte positions were explained, but independent recall remains unverified: Liam answered "make it more flexible" for `len_utf8` and "r" when asked for the numeric position after `é`.
+**Questions asked this session:**
+- **Q:** "$next", "give me a hint", and repeated "what's next?"
+  - **Technical answer:** The recorded next action was the full borrowed Scanner, whose crate was already scaffolded. The session progressed through state declaration, a peeking method, an advancing method, and three tests, with each attempt checked before the next step.
+  - **Plain-English analogy / example:** Build a bookmark first, teach it to look at the next letter, then move it, then check each behavior.
+  - **See also:** `WORKFLOW.md`, `topics/rust/exercises/ch02-ownership.md`
+- **Q:** "i am not familar with the syntax" (struct and instance)
+  - **Technical answer:** A struct is a custom type with named fields; its declaration uses `field: Type`, while an instance supplies `field: value`. `Scanner<'a>` declares a lifetime parameter, and `source: &'a str` connects the stored reference to that validity relationship; annotations do not extend the source's lifetime.
+  - **Plain-English analogy / example:** The struct definition is a blank bookmark form with spaces for a book and position; an instance fills those spaces with specific text and zero.
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/02-ownership/lifetimes.md`
+- **Q:** "ok done what's next" (method syntax)
+  - **Technical answer:** An `impl<'a> Scanner<'a>` block defines behavior for the scanner type using the lifetime name declared for that block. `fn peek(&self) -> Option<char>` defines a method with a shared receiver and a result containing either one character or no character; the caller writes `scanner.peek()`.
+  - **Plain-English analogy / example:** The method definition gives a bookmark an instruction; the dot call asks one particular bookmark to perform it.
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** "hmm i am not familiar with syntax" / "still dont understand" (Option and match)
+  - **Technical answer:** `peek` already returns `Option<char>`, so calling `.chars()` on its result is a type mismatch. A `match` selects `Some(ch)` or `None`; `ch` names the contained character only within that branch, and `=>` introduces the branch's code.
+  - **Plain-English analogy / example:** `Some(ch)` opens an occupied envelope and names its contents; `None` is the empty case. The envelope and its contents have different types.
+  - **See also:** `topics/rust/03-types-and-traits/pattern-matching.md`, `topics/rust/05-error-handling/result-option.md`
+- **Q:** How do the advance branches return their results? (repeated guided attempts)
+  - **Technical answer:** The method promises `Option<char>`, so each branch must produce `Some(ch)` or `None`. A tail expression is the last expression without a semicolon; removing a semicolon from `println!` still leaves unit `()` because printing does not produce the printed value.
+  - **Plain-English analogy / example:** Announcing a parcel's contents is different from handing the parcel to the caller; `println!` announces, while `Some(ch)` supplies the result.
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** "i dont know" (creating a scanner in a test)
+  - **Technical answer:** Local variables belong to the function body where they are declared; the test cannot use `main`'s local `scanner`. A test is a function marked `#[test]` and must set up its own scanner before using `assert_eq!` to compare actual and expected values.
+  - **Plain-English analogy / example:** Each test has its own workbench and must put its own scanner on it; tools on main's workbench are not automatically available.
+  - **See also:** `topics/rust/01-fundamentals/variables.md`, `topics/rust/07-testing/unit-tests.md`
+- **Q:** Why did `Some('ru')` fail, and what does a second peek return? (assertion review)
+  - **Technical answer:** A `char` literal contains one Unicode scalar value; `'ru'` contains two, while `"ru"` is a string slice and does not match `Option<char>`. Peeking does not move the cursor or accumulate characters, so repeated peeks at position zero in `"rust"` return `Some('r')`.
+  - **Plain-English analogy / example:** Looking at the same bookmark twice shows the same letter, not a growing selection of letters.
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/01-fundamentals/data-types.md`
+- **Q:** "still dont understand" (the end-of-text test)
+  - **Technical answer:** One advance consumes one character, so a scanner over `"rust"` still has `"ust"` left after returning `'r'`. The test changed its source to `"r"` so one advance really reached the end; subsequent peek and advance return `None`, leaving the cursor at 1.
+  - **Plain-English analogy / example:** `|rust -> r|ust` still has text ahead, whereas `|r -> r|` has reached the end; the bar is the cursor.
+  - **See also:** `topics/rust/02-ownership/slices.md`, `topics/rust/07-testing/unit-tests.md`
+- **Q:** "do it for me" (final cleanup)
+  - **Technical answer:** Clippy flagged an unnecessary binding whose value was immediately returned from `peek`. Codex replaced `let first = remaining.chars().next(); first` with the direct tail expression and ran formatting; behavior stayed the same.
+  - **Plain-English analogy / example:** Pass the result straight to the caller instead of attaching a temporary name immediately before handing it over.
+  - **See also:** `topics/rust/01-fundamentals/functions.md`, `topics/rust/cheatsheets/cargo-commands.md`
+- **Q:** Why `&mut self`, and why `ch.len_utf8()`? (closeout recall)
+  - **Technical answer:** `advance` updates the cursor and therefore requires exclusive mutable access, while `peek` only reads. The cursor measures UTF-8 bytes, so advancing over `é` moves from 0 to 2; the next character can be `r`, but that character is not the numeric cursor position.
+  - **Plain-English analogy / example:** Letters occupy different widths on a byte ruler: `é` covers two marks, so the bookmark must jump two marks to reach the next letter.
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+- **Q:** "ok what's next", "are we done?", and "yes please" (session closeout)
+  - **Technical answer:** Borrowed Scanner exercise 3 is complete with its three required tests and verification. Owning a `String` is separate exercise 4; it remains unstarted, and the session should be journaled before moving on rather than silently extending the task.
+  - **Plain-English analogy / example:** Finish and record one lesson before opening the next; owning the book is a different design from storing a bookmark into someone else's book.
+  - **See also:** `WORKFLOW.md`, `topics/rust/exercises/ch02-ownership.md`, `topics/rust/02-ownership/ownership.md`
+**Verification:** `cargo fmt --check`, `cargo check`, `cargo test` (3 passed), and `cargo clippy -- -D warnings` passed after cleanup. The runtime demonstration printed `Some('r')`, `Some('r')`, `Some('u')`. Unicode and initially empty input were not tested; direct slicing assumes an in-range cursor at a UTF-8 character boundary.
+**Official sources checked during the session:** [Rust Book structs](https://doc.rust-lang.org/book/ch05-01-defining-structs.html), [methods](https://doc.rust-lang.org/book/ch05-03-method-syntax.html), [lifetimes](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html), [tests](https://doc.rust-lang.org/book/ch11-01-writing-tests.html), [str::chars](https://doc.rust-lang.org/std/primitive.str.html#method.chars), [Iterator::next](https://doc.rust-lang.org/std/iter/trait.Iterator.html#tymethod.next), [char::len_utf8](https://doc.rust-lang.org/std/primitive.char.html#method.len_utf8).
+**Question to answer later:** Can Liam independently reconstruct a method call and test setup, distinguish printing from returning, and predict the byte cursor after a multibyte character?
+**Next:** Short retrieval warm-up, then Ch 2 exercise 4: refactor Scanner to own `String` in the existing crate and compare ownership choices. No chapter completion or new chapter homework yet.

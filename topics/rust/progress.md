@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 2 days |
+| Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 19 (formally tracked) |
-| Exercises completed | 9 total (7 / 7 Ch 1 + `strip_margin` and `split_at_mut` Ch 2) |
+| Total sessions | 20 (formally tracked) |
+| Exercises completed | 10 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, and borrowed `Scanner` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-04 - ownership retrieval homework completed |
+| Last session | 2026-09-07 - borrowed Scanner completed |
 | Days since last session | 0 |
 
 ## Template
@@ -251,6 +251,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: none - retrieval review; a temporary strip-margin experiment remains outside this closeout
 - Mood: -
 - Tomorrow's first move: Read topics/rust/02-ownership/lifetimes.md, then begin the full Scanner exercise from topics/rust/exercises/ch02-ownership.md
+
+### 2026-09-07 - Borrowed Scanner implementation and tests
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / borrowing structs, methods, Option, and tests
+- What I did: Built the borrowed Scanner with guided syntax explanations; implemented peek and advance; wrote three tests; reviewed scope, method calls, match branch values, character versus string types, and UTF-8 byte positions. Codex removed the final redundant binding and formatted the crate at my request.
+- Exercises: Ch 2 exercise 3 (borrowed Scanner) completed; official total is 10. Owned Scanner exercise 4 remains unstarted.
+- Code: `code/02-ownership/scanner/` - fmt/check/three tests/strict Clippy passed; runtime printed Some('r'), Some('r'), Some('u'). Tests cover ASCII peeking, advancing, and end-of-text; Unicode behavior was explained but not tested.
+- Mood: -
+- Tomorrow's first move: After a short recall of method receivers and UTF-8 byte positions, begin Ch 2 exercise 4: refactor Scanner to own String in the existing crate.
+- Tracker note: Streak restarts at 1 recorded session day after the unrecorded Saturday 2026-09-05; duration was not measured. No new chapter or shipping milestone completed.
 
 ## Weekly review
 

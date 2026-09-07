@@ -46,7 +46,8 @@ Stop at the timer even mid-problem. Resume tomorrow. The compiler is teaching yo
 - [x] Do drill d12 in `code/02-ownership/drills-ownership/` (`Scanner<'a>`)
 - [ ] Read [[02-ownership/lifetimes|lifetimes]] after drill d08 — read it twice; it doesn't click the first time
 - [ ] Skim [[cheatsheets/lifetimes-cheatsheet|lifetimes cheatsheet]] daily
-- [ ] Do [[exercises/ch02-ownership|Ch 2 exercises]] second half: `Scanner` full version
+- [x] Do [[exercises/ch02-ownership|Ch 2 exercise 3]]: borrowed `Scanner` with three tests
+- [ ] Do [[exercises/ch02-ownership|Ch 2 exercise 4]]: refactor `Scanner` to own `String` and compare ownership choices
 - [ ] **Ship:** Re-implement `str::split` and `Vec::dedup` by hand
 
 > 🛑 **Checkpoint.** Don't move on if ownership feels fuzzy. Ownership not clicking now = months of pain later. Spend an extra week if needed.

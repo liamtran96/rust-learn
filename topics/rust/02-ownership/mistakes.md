@@ -10,6 +10,18 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-08 - Adjacent separators lost an empty piece (split-text)
+- **What I wrote:** Predicted `["", "red", "green", ""]` for `",red,,green,"`.
+- **Why it's wrong:** The two adjacent commas enclose an empty substring, just as the leading and trailing commas border empty substrings. Omitting it changes the behavior from `str::split` and loses information about the input's field positions.
+- **The rule:** Every separator ends the current piece, even when that piece has zero bytes; leading, trailing, and adjacent separators therefore produce empty slices.
+- **Status:** fresh; corrected before running and covered by a passing test
+
+### 2026-09-08 - Unicode separator passed as a string slice (split-text test)
+- **What I wrote:** `split_text("red💥blue💥green", "💥")`
+- **Why it's wrong:** The function's separator parameter has type `char`, but double quotes create `&str`. A single Unicode scalar value can be written as a `char` literal with single quotes, even when its UTF-8 encoding occupies multiple bytes.
+- **The rule:** Use single quotes for one `char` (`'💥'`) and double quotes for string text (`"💥"`); visual length does not determine the Rust type.
+- **Status:** fresh; compiler-guided correction covered by a passing Unicode test
+
 ### 2026-09-08 - Borrowed parameter mistaken for ownership transfer (split-text warm-up)
 - **What I wrote:** "take the ownership, the caller can not use its String afterward"
 - **Why it's wrong:** The question specified passing text as &str. That passes a shared reference, leaving the original String owned by the caller; passing the String by value would move it.

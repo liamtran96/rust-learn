@@ -454,3 +454,44 @@ tags: [rust, journal, ownership]
 **Verification:** `cargo fmt --check`, `cargo check`, `cargo test` (3 passed), and `cargo clippy -- -D warnings` passed. Tests cover ASCII peeking, advancing, and end-of-text; multibyte input remains untested. Explanations checked against the [Rust Book on ownership and moves](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html), [method syntax](https://doc.rust-lang.org/stable/book/ch05-03-method-syntax.html), and [E0507](https://doc.rust-lang.org/error_codes/E0507.html).
 **Question to answer later:** Can Liam independently explain why a borrowed Scanner cannot outlive its source, and recall why cursor positions count UTF-8 bytes?
 **Next:** After brief ownership recall, scaffold the Week 3 hand-written string-splitting task with `$new-exercise 02 split-text`; dedup follows. Reading and the split/dedup shipping milestone remain open, so this is not a chapter closeout.
+
+### 2026-09-08 - Hand-written string splitting with borrowed slices
+**Working on:** Week 3 hand-written splitting task - `code/02-ownership/split-text/`
+**What clicked:** Liam built an index-walking splitter using `char_indices`, a mutable start byte, borrowed `&str` slices, and `Vec<&str>`. He independently wrote the third unit test, correctly predicted the no-separator result, preserved empty fields, and verified a multibyte separator. The final code uses no standard splitting method and allocates only the vector of references, not owned copies of each piece.
+**What didn't:** Abstract ownership wording needed concrete code first. The first prediction omitted the empty substring between adjacent separators, and the Unicode test initially passed `"💥"` where the function required `'💥'`; both behaviors are now covered by tests.
+**Questions asked this session:**
+- **Q:** "in rust vector is an array like in js right?"
+  - **Technical answer:** `Vec<T>` is Rust's growable contiguous list and is the closest common equivalent to a JavaScript array. Unlike a JavaScript array, one Rust vector has one element type `T`; Rust's `[T; N]` is a separate fixed-length array type.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut numbers: Vec<i32> = vec![10, 20];
+    numbers.push(30);
+    assert_eq!(numbers, vec![10, 20, 30]);
+    ```
+  - **See also:** `topics/rust/04-collections/vec.md`
+- **Q:** "what is type T?"
+  - **Technical answer:** `T` is a conventional placeholder name for a generic type. In `Vec<T>`, replacing `T` with `i32` gives a vector of integers; replacing it with `&str` gives a vector of borrowed string slices.
+  - **Plain-English analogy / example:**
+    ```rust
+    let numbers: Vec<i32> = vec![1, 2];
+    let words: Vec<&str> = vec!["red", "blue"];
+    // T is i32 above and &str below.
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** "T is like generic type right?"
+  - **Technical answer:** Yes. More precisely, `T` is a generic type parameter in the definition of `Vec<T>`, and a use such as `Vec<&str>` supplies `&str` as the concrete element type.
+  - **Plain-English analogy / example:** `Vec<___>` is a labeled container design; `Vec<char>` fills the blank with `char`.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** "this is the built in fucntion for string right?" (about `char_indices`)
+  - **Technical answer:** Yes. `char_indices` is a standard-library method on `str`; it returns an iterator of `(byte_position, character)` pairs. The byte positions are safe slice boundaries, and `character.len_utf8()` gives the number of bytes needed to move past that character.
+  - **Plain-English analogy / example:**
+    ```rust
+    for (position, character) in "a💥b".char_indices() {
+        println!("{position}: {character}");
+    }
+    // positions are 0, 1, and 5
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+**Verification:** `cargo fmt --check`, `cargo check`, `cargo test` (4 passed), `cargo clippy -- -D warnings`, and `cargo run` passed. Runtime split `"red💥blue💥green"` into three pieces. Behavior and explanations were checked against [Rust `str::split`](https://doc.rust-lang.org/std/primitive.str.html#method.split), [`str::char_indices`](https://doc.rust-lang.org/std/primitive.str.html#method.char_indices), [Rust Book vectors](https://doc.rust-lang.org/book/ch08-01-vectors.html), and [Rust Book slices](https://doc.rust-lang.org/book/ch04-03-slices.html).
+**Question to answer later:** Why can each returned `&str` be used only while the original input text remains alive?
+**Next:** Begin the hand-written `Vec::dedup` half of the Week 3 shipping task. The combined shipping milestone and chapter remain open, so no chapter homework is generated yet.

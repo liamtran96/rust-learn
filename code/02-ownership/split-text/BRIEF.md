@@ -66,13 +66,15 @@ String slice positions are byte offsets, and both ends must be UTF-8 character b
 
 ## Checklist
 
-- [ ] I can explain each part of the required syntax
-- [ ] `cargo run` compiles and prints a stub
-- [ ] Implement the scoped behavior above
-- [ ] `cargo clippy -- -D warnings` is clean
-- [ ] `cargo fmt` applied
-- [ ] My behavior checks pass
-- [ ] Tell Codex "done" so `$journal` logs the session
+- [x] I can explain each part of the required syntax
+- [x] `cargo run` compiles and prints a stub
+- [x] Implement the scoped behavior above
+- [x] `cargo clippy -- -D warnings` is clean
+- [x] `cargo fmt` applied
+- [x] My behavior checks pass
+- [x] Tell Codex "done" so `$journal` logs the session
+
+Completed 2026-09-08. The implementation returns borrowed slices, preserves empty pieces, and supports Unicode separators. Four tests cover ordinary splitting, empty pieces, no separator/empty input, and Unicode.
 
 ## Run
 

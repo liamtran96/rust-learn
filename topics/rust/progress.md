@@ -23,11 +23,11 @@ tags: [rust, progress, log]
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
 | Total sessions | 22 (formally tracked) |
-| Exercises completed | 11 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, and owned `Scanner` Ch 2) |
+| Exercises completed | 12 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, and `split_text` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-08 - split-text borrowing warm-up |
+| Last session | 2026-09-08 - hand-written split_text completed |
 | Days since last session | 0 |
 
 ## Template
@@ -281,6 +281,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Explain why the final println in the show_text example works, then write a compiling split_text stub using the signature decoded in BRIEF.md.
 - Tracker note: No week or chapter milestone completed; independent borrowing recall remains open.
+
+### 2026-09-08 - Hand-written string splitting
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / borrowed slices, vectors, and UTF-8 boundaries
+- What I did: Implemented `split_text` without standard splitting methods by walking `char_indices`, slicing between byte positions, preserving empty pieces, and advancing past a separator by its UTF-8 width. Learned `Vec<T>`, generic type placeholders, built-in string methods, and Rust test syntax.
+- Exercises: hand-written `split_text` completed (12 total exercises officially recorded). The combined split/dedup shipping milestone remains open.
+- Code: `code/02-ownership/split-text/` - formatted; fmt/check/4 tests/strict Clippy/runtime clean. Tests cover normal, adjacent/edge, absent, empty, and Unicode cases.
+- Mood: -
+- Tomorrow's first move: After recalling why `char_indices` yields byte positions and why `len_utf8` matters, begin the hand-written `Vec::dedup` half of the Week 3 shipping task.
+- Tracker note: Phase 2 / Week 3 and 3 shipped projects remain unchanged; no week or chapter completion and no automatic homework set.
 
 ## Weekly review
 

@@ -1,4 +1,4 @@
-# Split-text exercise scaffold
+# Split-text exercise implementation
 
 ## Goal and source
 
@@ -6,16 +6,16 @@ Liam approved scaffolding `$new-exercise 02 split-text` from the recorded next a
 
 ## Files and decisions
 
-- `code/02-ownership/split-text/Cargo.toml` and `src/main.rs`: default Cargo binary scaffold; generated greeting retained.
-- `code/02-ownership/split-text/BRIEF.md`: proposed single-character, borrowed-slice interface, examples, syntax explanations, and incremental learner milestones. Algorithm and implementation remain Liam's work.
+- `code/02-ownership/split-text/Cargo.toml` and `src/main.rs`: binary crate with Liam's hand-written splitter, a Unicode runtime example, and four unit tests.
+- `code/02-ownership/split-text/BRIEF.md`: single-character, borrowed-slice interface, examples, syntax explanations, milestones, and completion status.
 - `bacon.toml`: check/run aliases with explicit crate paths and watches.
 
-The brief makes the broad study-plan task actionable without introducing custom iterator traits. Splitting behavior is checked against official standard-library documentation linked in the brief. Completion counts and shipping checkboxes are unchanged.
+The function walks `char_indices`, uses byte positions only at valid UTF-8 boundaries, and advances by `char::len_utf8`. It returns `Vec<&str>`, so pieces reuse the input text rather than allocating owned strings. The scoped behavior matches single-character `str::split`, including empty pieces at adjacent, leading, and trailing separators. The combined split/dedup shipping checkbox stays open until dedup is complete.
 
 ## Verification
 
-Cargo creation succeeded after retrying with normal repository access; the initial sandbox attempt left only empty directories, which were removed before retrying. `bacon --project . --list-jobs` passed and listed both aliases; `git diff --check` passed. Inspected the manifest and unchanged generated greeting. No exercise build or run was performed.
+`cargo fmt --check`, `cargo check`, `cargo test` (4 passed), `cargo clippy -- -D warnings`, and `cargo run` passed. Runtime output was `["red", "blue", "green"]` for a multibyte emoji separator. Tests cover normal splitting, adjacent/edge separators, missing separator and empty input, and a Unicode separator.
 
 ## Maintenance
 
-Keep the aliases aligned if the crate moves. Extend the interface only after this version is completed; the separate dedup task remains open. Exercise correctness will be verified after Liam implements it.
+Keep the aliases aligned if the crate moves. A later extension could return a custom lazy iterator or accept richer separator patterns; retain `char_indices` or another boundary-aware API for UTF-8 safety. The separate dedup task remains open.

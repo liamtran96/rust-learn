@@ -1,4 +1,10 @@
-# Borrowed Scanner — Brief
+# Scanner - Brief
+
+## Current status
+
+Exercise 3 (borrowed Scanner) completed 2026-09-07; exercise 4 (owned Scanner) completed 2026-09-08. The code now stores `source: String`, uses `impl Scanner`, and borrows `&self.source` inside `peek`. The original borrowed exercise brief below remains as the comparison reference.
+
+The owned variant passes fmt/check/three tests/strict Clippy. Liam compared borrowing with ownership and, after correction, correctly identified that moving an existing String preserves one text buffer. Independent recall of UTF-8 cursor positions remains a retrieval target.
 
 > You write the implementation yourself. This brief only explains the task and unfamiliar syntax.
 > When it compiles, runs, and Liam says "done," use `$journal` to log it.

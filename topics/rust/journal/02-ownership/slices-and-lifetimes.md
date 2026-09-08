@@ -421,3 +421,36 @@ tags: [rust, journal, ownership]
 **Official sources checked during the session:** [Rust Book structs](https://doc.rust-lang.org/book/ch05-01-defining-structs.html), [methods](https://doc.rust-lang.org/book/ch05-03-method-syntax.html), [lifetimes](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html), [tests](https://doc.rust-lang.org/book/ch11-01-writing-tests.html), [str::chars](https://doc.rust-lang.org/std/primitive.str.html#method.chars), [Iterator::next](https://doc.rust-lang.org/std/iter/trait.Iterator.html#tymethod.next), [char::len_utf8](https://doc.rust-lang.org/std/primitive.char.html#method.len_utf8).
 **Question to answer later:** Can Liam independently reconstruct a method call and test setup, distinguish printing from returning, and predict the byte cursor after a multibyte character?
 **Next:** Short retrieval warm-up, then Ch 2 exercise 4: refactor Scanner to own `String` in the existing crate and compare ownership choices. No chapter completion or new chapter homework yet.
+
+### 2026-09-08 - Owned Scanner: field borrowing and allocation
+**Working on:** Ch 2 exercise 4, owned `Scanner` - `code/02-ownership/scanner/`
+**What clicked:** Liam correctly recalled that `&self` permits reading and `&mut self` permits mutation of this Scanner. He refactored the source to String, removed the struct/impl lifetime parameter, converted the four initializers, and explicitly borrowed the field inside peek. After discussing ownership choices, he correctly answered "just one" text buffer for constructing a String and moving it into Scanner.
+**What didn't:** Moving the owned field through a shared receiver needed a concrete explanation; merely accessing a field does not automatically borrow it in a by-value assignment. Initially equated owning String with allocating additional heap space. Some repeated checks saw the previous saved file; those are not treated as separate conceptual mistakes.
+**Questions asked this session:**
+- **Q:** "$next", "check it again", and "what should i do now?"
+  - **Technical answer:** The authoritative next action was exercise 4 in the existing scanner crate. The borrowed Scanner remained officially complete; the owned variant required changing its stored input, adjusting construction, and comparing ownership choices.
+  - **Plain-English analogy / example:** Keep the same bookmark behavior, but let the scanner carry its own book instead of pointing into a book held elsewhere.
+  - **See also:** [[../../exercises/ch02-ownership|Ch 2 exercises]], `WORKFLOW.md`
+- **Q:** "&self is reference to Scanner but we can not modify it on the other hand &mut self we can modify it" (warm-up answer)
+  - **Technical answer:** Correct for these fields: &self is a shared borrow, while &mut self is an exclusive borrow permitting mutation. Neither receiver takes ownership of the Scanner, so peek observes and advance can update its cursor.
+  - **Plain-English analogy / example:** A read-only visitor can inspect the bookmark position; an exclusive editor can change it.
+  - **See also:** [[../../02-ownership/borrowing|Borrowing]]
+- **Q:** "done help me check" and subsequent "done" checks
+  - **Technical answer:** Changing the field to String initially left four string-literal initializers with the wrong type (E0308) and a field assignment attempting to move through a shared reference (E0507). Liam supplied owned inputs and then borrowed the field; the final saved code passed formatting, compilation, all three tests, and strict Clippy.
+  - **Plain-English analogy / example:** The input must match the new storage contract, and a method that only reads must leave the stored text with its owner.
+  - **See also:** [[../../02-ownership/ownership|Ownership]], `topics/rust/cheatsheets/cargo-commands.md`
+- **Q:** "why is that? i still dont understand" (why `let text = self.source` fails)
+  - **Technical answer:** With the earlier &str field, assignment copied a shared reference because shared references implement Copy, which permits implicit duplication. With String, the same assignment tries to move the owned value out through &self, which Rust rejects; `&self.source` instead creates a shared reference to the field.
+  - **Plain-English analogy / example:** Borrowing a backpack lets you inspect the book inside, but does not let you take ownership of that book.
+  - **See also:** [[../../02-ownership/ownership|Ownership]], [[../../02-ownership/borrowing|Borrowing]]
+- **Q:** "i think borrowing &str is better because owing a String create a new space in heap" (ownership comparison)
+  - **Technical answer:** Borrowing avoids allocating or copying source text and is suitable when the source stays valid while the scanner uses it. Owning an existing String does not itself allocate another text buffer: moving it transfers responsibility for the same buffer. String::from("rust") creates that initial buffer; Liam correctly identified one buffer after the move.
+  - **Plain-English analogy / example:** Transferring a book to another owner does not print a second book; making the original book and handing it over are separate actions.
+  - **See also:** [[../../02-ownership/ownership|Ownership]], [[../../02-ownership/lifetimes|Lifetimes]]
+- **Q:** "what do u mean by who someone else?"
+  - **Technical answer:** Here the other owner is a concrete variable, such as `input: String` in the calling function. The borrowed Scanner's source points into input's text, so that text must remain valid while the scanner uses it; moving input into the owned Scanner instead makes scanner.source the owner and leaves input unusable.
+  - **Plain-English analogy / example:** In the borrowed version, input holds the book and Scanner holds a bookmark pointing into it. In the owned version, Scanner holds both book and bookmark.
+  - **See also:** [[../../02-ownership/lifetimes|Lifetimes]], [[../../02-ownership/ownership|Ownership]]
+**Verification:** `cargo fmt --check`, `cargo check`, `cargo test` (3 passed), and `cargo clippy -- -D warnings` passed. Tests cover ASCII peeking, advancing, and end-of-text; multibyte input remains untested. Explanations checked against the [Rust Book on ownership and moves](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html), [method syntax](https://doc.rust-lang.org/stable/book/ch05-03-method-syntax.html), and [E0507](https://doc.rust-lang.org/error_codes/E0507.html).
+**Question to answer later:** Can Liam independently explain why a borrowed Scanner cannot outlive its source, and recall why cursor positions count UTF-8 bytes?
+**Next:** After brief ownership recall, scaffold the Week 3 hand-written string-splitting task with `$new-exercise 02 split-text`; dedup follows. Reading and the split/dedup shipping milestone remain open, so this is not a chapter closeout.

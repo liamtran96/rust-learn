@@ -1,6 +1,6 @@
 fn main() {
     let mut scanner = Scanner {
-        source: "rust",
+        source: String::from("rust"),
         cursor: 0,
     };
     println!("{:?}", scanner.peek());
@@ -10,7 +10,7 @@ fn main() {
 #[test]
 fn peek_does_not_move_cursor() {
     let scanner = Scanner {
-        source: "rust",
+        source: String::from("rust"),
         cursor: 0,
     };
     assert_eq!(scanner.peek(), Some('r'));
@@ -19,7 +19,7 @@ fn peek_does_not_move_cursor() {
 #[test]
 fn advance_moves_cursor() {
     let mut scanner = Scanner {
-        source: "rust",
+        source: String::from("rust"),
         cursor: 0,
     };
     assert_eq!(scanner.advance(), Some('r'));
@@ -29,7 +29,7 @@ fn advance_moves_cursor() {
 #[test]
 fn advance_at_end_returns_none() {
     let mut scanner = Scanner {
-        source: "r",
+        source: String::from("r"),
         cursor: 0,
     };
     assert_eq!(scanner.advance(), Some('r'));
@@ -38,14 +38,14 @@ fn advance_at_end_returns_none() {
     assert_eq!(scanner.cursor, 1);
 }
 
-struct Scanner<'a> {
-    source: &'a str,
+struct Scanner {
+    source: String,
     cursor: usize,
 }
 
-impl<'a> Scanner<'a> {
+impl Scanner {
     fn peek(&self) -> Option<char> {
-        let text = self.source;
+        let text = &self.source;
         let pos = self.cursor;
         let remaining = &text[pos..];
         remaining.chars().next()

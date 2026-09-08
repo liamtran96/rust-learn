@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 1 day |
+| Streak (current) | 2 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 20 (formally tracked) |
-| Exercises completed | 10 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, and borrowed `Scanner` Ch 2) |
+| Total sessions | 21 (formally tracked) |
+| Exercises completed | 11 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, and owned `Scanner` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-07 - borrowed Scanner completed |
+| Last session | 2026-09-08 - owned Scanner completed |
 | Days since last session | 0 |
 
 ## Template
@@ -261,6 +261,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: After a short recall of method receivers and UTF-8 byte positions, begin Ch 2 exercise 4: refactor Scanner to own String in the existing crate.
 - Tracker note: Streak restarts at 1 recorded session day after the unrecorded Saturday 2026-09-05; duration was not measured. No new chapter or shipping milestone completed.
+
+### 2026-09-08 - Owned Scanner and allocation versus ownership
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / owned fields, shared borrowing, and allocation
+- What I did: Refactored Scanner to own String, removed the source lifetime parameter, converted all four initializers, and borrowed the field inside peek. Reviewed E0507, method receivers, caller-owned text, and why moving an existing String does not allocate another text buffer; correctly answered that the move example has just one buffer.
+- Exercises: Ch 2 exercise 4 (owned Scanner and ownership comparison) completed with guided review; official total is 11.
+- Code: `code/02-ownership/scanner/` - fmt/check/three tests/strict Clippy passed. Existing tests cover ASCII peeking, advancing, and end-of-text; Unicode behavior remains untested.
+- Mood: -
+- Tomorrow's first move: After a short recall of borrowing versus moving a String, scaffold and begin the Week 3 hand-written string-splitting task (`$new-exercise 02 split-text`).
+- Tracker note: Phase 2 / Week 3 and 3 shipped projects remain unchanged. Reading checkboxes and the split/dedup shipping milestone remain open; no new chapter completion or automatic homework set.
 
 ## Weekly review
 

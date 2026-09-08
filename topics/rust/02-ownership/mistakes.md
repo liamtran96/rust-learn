@@ -10,6 +10,18 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-08 - Moving an owned field through a shared receiver (owned Scanner)
+- **What I wrote:** `let text = self.source;` inside `fn peek(&self) -> Option<char>`; asked "why is that? i still dont understand" after E0507.
+- **Why it's wrong:** The field is now a non-Copy String, so this assignment attempts to move it out of a Scanner available only through a shared reference. Previously the field was a shared reference itself, which could be copied; borrowing the receiver does not automatically turn every field assignment into a borrow.
+- **The rule:** Use a shared borrow of an owned field for temporary reading, such as `let text = &self.source;`, leaving ownership with the struct.
+- **Status:** ?? fresh; corrected with guidance, revisit independently
+
+### 2026-09-08 - Ownership transfer confused with allocation (owned Scanner)
+- **What I wrote:** "i think borrowing &str is better because owing a String create a new space in heap"
+- **Why it's wrong:** Creating String::from("rust") allocates a text buffer, but moving that existing String into Scanner does not allocate another buffer or copy its text. Borrowing is appropriate when the caller can keep the source valid; owning lets Scanner manage that source itself.
+- **The rule:** Separate allocation from ownership: constructing owned text may allocate; moving an existing String transfers responsibility for the same allocation.
+- **Status:** ?? fresh; corrected to "just one" buffer during review, revisit after spacing
+
 ### 2026-09-07 - Printing mistaken for returning an Option (Scanner)
 - **What I wrote:** `println!("Found: {letter}")` as the final expression of the `Some(ch)` branch, including a retry removing its semicolon.
 - **Why it's wrong:** Printing produces unit `()`, not the printed value. `letter` is the whole `Option<char>` and does not support default Display formatting; the character bound as `ch` does.

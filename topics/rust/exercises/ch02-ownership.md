@@ -48,6 +48,12 @@ fn first_word(s: &String) -> &str {
 
 4. Refactor `Scanner` to own its source (`String`). Which feels better and why?
 
+5. Re-implement the consecutive-duplicate removal half of `Vec::dedup` by hand.
+   Write `fn dedup_in_place<T: PartialEq>(values: &mut Vec<T>)` so repeated
+   neighboring values collapse to one value while the original vector is
+   modified in place. Keep non-adjacent duplicates; for example,
+   `[1, 1, 2, 1, 2, 2]` becomes `[1, 2, 1, 2]`.
+
 ## Checkpoint
 You're done when you can read any of these errors and immediately know the fix:
 - `cannot borrow 'v' as mutable, as it is also borrowed as immutable`

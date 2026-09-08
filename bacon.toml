@@ -143,3 +143,16 @@ workdir = "code/02-ownership/split-text"
 watch = ["code/02-ownership/split-text/src", "code/02-ownership/split-text/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.dedup-vec]
+command = ["cargo", "check"]
+workdir = "code/02-ownership/dedup-vec"
+watch = ["code/02-ownership/dedup-vec/src", "code/02-ownership/dedup-vec/Cargo.toml"]
+default_watch = false
+
+[jobs.dedup-vec-run]
+command = ["cargo", "run"]
+workdir = "code/02-ownership/dedup-vec"
+watch = ["code/02-ownership/dedup-vec/src", "code/02-ownership/dedup-vec/Cargo.toml"]
+default_watch = false
+need_stdout = true

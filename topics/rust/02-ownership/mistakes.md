@@ -10,6 +10,12 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-08 - Borrowed parameter mistaken for ownership transfer (split-text warm-up)
+- **What I wrote:** "take the ownership, the caller can not use its String afterward"
+- **Why it's wrong:** The question specified passing text as &str. That passes a shared reference, leaving the original String owned by the caller; passing the String by value would move it.
+- **The rule:** Passing &message to an &str parameter borrows the text; passing message to a String parameter transfers ownership. A shared borrow still permits reading the original text.
+- **Status:** fresh; supplied borrowing example runs, independent explanation still pending
+
 ### 2026-09-08 - Moving an owned field through a shared receiver (owned Scanner)
 - **What I wrote:** `let text = self.source;` inside `fn peek(&self) -> Option<char>`; asked "why is that? i still dont understand" after E0507.
 - **Why it's wrong:** The field is now a non-Copy String, so this assignment attempts to move it out of a Scanner available only through a shared reference. Previously the field was a shared reference itself, which could be copied; borrowing the receiver does not automatically turn every field assignment into a borrow.

@@ -221,3 +221,32 @@ tags: [rust, journal, ownership]
 **Question to answer later:** When should a function require `&mut Vec<T>` rather than the more general `&mut [T]`?
 **Next:** Complete ownership drill d11: fill `PREDICT:`, run `cargo test --test d11_scoped_return`, fix minimally, then fill `WHY:`.
 
+### 2026-09-08 - Borrowing a String at a function call
+**Working on:** Week 3 splitting scaffold and warm-up, `code/02-ownership/split-text/`.
+**What clicked:** Liam entered the supplied borrowing example and reported done; verification shows the original message prints after the call. This demonstrates the behavior, but independent explanation is still pending.
+**What didn't:** Initially said an &str parameter takes ownership and prevents caller reuse; the abstract follow-up about who owns the text remained unclear. Concrete code was requested and should precede further abstract questions.
+**Questions asked this session:**
+- **Q:** "ok what should i do next?"
+  - **Technical answer:** Start with the recorded borrowing-versus-moving recall before implementing splitting. Then use the brief's decoded signature to write a compiling function stub, a temporary body that establishes the interface before the algorithm.
+  - **Plain-English analogy / example:** First check whether you are lending or giving away a book; then start building the tool that reads its pages.
+  - **See also:** `WORKFLOW.md`, `code/02-ownership/split-text/BRIEF.md`
+- **Q:** "i still dont understand the question"
+  - **Technical answer:** Ownership means responsibility for a value, including dropping it when appropriate. A shared reference allows a function to read text owned elsewhere; passing &message does not move the original String into the function.
+  - **Plain-English analogy / example:** Lending someone a book to read leaves it yours; giving them the book transfers ownership.
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** "you should give me the code for better understand"
+  - **Technical answer:** The supplied show_text function takes &str and receives &message, so message can be printed after the call. The contrasting take_text function takes String by value; passing message moves it, making a later use invalid. Only the borrowing version was saved and run in this session.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn show_text(text: &str) { println!("{text}"); }
+    fn main() {
+        let message = String::from("red,blue");
+        show_text(&message);
+        println!("{message}");
+    }
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`, `topics/rust/02-ownership/slices.md`
+**Verification:** Formatted the example; fmt/check/test (zero tests)/strict Clippy passed. Runtime printed `Inside function:  red,blue` and `After function: red,blue`. Rules verified against [Rust Book: References and Borrowing](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html).
+**Question to answer later:** Explain from the concrete example why the final println remains valid.
+**Next:** Complete that recall, then write a compiling split_text stub in the same crate. Splitting, deduplication, and the Week 3 milestone remain unfinished.
+

@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 2 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 21 (formally tracked) |
+| Total sessions | 22 (formally tracked) |
 | Exercises completed | 11 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, and owned `Scanner` Ch 2) |
 | Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-08 - owned Scanner completed |
+| Last session | 2026-09-08 - split-text borrowing warm-up |
 | Days since last session | 0 |
 
 ## Template
@@ -271,6 +271,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: After a short recall of borrowing versus moving a String, scaffold and begin the Week 3 hand-written string-splitting task (`$new-exercise 02 split-text`).
 - Tracker note: Phase 2 / Week 3 and 3 shipped projects remain unchanged. Reading checkboxes and the split/dedup shipping milestone remain open; no new chapter completion or automatic homework set.
+
+### 2026-09-08 - Split-text scaffold and borrowing warm-up
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / shared borrowing versus moving String
+- What I did: Scaffolded the Week 3 splitting task and tried the supplied show_text example. Reviewed why passing &message to an &str parameter leaves message usable afterward; requested concrete code after the verbal ownership question was unclear.
+- Exercises: borrowing warm-up verified; split-text implementation remains unfinished. Official totals remain 11 exercises and 3 shipped projects.
+- Code: `code/02-ownership/split-text/` - formatted; fmt/check/zero-test harness/strict Clippy passed; runtime printed red,blue inside and after the call.
+- Mood: -
+- Tomorrow's first move: Explain why the final println in the show_text example works, then write a compiling split_text stub using the signature decoded in BRIEF.md.
+- Tracker note: No week or chapter milestone completed; independent borrowing recall remains open.
 
 ## Weekly review
 

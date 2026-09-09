@@ -58,13 +58,13 @@ form consumes it.
 
 ## Checklist
 
-- [ ] I can explain each part of the required syntax
-- [ ] `cargo run` compiles and prints a stub
-- [ ] Implement the spec
-- [ ] `cargo clippy -- -D warnings` is clean
-- [ ] `cargo fmt` applied
-- [ ] Tests pass when the exercise requires them
-- [ ] Tell Codex "done" so `$journal` logs the session
+- [x] I can explain each part of the required syntax
+- [x] `cargo run` compiles and prints a stub
+- [x] Implement the spec
+- [x] `cargo clippy -- -D warnings` is clean
+- [x] `cargo fmt` applied
+- [x] Tests pass when the exercise requires them
+- [x] Tell Codex "done" so `$journal` logs the session
 
 ## Run
 

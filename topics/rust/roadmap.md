@@ -22,7 +22,7 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at
 - [[02-ownership/borrowing|References & borrowing]] — `&T` vs `&mut T`
 - [[02-ownership/slices|Slices]] — `&str`, `&[T]`
 - [[02-ownership/lifetimes|Lifetimes]] — the scary part that clicks once you see why
-- **Milestone:** Re-implement `str::split`, `Vec::dedup` by hand.
+- **Milestone:** ✅ Re-implement `str::split`, `Vec::dedup` by hand.
 
 ## Week 3 — Types, enums, pattern matching
 - [[03-types-and-traits/structs|Structs]] (including tuple structs, unit structs)

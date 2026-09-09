@@ -250,3 +250,58 @@ tags: [rust, journal, ownership]
 **Question to answer later:** Explain from the concrete example why the final println remains valid.
 **Next:** Complete that recall, then write a compiling split_text stub in the same crate. Splitting, deduplication, and the Week 3 milestone remain unfinished.
 
+### 2026-09-09 - Generic in-place vector deduplication
+**Working on:** Ch 2 exercise 5, hand-written consecutive deduplication - `code/02-ownership/dedup-vec/`
+**What clicked:** Liam implemented `dedup_in_place<T: PartialEq>` with an exclusive `&mut Vec<T>` borrow, compared each element with its previous neighbor, and preserved non-adjacent duplicates. He correctly explained at closeout that removal shifts a new element into the current index, so advancing immediately would skip a needed comparison.
+**What didn't:** UTF-8 character ordinals were initially treated as possible string-slice positions. The cursor was first expected to advance after removal, the loop initially kept hard-coded indices, and the first test compared the function's unit return value rather than the vector it mutated. Test inputs also briefly used nested arrays where flat vectors were intended.
+**Questions asked this session:**
+- **Q:** "Why don't `char_indices()` return the character counts?"
+  - **Technical answer:** A Rust `str` stores UTF-8 bytes, and string slice ranges require byte offsets that lie on character boundaries. A character ordinal identifies which `char` was visited but is not necessarily its byte address because one `char` uses one to four UTF-8 bytes.
+  - **Plain-English analogy / example:**
+    ```text
+    "a💖b" character ordinals: 0, 1, 2
+    "a💖b" byte positions:     0, 1, 5
+    slicing needs byte addresses, not positions in a queue
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+- **Q:** "Please explain it to me" and "why and when we use this `PartialEq`?"
+  - **Technical answer:** `T` makes the function reusable for different element types, while the `PartialEq` trait bound guarantees that values of `T` support `==` and `!=`. Deduplication needs that capability to decide whether neighboring elements are duplicates; a generic function that never compares its elements would not need this bound.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn same<T: PartialEq>(left: T, right: T) -> bool {
+        left == right
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`, `topics/rust/03-types-and-traits/traits.md`
+- **Q:** "Give me a hint", "I don't know what to do next", and "I don't [feel] familiar with `while` syntax."
+  - **Technical answer:** A `while` loop checks a Boolean condition before each iteration and repeats its block while that condition is true. This loop makes progress in two ways: removing a duplicate shortens the vector, while keeping a distinct element advances the mutable cursor.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut index = 0;
+    while index < 3 {
+        index += 1;
+    }
+    ```
+  - **See also:** `topics/rust/01-fundamentals/control-flow.md`
+- **Q:** "Why `values[index - 1]`?"
+  - **Technical answer:** Consecutive deduplication compares the current element at `index` with its immediate predecessor at `index - 1`. Starting at index 1 makes the subtraction safe, and unequal non-adjacent repetitions remain in the vector as required.
+  - **Plain-English analogy / example:**
+    ```text
+    values:   [1, 2, 1]
+    index 2:   previous=2, current=1
+    unequal:   keep both; the earlier 1 is not adjacent
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** Should the cursor advance after removing a duplicate, and why does it ultimately stay unchanged?
+  - **Technical answer:** `Vec::remove(index)` shifts every later element one position left. The newly shifted element at the same index has not yet been compared with its predecessor, so advancing would skip it; the cursor advances only when the current element is retained.
+  - **Plain-English analogy / example:**
+    ```text
+    [1, 1, 1, 2], remove index 1 -> [1, 1, 2]
+        ^ new current element still needs checking
+    keep index 1 -> compare it with index 0 again
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+**Verification:** `cargo check`, `cargo test` (5 passed), `cargo clippy -- -D warnings`, `cargo run`, `cargo fmt`, and final `cargo fmt --check` passed. Tests cover duplicate runs, empty input, non-adjacent duplicates, duplicates at both edges, and a non-integer `&str` element type. Explanations were checked against [`str::char_indices`](https://doc.rust-lang.org/stable/std/primitive.str.html#method.char_indices), [Rust Book string slicing](https://doc.rust-lang.org/book/ch08-02-strings.html#slicing-strings), [Rust Book mutable references](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html#mutable-references), and [`PartialEq`](https://doc.rust-lang.org/std/cmp/trait.PartialEq.html).
+**Question to answer later:** Can Liam independently reconstruct the cursor loop and its tests without hard-coded indices or step-by-step prompts?
+**Next:** Read `topics/rust/02-ownership/lifetimes.md`, then explain how lifetime annotations constrain borrowed values without extending their lives.
+

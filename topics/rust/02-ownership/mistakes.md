@@ -10,6 +10,24 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-09 - Character ordinal treated as a string-slice position (`dedup-vec` warm-up)
+- **What I wrote:** "provide byte positions instead of character counts because character count is not flexible"
+- **Why it's wrong:** Flexibility is not the distinction. A character ordinal says which `char` was visited, while Rust string ranges require byte offsets; those numbers diverge when earlier UTF-8 characters occupy multiple bytes.
+- **The rule:** Use byte offsets on valid UTF-8 boundaries for `str` slicing; `char_indices()` supplies those offsets, while `chars().enumerate()` supplies ordinals.
+- **Status:** fresh; corrected with the `"a💖b"` byte-position example
+
+### 2026-09-09 - Cursor advanced after vector removal (`dedup-vec`)
+- **What I wrote:** "the cursor should advance to 2 because we need to find out that which value was duplicated"
+- **Why it's wrong:** The comparison already identifies the duplicate before removal. Removing at the current index shifts an unchecked element into that same position, so advancing would skip its comparison with the previous retained element.
+- **The rule:** After `Vec::remove(index)`, keep the cursor unchanged to inspect the shifted element; increment only when retaining the current element.
+- **Status:** fresh; independently corrected in the final explanation and covered by the repeated-run test
+
+### 2026-09-09 - In-place mutation confused with a returned vector (`dedup-vec` test)
+- **What I wrote:** `assert_eq!(dedup_in_place(&mut values), [1,2,1,2]);`
+- **Why it's wrong:** `dedup_in_place` has no explicit return type and therefore returns unit `()`. Its observable result is the caller-owned vector changed through `&mut Vec<T>`, so the test must call the function and then assert on `values`.
+- **The rule:** For an in-place `fn change(value: &mut T)`, test the referent after the call rather than comparing the function's unit return value.
+- **Status:** fresh; corrected and used in five passing tests
+
 ### 2026-09-08 - Adjacent separators lost an empty piece (split-text)
 - **What I wrote:** Predicted `["", "red", "green", ""]` for `",red,,green,"`.
 - **Why it's wrong:** The two adjacent commas enclose an empty substring, just as the leading and trailing commas border empty substrings. Omitting it changes the behavior from `str::split` and loses information about the input's field positions.

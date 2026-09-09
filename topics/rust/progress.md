@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 2 days |
+| Streak (current) | 3 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 22 (formally tracked) |
-| Exercises completed | 12 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, and `split_text` Ch 2) |
-| Projects shipped | 3 (fizzbuzz, temp-converter, guessing-game) |
+| Total sessions | 23 (formally tracked) |
+| Exercises completed | 13 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, `split_text`, and `dedup_in_place` Ch 2) |
+| Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-08 - hand-written split_text completed |
+| Last session | 2026-09-09 - hand-written dedup_in_place completed |
 | Days since last session | 0 |
 
 ## Template
@@ -291,6 +291,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: After recalling why `char_indices` yields byte positions and why `len_utf8` matters, begin the hand-written `Vec::dedup` half of the Week 3 shipping task.
 - Tracker note: Phase 2 / Week 3 and 3 shipped projects remain unchanged; no week or chapter completion and no automatic homework set.
+
+### 2026-09-09 - Hand-written consecutive deduplication
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / mutable vectors, generics, and in-place mutation
+- What I did: Implemented generic `dedup_in_place` without `Vec::dedup` by walking neighboring elements with a mutable cursor, removing only consecutive duplicates, and keeping the cursor in place after removal so shifted elements are rechecked. Added five tests covering repeated runs, empty input, non-adjacent duplicates, duplicates at both edges, and `&str` elements.
+- Exercises: Ch 2 exercise 5 completed (13 total exercises officially recorded); the combined hand-written split/dedup shipping milestone is complete.
+- Code: `code/02-ownership/dedup-vec/` - check, 5 tests, strict Clippy, runtime, formatting, and final format check passed.
+- Mood: -
+- Tomorrow's first move: Read `topics/rust/02-ownership/lifetimes.md`, then explain how a lifetime annotation constrains a borrowed value without extending how long it lives.
+- Tracker note: Phase 2 / Week 3 remains active with two lifetime-reading boxes unchecked; no chapter completion or automatic homework set.
 
 ## Weekly review
 

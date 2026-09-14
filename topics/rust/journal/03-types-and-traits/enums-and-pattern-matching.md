@@ -62,3 +62,75 @@ tags: [rust, journal, enums, pattern-matching]
   - **See also:** `topics/rust/03-types-and-traits/enums.md`
 **Question to answer later:** Can Liam independently name both an impossible all-fields-present state and an all-fields-absent state?
 **Next:** Open `code/03-types-and-traits/network-state/BRIEF.md`, then type the enum and one initial state in `src/main.rs`.
+
+### 2026-09-14 - Network connection state machine
+**Working on:** Network connection state machine - `code/03-types-and-traits/network-state/`
+**What clicked:** A connection enum expresses one active state at a time, and each variant carries only state-specific data. Consuming methods take the old state as `self`, return a replacement `Self`, and allow a transition sequence to use shadowing. Match patterns both identify a variant and extract its stored fields for output or assertions.
+**What didn't:** Method-call syntax was repeatedly confused with namespace syntax, including naming a method as a function item and writing `connection::method()` instead of `connection.method()`. The first failure transition ignored its input message, and the first failure-message test compared `message` with itself rather than an independent expected value.
+**Questions asked this session:**
+- **Q:** "When do we use enum instead of struct and on the other hand?"
+  - **Technical answer:** A struct models fields that coexist in every value, whereas an enum models a value that is exactly one of several variants. Enum variants can carry different payloads, preventing contradictory combinations of fields that do not belong to the active state.
+  - **Plain-English analogy / example:**
+    ```rust
+    struct App { name: String, connection: ConnectionState }
+    enum ConnectionState { Disconnected, Connected { peer: String } }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/03-types-and-traits/enums.md`
+- **Q:** "What do u mean by transition? Where is that?"
+  - **Technical answer:** A transition is a state-machine term, not a Rust keyword: an event consumes or examines an old state and produces a new one. Here, calling `on_connect_success` moves the old connection into `self` and returns a `Connected` value.
+  - **Plain-English analogy / example:**
+    ```rust
+    let state = ConnectionState::Disconnected;
+    let state = state.on_connect_success(String::from("server"));
+    // Disconnected --success--> Connected
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/enums.md`
+- **Q:** "Why did we use `Self` here?"
+  - **Technical answer:** Inside `impl ConnectionState`, uppercase `Self` is an alias for the implemented type, `ConnectionState`. It avoids repeating the type name in return types and variant paths such as `Self::Connecting`.
+  - **Plain-English analogy / example:**
+    ```rust
+    impl ConnectionState {
+        fn reset(self) -> Self { Self::Disconnected }
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/enums.md`
+- **Q:** "It mean `self` is what user pass to the function call and `Self` is the type of `ConnectionState`, right?"
+  - **Technical answer:** Yes: lowercase `self` is the particular receiver value supplied by the expression before `.`, while uppercase `Self` denotes its type inside the `impl`. A plain `self` receiver moves that value into the method; `&self` would borrow it instead.
+  - **Plain-English analogy / example:**
+    ```rust
+    connection.on_connect_attempt();
+    // approximately: ConnectionState::on_connect_attempt(connection)
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/enums.md`, `topics/rust/02-ownership/ownership.md`
+- **Q:** "What do you mean by number 5?"
+  - **Technical answer:** The fifth testing step required a wildcard match arm that fails when the result has an unexpected variant. Because Rust matches must be exhaustive, `_` covers the remaining variants, and `panic!` ensures those variants cannot make the test pass silently.
+  - **Plain-English analogy / example:**
+    ```rust
+    match state {
+        ConnectionState::Connecting { attempts } => assert_eq!(attempts, 2),
+        _ => panic!("expected Connecting"),
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/pattern-matching.md`
+- **Q:** "You mean I should write a test, right?"
+  - **Technical answer:** Yes. A focused unit test sets up a state, runs one behavior, and asserts both the returned variant and its stored data so the transition policy is executable rather than assumed.
+  - **Plain-English analogy / example:**
+    ```text
+    arrange: Disconnected
+    act:     attempt twice
+    assert:  Connecting with attempts = 2
+    ```
+  - **See also:** `topics/rust/07-testing/unit-tests.md`
+- **Q:** "Give me the hint to write the test because I am not familiar with the syntax right now."
+  - **Technical answer:** `#[cfg(test)]` includes the test module only for test builds, `#[test]` registers a function with the test runner, and `use super::*` imports the surrounding module's items. `assert_eq!` fails when actual and expected values differ, while a fallback `panic!` rejects the wrong enum variant.
+  - **Plain-English analogy / example:**
+    ```rust
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+        #[test] fn transition_works() { /* arrange, act, assert */ }
+    }
+    ```
+  - **See also:** `topics/rust/07-testing/unit-tests.md`
+**Question to answer later:** Can Liam independently write `value.method()` calls and a non-tautological enum-transition test from a behavior statement?
+**Next:** After recalling `self` versus `Self` and `.` versus `::`, scaffold Ch 3 exercise 3 for the generic `largest` functions.

@@ -31,6 +31,18 @@ tags: [rust, mistakes, types, enums, traits]
 - **The rule:** An enum value has exactly one active variant; that variant stores zero or more fields.
 - **Status:** fresh
 
+### 2026-09-14 - Using a namespace path instead of a method call (`network-state`)
+- **What I wrote:** `connection::on_connect_attempt()` and, earlier, `ConnectionState::on_connect_attempt` without calling it on the existing value.
+- **Why it's wrong:** `::` selects an item through a type or module path, while the lowercase `connection` binding is a value whose consuming method must receive that value as `self`. Naming a method without the call syntax produces a function item rather than the returned `ConnectionState`.
+- **The rule:** Use `Type::Variant` to select an enum variant and `value.method()` to call a method on a particular value; the expression before `.` supplies `self`.
+- **Status:** 🟥 fresh
+
+### 2026-09-14 - Comparing a test result with itself (`network-state`)
+- **What I wrote:** `assert_eq!(message, message)`
+- **Why it's wrong:** Both sides refer to the same value, so the assertion passes regardless of which message the transition stored. It cannot detect a regression that changes or discards the caller-provided message.
+- **The rule:** Compare the actual result with an independently specified expected value, such as `assert_eq!(message, "timed out")`.
+- **Status:** 🟥 fresh
+
 ## Resolved (kept for reference)
 
 *(none yet)*

@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 28 (formally tracked) |
-| Exercises completed | 14 total (7 / 7 Ch 1 + 6 Ch 2 exercises + `shape-area` Ch 3) |
+| Total sessions | 29 (formally tracked) |
+| Exercises completed | 15 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 2 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-14 - Struct versus enum retrieval |
+| Last session | 2026-09-14 - Network connection state machine |
 | Days since last session | 0 |
 
 ## Template
@@ -351,6 +351,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Open `code/03-types-and-traits/network-state/BRIEF.md`, then type the enum and one initial state in `src/main.rs`.
 - Tracker note: Phase 3 / Week 4 remains active; no milestone or automatic homework set.
+
+### 2026-09-14 - Network connection state machine
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / enums, pattern matching, methods, and tests
+- What I did: Modeled four mutually exclusive connection states, implemented consuming transition methods for attempts, success, and failure, demonstrated successful and failed paths, and wrote three focused unit tests for the attempt count and stored strings.
+- Exercises: Ch 3 network state machine completed (15 total exercises officially recorded).
+- Code: `code/03-types-and-traits/network-state/` - formatting, check, 3 tests, strict Clippy, and runtime output passed.
+- Mood: -
+- Tomorrow's first move: After recalling `self` versus `Self` and `.` versus `::`, scaffold Ch 3 exercise 3 for the generic `largest` functions.
+- Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
 
 ## Weekly review
 

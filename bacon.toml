@@ -156,3 +156,16 @@ workdir = "code/02-ownership/dedup-vec"
 watch = ["code/02-ownership/dedup-vec/src", "code/02-ownership/dedup-vec/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.shape-area]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/shape-area"
+watch = ["code/03-types-and-traits/shape-area/src", "code/03-types-and-traits/shape-area/Cargo.toml"]
+default_watch = false
+
+[jobs.shape-area-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/shape-area"
+watch = ["code/03-types-and-traits/shape-area/src", "code/03-types-and-traits/shape-area/Cargo.toml"]
+default_watch = false
+need_stdout = true

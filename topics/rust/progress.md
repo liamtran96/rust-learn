@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 26 (formally tracked) |
-| Exercises completed | 13 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, `split_text`, and `dedup_in_place` Ch 2) |
+| Total sessions | 27 (formally tracked) |
+| Exercises completed | 14 total (7 / 7 Ch 1 + 6 Ch 2 exercises + `shape-area` Ch 3) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-14 - Chapter 2 ownership closeout review |
+| Last session | 2026-09-14 - Shape enum and area method |
 | Days since last session | 0 |
 
 ## Template
@@ -331,6 +331,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Begin Phase 3 / Week 4 with `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type the first examples.
 - Tracker note: The remaining combined Week 2 reading checkbox is complete, advancing the official tracker to Phase 3 / Week 4. Projects shipped remain 4.
+
+### 2026-09-14 - Shape enum and area method
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / enums and pattern matching
+- What I did: Modeled circles, rectangles, and triangles as data-carrying enum variants; implemented an exhaustive `area(&self)` match; demonstrated each variant; and added three unit tests.
+- Exercises: Ch 3 `shape-area` completed (14 total exercises officially recorded).
+- Code: `code/03-types-and-traits/shape-area/` - formatting, check, 3 tests, strict Clippy, and runtime output passed.
+- Mood: -
+- Tomorrow's first move: Read `topics/rust/03-types-and-traits/structs.md`, then explain how a struct differs from an enum before starting the next Ch 3 exercise.
+- Tracker note: Phase 3 / Week 4 remains active; no week or chapter milestone was completed, so no homework set was generated.
 
 ## Weekly review
 

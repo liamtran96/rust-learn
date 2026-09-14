@@ -525,3 +525,35 @@ tags: [rust, journal, ownership]
 **Verification:** A temporary `longest` example was compiled with `rustc`; it produced E0597 identifying `second` as the value that does not live long enough. The explanation was checked against the official Rust Book lifetime chapter.
 **Question to answer later:** Can Liam explain all four Ch 2 checkpoint errors without notes and distinguish the dropped owner from the invalidated reference?
 **Next:** Explain the Ch 2 checkpoint errors without notes; use the ownership, borrowing, and slices notes only to unblock an unclear explanation.
+
+### 2026-09-14 - Chapter 2 ownership checkpoint
+**Working on:** Ch 2 checkpoint - `topics/rust/exercises/ch02-ownership.md` (paper review; no crate)
+**What clicked:** Liam correctly identified that `let t = s` moves a non-`Copy` `String` from `s` to `t`, that an inner-scope owner is dropped at its closing brace, and that the owner must remain alive while borrowed data is used. He also connected an active element reference with `Vec::push` requiring overlapping mutable access.
+**What didn't:** The `Vec` answer initially focused only on the appended value and mutation rather than possible buffer reallocation. The two-input lifetime relationship required a scope diagram and direct explanation, and lifetime annotations were again proposed as a way to keep a dropped value alive; the final correction distinguished the owner from the borrowing reference.
+**Questions asked this session:**
+- **Q:** "can u give me code example"
+  - **Technical answer:** An immutable reference such as `&numbers[0]` borrows an element stored in the vector's buffer. A later `push` needs mutable access and may reallocate that buffer, so Rust rejects it when the element reference is still needed afterward.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut numbers = vec![10, 20, 30];
+    let first = &numbers[0];
+    numbers.push(40); // conflicts while first is still needed
+    println!("{first}");
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** Why can a function not promise `&'a str` when one branch may return `y: &'b str`?
+  - **Technical answer:** The names `'a` and `'b` describe independent validity windows, so the signature gives Rust no proof that `'b` lasts as long as `'a`. If the function might return either input, using one shared lifetime limits the returned reference to the overlap of the two inputs, which is effectively the shorter lifetime at the call site.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn longer<'a>(x: &'a str, y: &'a str) -> &'a str {
+        if x.len() > y.len() { x } else { y }
+    }
+    ```
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`
+- **Q:** Can a lifetime annotation fix a reference to an owner dropped at an inner closing brace?
+  - **Technical answer:** No. A lifetime annotation describes and constrains reference relationships at compile time; it cannot delay when an owned value is dropped. The owner must be moved to a scope that lasts through the reference's final use, or the reference must be used before the owner's scope ends.
+  - **Plain-English analogy / example:** A bookmark cannot preserve a discarded book. The book's owner must keep the book available for as long as the bookmark is used.
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`, `topics/rust/02-ownership/borrowing.md`
+**Verification:** `cargo test` passed all 12 ownership drill targets. The `Vec` reallocation and lifetime explanations were checked against the official Rust Book and standard-library `Vec` documentation.
+**Question to answer later:** After spacing, can Liam independently explain why lifetime annotations cannot extend an owner's scope and why a two-input borrowed return is limited by the shorter input?
+**Next:** Review `topics/rust/02-ownership/ownership.md`, `borrowing.md`, and `slices.md`, then complete the remaining combined Week 2 reading checkbox before closing Chapter 2.

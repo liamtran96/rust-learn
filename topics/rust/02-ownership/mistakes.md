@@ -10,17 +10,17 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
-### 2026-09-14 - Returned reference confused with its dropped owner (lifetime review)
-- **What I wrote:** "it does not compile and the result does not live long enough"
-- **Why it's wrong:** `result` is the reference Rust prevents from being used, but the diagnostic identifies `second` as the value that does not live long enough. `second` owns the text and is dropped at the end of the inner block; `result` could then point into invalid storage.
+### 2026-09-14 - Returned reference confused with its dropped owner (lifetime review and checkpoint)
+- **What I wrote:** "it does not compile and the result does not live long enough" and later "the reference vale must remain alive while its data is borrowed"
+- **Why it's wrong:** `result` is the reference Rust prevents from being used, but the diagnostic identifies the owner as the value that does not live long enough. The owner holds the data and is dropped at the end of its scope; keeping only the reference alive would leave it pointing into invalid storage.
 - **The rule:** Identify both sides of a borrow: the owner determines how long the data lives, and a reference may not be used after that owner is dropped.
-- **Status:** fresh; corrected after verifying E0597 with `rustc`
+- **Status:** fresh; repeated during the checkpoint and corrected to name the owner
 
-### 2026-09-14 - Lifetime annotation treated as a runtime keeper and selector (lifetime review)
-- **What I wrote:** "'a tell us that keep the s and sep value restrict how long its may be used" and later "at runtime"
+### 2026-09-14 - Lifetime annotation treated as a runtime keeper and selector (lifetime review and checkpoint)
+- **What I wrote:** "'a tell us that keep the s and sep value restrict how long its may be used", later "at runtime", and then proposed "use lifetime anotation" to fix an owner dropped before a reference's use
 - **Why it's wrong:** `'a` applies to the annotated references, not to the owned `char` separator, and it does not keep any value alive. The function's `if` expression selects a returned reference at runtime; the lifetime annotation only describes a validity relationship checked by the compiler.
 - **The rule:** Lifetime annotations constrain relationships between references at compile time; they do not allocate, extend values' lives, or choose runtime branches.
-- **Status:** fresh; corrected to a compile-time-only relationship after concrete examples
+- **Status:** fresh; repeated during the checkpoint and corrected with an owner-versus-bookmark analogy
 
 ### 2026-09-09 - Character ordinal treated as a string-slice position (`dedup-vec` warm-up)
 - **What I wrote:** "provide byte positions instead of character counts because character count is not flexible"

@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 24 (formally tracked) |
+| Total sessions | 25 (formally tracked) |
 | Exercises completed | 13 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, `split_text`, and `dedup_in_place` Ch 2) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-14 - lifetime relationships reviewed |
+| Last session | 2026-09-14 - Chapter 2 ownership checkpoint reviewed |
 | Days since last session | 0 |
 
 ## Template
@@ -311,6 +311,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Without notes, explain the four compiler errors in the Ch 2 checkpoint; open the ownership, borrowing, or slices note only when an explanation is unclear.
 - Tracker note: The two Week 3 lifetime-reading boxes are complete. Phase 2 / Week 3 remains active until the Ch 2 checkpoint is explained; the earlier combined Week 2 reading box remains unchecked, so no chapter completion or automatic homework set.
+
+### 2026-09-14 - Chapter 2 ownership checkpoint
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership checkpoint
+- What I did: Explained all four checkpoint diagnostics: overlapping shared and mutable access to a `Vec`, use after moving a `String`, incompatible returned-reference lifetime promises, and use of a reference after its owner is dropped. Corrected the idea that lifetime annotations can keep an owner alive.
+- Exercises: no new exercise; official total remains 13. Chapter 2 checkpoint completed.
+- Code: no exercise code changed; all 12 ownership drill test targets passed.
+- Mood: -
+- Tomorrow's first move: Review `topics/rust/02-ownership/ownership.md`, `borrowing.md`, and `slices.md`, then complete the remaining combined Week 2 reading checkbox before closing Chapter 2.
+- Tracker note: Phase 2 / Week 3 remains active because the earlier combined Week 2 reading box is still unchecked. No chapter completion or automatic homework set yet.
 
 ## Weekly review
 

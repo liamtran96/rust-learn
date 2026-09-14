@@ -169,3 +169,16 @@ workdir = "code/03-types-and-traits/shape-area"
 watch = ["code/03-types-and-traits/shape-area/src", "code/03-types-and-traits/shape-area/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.network-state]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/network-state"
+watch = ["code/03-types-and-traits/network-state/src", "code/03-types-and-traits/network-state/Cargo.toml"]
+default_watch = false
+
+[jobs.network-state-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/network-state"
+watch = ["code/03-types-and-traits/network-state/src", "code/03-types-and-traits/network-state/Cargo.toml"]
+default_watch = false
+need_stdout = true

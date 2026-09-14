@@ -25,6 +25,12 @@ tags: [rust, mistakes, types, enums, traits]
 - **The rule:** For calculated `f64` values, usually assert that `(actual - expected).abs()` is smaller than a chosen tolerance.
 - **Status:** fresh
 
+### 2026-09-14 - Confusing an enum variant with a field (struct-versus-enum retrieval)
+- **What I wrote:** "each shape value is exactly one field"
+- **Why it's wrong:** A field is one stored piece of data, such as `radius`; it is not the alternative case represented by the whole value. `Circle` and `Rectangle` are variants, and their payloads contain fields.
+- **The rule:** An enum value has exactly one active variant; that variant stores zero or more fields.
+- **Status:** fresh
+
 ## Resolved (kept for reference)
 
 *(none yet)*

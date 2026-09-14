@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 27 (formally tracked) |
+| Total sessions | 28 (formally tracked) |
 | Exercises completed | 14 total (7 / 7 Ch 1 + 6 Ch 2 exercises + `shape-area` Ch 3) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-14 - Shape enum and area method |
+| Last session | 2026-09-14 - Struct versus enum retrieval |
 | Days since last session | 0 |
 
 ## Template
@@ -341,6 +341,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Read `topics/rust/03-types-and-traits/structs.md`, then explain how a struct differs from an enum before starting the next Ch 3 exercise.
 - Tracker note: Phase 3 / Week 4 remains active; no week or chapter milestone was completed, so no homework set was generated.
+
+### 2026-09-14 - Struct versus enum retrieval
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / structs and enums
+- What I did: Explained that a `Shape` enum has exactly one active variant and that each variant stores only its relevant fields; contrasted this with an all-in-one struct that could represent multiple shapes or no shape.
+- Exercises: no new exercise; official total remains 14.
+- Code: scaffolded `code/03-types-and-traits/network-state/` in the preceding commit; no solution code written.
+- Mood: -
+- Tomorrow's first move: Open `code/03-types-and-traits/network-state/BRIEF.md`, then type the enum and one initial state in `src/main.rs`.
+- Tracker note: Phase 3 / Week 4 remains active; no milestone or automatic homework set.
 
 ## Weekly review
 

@@ -305,3 +305,40 @@ tags: [rust, journal, ownership]
 **Question to answer later:** Can Liam independently reconstruct the cursor loop and its tests without hard-coded indices or step-by-step prompts?
 **Next:** Read `topics/rust/02-ownership/lifetimes.md`, then explain how lifetime annotations constrain borrowed values without extending their lives.
 
+### 2026-09-14 - Chapter 2 ownership closeout review
+**Working on:** Chapter 2 checkpoint follow-up - `topics/rust/exercises/ch02-ownership.md` (paper retrieval; no crate)
+**What clicked:** Moving a `String` transfers the existing allocation rather than creating another buffer, and borrowing with `&name` leaves the caller as owner. A shared borrow can end at its final use under non-lexical lifetime analysis, allowing a later mutable borrow. String slice indices are byte offsets, and Liam correctly concluded that `&word[2..]` produces `"clair"` after the two-byte `é`.
+**What didn't:** The moved-from binding was first described as dropped. The overlapping `Vec` borrow was initially predicted to compile, and the UTF-8 boundary panic was not recalled until reviewed.
+**Questions asked this session:**
+- **Q:** Does assigning one `String` variable to another drop the original, how many heap buffers remain, and how can both names read the text?
+  - **Technical answer:** Assignment moves a non-`Copy` `String`, invalidating the source binding without dropping the allocation at that point. The destination becomes owner of the same single buffer; borrowing with `&source` instead provides shared read access without transferring ownership.
+  - **Plain-English analogy / example:**
+    ```rust
+    let name = String::from("Liam");
+    let saved = &name;
+    println!("{name} {saved}");
+    ```
+  - **See also:** `topics/rust/02-ownership/ownership.md`, `topics/rust/02-ownership/borrowing.md`
+- **Q:** Why does a reference to a vector element conflict with `Vec::push`, even when the vector might have spare capacity?
+  - **Technical answer:** The element reference keeps a shared borrow of the vector active through its final use, while `push` requires an exclusive mutable borrow. `push` may reallocate the buffer, but the borrow rule applies regardless of runtime capacity; using the reference before `push` makes the borrows sequential.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut values = vec![10, 20, 30];
+    let first = &values[0];
+    println!("{first}"); // shared borrow's final use
+    values.push(40);     // mutable borrow starts afterward
+    ```
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** What happens when `"éclair"` is sliced at byte index 1, and what does slicing from byte index 2 produce?
+  - **Technical answer:** The code compiles, but slicing at index 1 panics because that index lies inside the two-byte UTF-8 encoding of `é`. Index 2 is a valid character boundary, so the suffix slice is `"clair"`.
+  - **Plain-English analogy / example:**
+    ```rust
+    let word = String::from("éclair");
+    // let invalid = &word[..1]; // runtime panic
+    let suffix = &word[2..];
+    assert_eq!(suffix, "clair");
+    ```
+  - **See also:** `topics/rust/02-ownership/slices.md`
+**Question to answer later:** After spacing, can Liam independently distinguish move from drop, explain the overlapping `Vec` borrows, and find valid UTF-8 slice boundaries?
+**Next:** Begin Phase 3 / Week 4 with `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type the first examples.
+

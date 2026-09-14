@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 25 (formally tracked) |
+| Total sessions | 26 (formally tracked) |
 | Exercises completed | 13 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, `split_text`, and `dedup_in_place` Ch 2) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
-| Current phase | Phase 2 — Ownership |
-| Current week | Week 3 |
-| Last session | 2026-09-14 - Chapter 2 ownership checkpoint reviewed |
+| Current phase | Phase 3 — Types & data |
+| Current week | Week 4 |
+| Last session | 2026-09-14 - Chapter 2 ownership closeout review |
 | Days since last session | 0 |
 
 ## Template
@@ -321,6 +321,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Review `topics/rust/02-ownership/ownership.md`, `borrowing.md`, and `slices.md`, then complete the remaining combined Week 2 reading checkbox before closing Chapter 2.
 - Tracker note: Phase 2 / Week 3 remains active because the earlier combined Week 2 reading box is still unchecked. No chapter completion or automatic homework set yet.
+
+### 2026-09-14 - Chapter 2 ownership closeout review
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / ownership, borrowing, and slices review
+- What I did: Recalled `String` moves and allocation count, corrected move-versus-drop terminology, reviewed overlapping shared and mutable `Vec` borrows and non-lexical lifetimes, and refreshed UTF-8 byte-boundary rules for string slices.
+- Exercises: no new exercise; official total remains 13. Chapter 2 is complete.
+- Code: no exercise code changed; paper retrieval review only
+- Mood: -
+- Tomorrow's first move: Begin Phase 3 / Week 4 with `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type the first examples.
+- Tracker note: The remaining combined Week 2 reading checkbox is complete, advancing the official tracker to Phase 3 / Week 4. Projects shipped remain 4.
 
 ## Weekly review
 

@@ -10,6 +10,18 @@ tags: [rust, ownership, mistakes, review]
 
 ## Open mistakes (review these)
 
+### 2026-09-14 - Move confused with immediate drop (chapter closeout review)
+- **What I wrote:** "name was dropped out"
+- **Why it's wrong:** In `let saved = name`, the `String` is moved from `name` into `saved`; its heap allocation is not dropped during the assignment. The source binding becomes unusable, while the destination owns the same allocation until that owner later leaves scope.
+- **The rule:** Moving a non-`Copy` value transfers ownership and invalidates the source; dropping runs cleanup when the current owner leaves scope.
+- **Status:** fresh; corrected during the closeout review
+
+### 2026-09-14 - Overlapping `Vec` borrows predicted to compile (chapter closeout review)
+- **What I wrote:** "yes. I dont know"
+- **Why it's wrong:** A reference to an element keeps a shared borrow active when it is used after `push`, but `push` needs an exclusive mutable borrow and may reallocate the vector's buffer. This repeats the earlier `Vec::push` confusion from retrieval Question 4.
+- **The rule:** Shared and mutable borrows cannot overlap; use the element reference for the last time before mutating the vector, allowing non-lexical lifetime analysis to end the shared borrow.
+- **Status:** fresh; repeated after spacing, then corrected with a safe reordering
+
 ### 2026-09-14 - Returned reference confused with its dropped owner (lifetime review and checkpoint)
 - **What I wrote:** "it does not compile and the result does not live long enough" and later "the reference vale must remain alive while its data is borrowed"
 - **Why it's wrong:** `result` is the reference Rust prevents from being used, but the diagnostic identifies the owner as the value that does not live long enough. The owner holds the data and is dropped at the end of its scope; keeping only the reference alive would leave it pointing into invalid storage.

@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 3 days |
+| Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 23 (formally tracked) |
+| Total sessions | 24 (formally tracked) |
 | Exercises completed | 13 total (7 / 7 Ch 1 + `strip_margin`, `split_at_mut`, borrowed `Scanner`, owned `Scanner`, `split_text`, and `dedup_in_place` Ch 2) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 2 — Ownership |
 | Current week | Week 3 |
-| Last session | 2026-09-09 - hand-written dedup_in_place completed |
+| Last session | 2026-09-14 - lifetime relationships reviewed |
 | Days since last session | 0 |
 
 ## Template
@@ -301,6 +301,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Read `topics/rust/02-ownership/lifetimes.md`, then explain how a lifetime annotation constrains a borrowed value without extending how long it lives.
 - Tracker note: Phase 2 / Week 3 remains active with two lifetime-reading boxes unchecked; no chapter completion or automatic homework set.
+
+### 2026-09-14 - Lifetime relationships and elision
+- Duration: not recorded
+- Phase / chapter: Phase 2 / Ch 2 / lifetimes
+- What I did: Read the lifetime note, skimmed the lifetime cheatsheet, traced why a returned reference cannot outlive a shorter-lived input, and distinguished compile-time lifetime constraints from runtime branch selection. Recalled why an in-place dedup cursor stays at the same index after removal.
+- Exercises: no new exercise; official total remains 13.
+- Code: no repository code changed; a temporary `longest` snippet was compiled to confirm E0597 and then removed.
+- Mood: -
+- Tomorrow's first move: Without notes, explain the four compiler errors in the Ch 2 checkpoint; open the ownership, borrowing, or slices note only when an explanation is unclear.
+- Tracker note: The two Week 3 lifetime-reading boxes are complete. Phase 2 / Week 3 remains active until the Ch 2 checkpoint is explained; the earlier combined Week 2 reading box remains unchecked, so no chapter completion or automatic homework set.
 
 ## Weekly review
 

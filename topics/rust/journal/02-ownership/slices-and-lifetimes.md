@@ -495,3 +495,33 @@ tags: [rust, journal, ownership]
 **Verification:** `cargo fmt --check`, `cargo check`, `cargo test` (4 passed), `cargo clippy -- -D warnings`, and `cargo run` passed. Runtime split `"red💥blue💥green"` into three pieces. Behavior and explanations were checked against [Rust `str::split`](https://doc.rust-lang.org/std/primitive.str.html#method.split), [`str::char_indices`](https://doc.rust-lang.org/std/primitive.str.html#method.char_indices), [Rust Book vectors](https://doc.rust-lang.org/book/ch08-01-vectors.html), and [Rust Book slices](https://doc.rust-lang.org/book/ch04-03-slices.html).
 **Question to answer later:** Why can each returned `&str` be used only while the original input text remains alive?
 **Next:** Begin the hand-written `Vec::dedup` half of the Week 3 shipping task. The combined shipping milestone and chapter remain open, so no chapter homework is generated yet.
+
+### 2026-09-14 - Lifetime constraints versus runtime behavior
+**Working on:** Ch 2 lifetime reading and explanation - `topics/rust/02-ownership/lifetimes.md`
+**What clicked:** A returned `&str` points into existing owned text rather than owning a new string. A lifetime annotation relates the permitted use of output references to their borrowed inputs; it neither keeps the source alive nor executes at runtime. In `Vec<&'a str>`, each returned slice is tied to the source `&'a str`, while an owned `char` separator has no such lifetime relationship.
+**What didn't:** Initially blamed `result` rather than the dropped owner `second`, described `'a` as keeping `s` and `sep` alive, and then said it selected `x` or `y` at runtime. Concrete scope and vector-shift diagrams were needed before the distinction between an owner, a borrowed reference, and a compile-time lifetime constraint became clear.
+**Questions asked this session:**
+- **Q:** "what do y mean by the same index"
+  - **Technical answer:** `Vec::remove(index)` shifts every later element one position left. A dedup cursor must remain at that index after removal because a previously unchecked element has just moved there; incrementing immediately would skip it.
+  - **Plain-English analogy / example:**
+    ```rust
+    let mut values = vec![1, 1, 1, 2];
+    values.remove(1);
+    assert_eq!(values, vec![1, 1, 2]);
+    // The unchecked third 1 shifted into index 1.
+    ```
+  - **See also:** `topics/rust/02-ownership/mistakes.md`
+- **Q:** "still dont understand your question" (why `'a` cannot make `second` remain alive after its block)
+  - **Technical answer:** A returned `&str` is only a reference into text owned elsewhere. The owner `second` is dropped at the end of its block, and a lifetime annotation cannot delay that drop; it only lets the compiler reject use of a possibly dangling result.
+  - **Plain-English analogy / example:**
+    ```rust
+    let result;
+    {
+        let second = String::from("short");
+        result = second.as_str();
+    } // second's text is dropped, so result cannot be used later
+    ```
+  - **See also:** `topics/rust/02-ownership/lifetimes.md`, `topics/rust/02-ownership/borrowing.md`
+**Verification:** A temporary `longest` example was compiled with `rustc`; it produced E0597 identifying `second` as the value that does not live long enough. The explanation was checked against the official Rust Book lifetime chapter.
+**Question to answer later:** Can Liam explain all four Ch 2 checkpoint errors without notes and distinguish the dropped owner from the invalidated reference?
+**Next:** Explain the Ch 2 checkpoint errors without notes; use the ownership, borrowing, and slices notes only to unblock an unclear explanation.

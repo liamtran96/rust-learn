@@ -182,3 +182,16 @@ workdir = "code/03-types-and-traits/network-state"
 watch = ["code/03-types-and-traits/network-state/src", "code/03-types-and-traits/network-state/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.generic-largest]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/generic-largest"
+watch = ["code/03-types-and-traits/generic-largest/src", "code/03-types-and-traits/generic-largest/Cargo.toml"]
+default_watch = false
+
+[jobs.generic-largest-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/generic-largest"
+watch = ["code/03-types-and-traits/generic-largest/src", "code/03-types-and-traits/generic-largest/Cargo.toml"]
+default_watch = false
+need_stdout = true

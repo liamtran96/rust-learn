@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 29 (formally tracked) |
-| Exercises completed | 15 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 2 Ch 3 exercises) |
+| Total sessions | 30 (formally tracked) |
+| Exercises completed | 16 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 3 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-14 - Network connection state machine |
+| Last session | 2026-09-18 - Generic largest functions |
 | Days since last session | 0 |
 
 ## Template
@@ -360,6 +360,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/03-types-and-traits/network-state/` - formatting, check, 3 tests, strict Clippy, and runtime output passed.
 - Mood: -
 - Tomorrow's first move: After recalling `self` versus `Self` and `.` versus `::`, scaffold Ch 3 exercise 3 for the generic `largest` functions.
+- Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
+
+### 2026-09-18 - Generic largest functions
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / generics, trait bounds, borrowed slices, and `Option`
+- What I did: Completed and reviewed three generic largest-value functions: a `Copy` version, an empty-safe owned version, and a borrowing version for non-`Copy` elements. Added four tests and clarified how `T`, trait bounds, `Option<T>`, and `Option<&T>` affect ownership.
+- Exercises: Ch 3 generic `largest` exercise completed (16 total exercises officially recorded).
+- Code: `code/03-types-and-traits/generic-largest/` - formatting, check, 4 tests, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: Without notes, explain why an empty slice produces `None` and why a non-`Copy` winner is returned as `&T`; then begin Ch 3 exercise 4, `Pair<T, U>::swap`.
 - Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
 
 ## Weekly review

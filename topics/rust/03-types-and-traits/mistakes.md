@@ -7,6 +7,18 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-18 - Confusing empty input with an empty element (`generic-largest`)
+- **What I wrote:** "because the String value can be empty so we should optional and return None if it's empty"
+- **Why it's wrong:** `largest_borrowed` may validly return a reference to an empty `String` if that element wins the comparison. `None` represents a slice containing no elements at all, because only then is there no possible winner.
+- **The rule:** Use `Option` when a result may be absent; here absence depends on the slice length, not on the contents of a `String` element.
+- **Status:** dYY - fresh
+
+### 2026-09-18 - Test name shadowed the function under test (`generic-largest`)
+- **What I wrote:** Named test functions `largest_optional` and `largest_borrowed`, then tried to call the production functions by those names inside the test module.
+- **Why it's wrong:** A test function declared in the module shadows an item with the same name brought in by `use super::*`, so the call resolved to the zero-argument test function instead.
+- **The rule:** Give tests behavior-oriented names such as `optional_returns_none_for_empty`; avoid reusing the exact name of the function under test in the same namespace.
+- **Status:** dYY - fresh
+
 ### 2026-09-14 - Calling an enum method without an enum value (`shape-area`)
 - **What I wrote:** Tried to call `area("Circle")` instead of constructing a `Shape` and calling its method.
 - **Why it's wrong:** `area` has a `self` receiver, so it operates on a concrete enum value whose active variant carries the required dimensions. A string such as `"Circle"` has neither the `Shape` type nor a radius.

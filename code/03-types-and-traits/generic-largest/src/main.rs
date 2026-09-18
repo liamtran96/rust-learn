@@ -20,6 +20,39 @@ fn main() {
     println!("{empty_result:?}");
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn largest_value() {
+        let number = [3, 8, 5];
+        let best = largest(&number);
+        assert_eq!(best, 8);
+    }
+    #[test]
+    fn optional_returns_some_for_nonempty() {
+        let number = [3, 8, 5];
+        let best = largest_optional(&number);
+        assert_eq!(best, Some(8));
+    }
+    #[test]
+    fn optional_returns_none_for_empty() {
+        let empty: [i32; 0] = [];
+        let best = largest_optional(&empty);
+        assert_eq!(best, None);
+    }
+    #[test]
+    fn borrowed_returns_largest_string() {
+        let animal = [
+            String::from("cat"),
+            String::from("zebra"),
+            String::from("ant"),
+        ];
+        let best = largest_borrowed(&animal);
+        assert_eq!(best, Some(&animal[1]));
+    }
+}
+
 fn largest<T: PartialOrd + Copy>(xs: &[T]) -> T {
     let mut best = &xs[0];
     for x in &xs[1..] {

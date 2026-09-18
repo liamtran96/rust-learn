@@ -36,6 +36,9 @@ Create a topic journal when a genuinely new subject receives its first session e
 **What didn't:** <confusion or repeated attempts>
 **Questions asked this session:**
 - **Q:** <question>
+  - **Prompt context:** <the scenario or task being discussed; enough to understand the question without revealing its answer>
+  - **Prompt code:** <original prompt, broken, or incomplete code; use -> when no code was involved>
+  - **Liam's answer:** <verbatim answer; use -> when no answer was attempted>
   - **Technical answer:** <answer>
   - **Plain-English analogy / example:** <analogy or short Rust example>
   - **See also:** <repository path or ->

@@ -18,7 +18,10 @@ Treat the repository root as the base for every path. Interpret text following `
 5. Populate the entry from the current conversation. Capture the exercise path, concepts that clicked, confusion, every question Liam asked, unresolved questions, and the next roadmap action.
 6. For every recorded question, include:
    - the question, verbatim or nearly so;
-   - a 2–4 sentence technical answer that defines Rust jargon on first use;
+   - the exact prompt context needed to understand why the question was asked, without including the answer;
+   - the original incomplete, broken, or pre-answer code shown during the question, or `-` when no code was involved; never substitute the finished solution;
+   - Liam's answer verbatim when he attempted one, or `-` when he asked the question without proposing an answer;
+   - a 2-4 sentence technical answer that defines Rust jargon on first use;
    - a 3–6 line runnable-looking Rust example, or a clearer real-world analogy;
    - a relevant repository note path, or `—` when none fits.
 7. Use this entry shape unless the journal's current template supersedes it:
@@ -30,6 +33,9 @@ Treat the repository root as the base for every path. Interpret text following `
    **What didn't:** <confusion or repeated attempts>
    **Questions asked this session:**
    - **Q:** <question>
+     - **Prompt context:** <the scenario or task Liam was responding to; do not reveal the answer>
+     - **Prompt code:** <original prompt/incomplete code, or ->
+     - **Liam's answer:** <verbatim answer, or ->
      - **Technical answer:** <answer>
      - **Plain-English analogy / example:** <analogy or short Rust example>
      - **See also:** <repository path or —>

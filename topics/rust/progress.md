@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 31 (formally tracked) |
-| Exercises completed | 17 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 4 Ch 3 exercises) |
+| Total sessions | 32 (formally tracked) |
+| Exercises completed | 18 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 5 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-21 - Generic pair swap |
+| Last session | 2026-09-21 - Animal trait and default method |
 | Days since last session | 0 |
 
 ## Template
@@ -381,6 +381,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: After recalling the difference between a type parameter and a value, scaffold Ch 3 exercise 5 for the `Animal` trait (`$new-exercise 03 animal-trait`).
 - Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
+
+### 2026-09-21 - Animal trait and default method
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / traits, method receivers, and default methods
+- What I did: Defined `Animal` with required and default methods; implemented it for `Dog` and `Cat`; demonstrated inherited behavior; and added two unit tests covering both implementations.
+- Exercises: Ch 3 `Animal` trait exercise completed (18 total exercises officially recorded).
+- Code: `code/03-types-and-traits/animal-trait/` - formatting, check, runtime output, 2 tests, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: Recall required versus default trait methods, then scaffold Ch 3 exercise 6 (`$new-exercise 03 summary-trait`).
+- Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
 
 ## Weekly review
 

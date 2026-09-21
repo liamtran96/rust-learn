@@ -208,3 +208,16 @@ workdir = "code/03-types-and-traits/pair-swap"
 watch = ["code/03-types-and-traits/pair-swap/src", "code/03-types-and-traits/pair-swap/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.animal-trait]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/animal-trait"
+watch = ["code/03-types-and-traits/animal-trait/src", "code/03-types-and-traits/animal-trait/Cargo.toml"]
+default_watch = false
+
+[jobs.animal-trait-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/animal-trait"
+watch = ["code/03-types-and-traits/animal-trait/src", "code/03-types-and-traits/animal-trait/Cargo.toml"]
+default_watch = false
+need_stdout = true

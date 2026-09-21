@@ -7,6 +7,25 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-21 - Replacing a method receiver with a string type (`animal-trait`)
+- **What I wrote:** `fn name(&str) -> &str`
+- **Why it's wrong:** `&self` is the special receiver that borrows the current `Dog`; `&str` is a type and cannot replace the receiver name. The implementation signature must match the trait declaration.
+- **The rule:** Keep `&self` in an implemented method when the trait declares `&self`; put `&str` after `->` when it is the return type.
+- **Status:** dYY - fresh
+
+### 2026-09-21 - Moving an owned field through `&self` (`animal-trait`)
+- **What I wrote:** `fn sound(&self) -> String { self.sound }`
+- **Why it's wrong:** `self` is only shared-borrowed, so moving its non-`Copy` `String` field out would leave the borrowed `Dog` partially moved.
+- **The rule:** A method receiving `&self` may borrow fields; returning an owned field requires creating an independent owned value or consuming `self` when the API permits it.
+- **Status:** dYY - fresh
+
+### 2026-09-21 - Comparing a struct with its display text (`animal-trait` tests)
+- **What I wrote:** `assert_eq!(dog, "Dog #1: HEH says woof");`
+- **Why it's wrong:** `dog` has type `Dog`, while the expected value has type `&str`; the printed label from `main` is also not the return value of any trait method.
+- **The rule:** Assert the observable method result against an independently written value of the same type, such as comparing `dog.describe()` with the expected `&str`.
+- **Status:** dYY - fresh
+
+
 ### 2026-09-21 - Using type parameters as runtime values (`pair-swap`)
 - **What I wrote:** `Pair { first: U, second: T }`
 - **Why it's wrong:** `T` and `U` are compile-time type parameters, not expressions containing the pair's stored data. A struct constructor requires a value expression for every field.

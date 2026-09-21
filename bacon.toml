@@ -195,3 +195,16 @@ workdir = "code/03-types-and-traits/generic-largest"
 watch = ["code/03-types-and-traits/generic-largest/src", "code/03-types-and-traits/generic-largest/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.pair-swap]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/pair-swap"
+watch = ["code/03-types-and-traits/pair-swap/src", "code/03-types-and-traits/pair-swap/Cargo.toml"]
+default_watch = false
+
+[jobs.pair-swap-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/pair-swap"
+watch = ["code/03-types-and-traits/pair-swap/src", "code/03-types-and-traits/pair-swap/Cargo.toml"]
+default_watch = false
+need_stdout = true

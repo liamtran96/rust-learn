@@ -7,6 +7,24 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-21 - Using type parameters as runtime values (`pair-swap`)
+- **What I wrote:** `Pair { first: U, second: T }`
+- **Why it's wrong:** `T` and `U` are compile-time type parameters, not expressions containing the pair's stored data. A struct constructor requires a value expression for every field.
+- **The rule:** Generic parameters name types; access owned field values through expressions such as `self.first` and `self.second`.
+- **Status:** dYY - fresh
+
+### 2026-09-21 - Calling a consuming method without its receiver (`pair-swap`)
+- **What I wrote:** `Pair::swap(1,2)`
+- **Why it's wrong:** `swap` takes one `self` argument whose type is `Pair<T, U>`; two independent integers are not a pair and cannot supply that receiver.
+- **The rule:** Construct the value first, then use `value.method()` when the method has a `self`, `&self`, or `&mut self` receiver.
+- **Status:** dYY - fresh
+
+### 2026-09-21 - Treating a field list as a test value (`pair-swap`)
+- **What I wrote:** `assert_eq!(result, {first: liam, second: 2});`
+- **Why it's wrong:** A brace block containing `first: ...` and `second: ...` is not a struct value without a type path, `liam` without quotes is not a string literal, and the expected number did not match the test input. Comparing the fields directly avoids requiring `Pair` itself to implement `PartialEq` and `Debug`.
+- **The rule:** Each side of `assert_eq!` must be a valid expression; compare `result.first` and `result.second` with independent expected values when the enclosing struct lacks comparison traits.
+- **Status:** dYY - fresh
+
 ### 2026-09-18 - Confusing empty input with an empty element (`generic-largest`)
 - **What I wrote:** "because the String value can be empty so we should optional and return None if it's empty"
 - **Why it's wrong:** `largest_borrowed` may validly return a reference to an empty `String` if that element wins the comparison. `None` represents a slice containing no elements at all, because only then is there no possible winner.

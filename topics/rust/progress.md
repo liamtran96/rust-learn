@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 30 (formally tracked) |
-| Exercises completed | 16 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 3 Ch 3 exercises) |
+| Total sessions | 31 (formally tracked) |
+| Exercises completed | 17 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 4 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-18 - Generic largest functions |
+| Last session | 2026-09-21 - Generic pair swap |
 | Days since last session | 0 |
 
 ## Template
@@ -370,6 +370,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/03-types-and-traits/generic-largest/` - formatting, check, 4 tests, and strict Clippy passed.
 - Mood: -
 - Tomorrow's first move: Without notes, explain why an empty slice produces `None` and why a non-`Copy` winner is returned as `&T`; then begin Ch 3 exercise 4, `Pair<T, U>::swap`.
+- Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
+
+### 2026-09-21 - Generic pair swap
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / generic structs, consuming methods, and tests
+- What I did: Recalled why an empty slice returns `None` and why a non-`Copy` winner is borrowed; implemented `Pair<T, U>::swap`, demonstrated it with two different field types, and added a focused unit test.
+- Exercises: Ch 3 generic `Pair<T, U>::swap` exercise completed (17 total exercises officially recorded).
+- Code: `code/03-types-and-traits/pair-swap/` - formatting, check, runtime output, 1 test, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: After recalling the difference between a type parameter and a value, scaffold Ch 3 exercise 5 for the `Animal` trait (`$new-exercise 03 animal-trait`).
 - Tracker note: Phase 3 / Week 4 remains active. The enum-driven state-machine library shipping milestone remains open; projects shipped remain 4.
 
 ## Weekly review

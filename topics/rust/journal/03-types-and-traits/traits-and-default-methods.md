@@ -44,3 +44,49 @@ tags: [rust, journal, traits, methods]
   - **See also:** `bacon.toml`
 **Question to answer later:** How do static trait bounds and `dyn Trait` choose between compile-time and runtime dispatch?
 **Next:** Begin Ch 3 exercise 6: implement `Summary`, then compare `notify<T: Summary>` with `notify_dyn(&[Box<dyn Summary>])`.
+
+### 2026-09-22 - Static and dynamic trait dispatch
+**Working on:** `Summary` trait in `code/03-types-and-traits/summary-trait/`
+**What clicked:** A generic bound such as `T: Summary` gives one concrete type static dispatch at each call, while `Box<dyn Summary>` erases concrete types behind one runtime-dispatched interface so heterogeneous values can share a collection. Standalone notification functions consume the trait contract without becoming requirements that every implementing type must define, and iterating over a borrowed slice preserves ownership of its boxes.
+**What didn't:** The two notification functions were first declared inside `Summary`, which made them required associated functions and prevented the trait from being dyn-compatible. The first generic call omitted its borrowed argument and tried to format the function's unit return value; constructing and traversing `Vec<Box<dyn Summary>>` was also unfamiliar.
+**Questions asked this session:**
+- **Q:** "what are they? `notify<T: Summary>(s: &T)` and `notify_dyn(items: &[Box<dyn Summary>])`"
+  - **Prompt context:** Exercise 6 introduced two notification APIs immediately after defining `Summary`, and their different parameter forms needed decoding.
+  - **Prompt code:** `fn notify<T: Summary>(s: &T)` and `fn notify_dyn(items: &[Box<dyn Summary>])`
+  - **Liam's answer:** -
+  - **Technical answer:** The generic function uses static dispatch: the compiler chooses a concrete `T` implementing `Summary` for each call. The trait-object function uses dynamic dispatch: each `Box<dyn Summary>` owns a possibly different concrete value and method calls are selected through a runtime vtable.
+  - **Plain-English analogy / example:** A generic call is a production line configured for one model at a time. A `Vec<Box<dyn Summary>>` is a mixed delivery truck whose packages have different contents but all expose the same `summarize` label.
+  - **See also:** `topics/rust/03-types-and-traits/traits.md`; `topics/rust/03-types-and-traits/trait-objects.md`
+- **Q:** "ok what's next"
+  - **Prompt context:** After learning the signatures, the unfinished source had placed both notification functions inside the trait declaration.
+  - **Prompt code:** `trait Summary { fn summarize(&self) -> String; fn notify<T: Summary>(s: &T); fn notify_dyn(items: &[Box<dyn Summary>]); }`
+  - **Liam's answer:** -
+  - **Technical answer:** `notify` and `notify_dyn` are consumers of the `Summary` behavior, not behavior each implementor must provide, so they belong as free functions outside the trait. Keeping generic associated functions without a receiver inside the trait also prevents creation of the vtable required by `dyn Summary`.
+  - **Plain-English analogy / example:** `Summary` is the plug standard; `notify` is an appliance using that plug. Making the appliance part of the standard would force every compatible device to manufacture its own appliance.
+  - **See also:** `topics/rust/03-types-and-traits/trait-objects.md`
+- **Q:** "still dont know how to do these 2"
+  - **Prompt context:** The remaining tasks were to iterate through `notify_dyn` and construct a heterogeneous collection of two `Summary` implementors.
+  - **Prompt code:** `fn notify_dyn(items: &[Box<dyn Summary>]) { }`
+  - **Liam's answer:** -
+  - **Technical answer:** Iterating over `&[Box<dyn Summary>]` yields shared references to the boxes, and dereference coercion lets each item call `summarize` without moving the boxed value. An explicit `Vec<Box<dyn Summary>>` annotation lets `Box::new` values of different implementing types coerce to the same trait-object element type.
+  - **Plain-English analogy / example:**
+    ```rust
+    for item in items {
+        println!("{}", item.summarize());
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/trait-objects.md`
+- **Q:** "what should i add to make sure function work correctly `impl Summary for Article { fn summarize(&self) -> String { } }`"
+  - **Prompt context:** The second type implemented the trait but its method body did not yet produce the promised owned `String`.
+  - **Prompt code:** `impl Summary for Article { fn summarize(&self) -> String { } }`
+  - **Liam's answer:** -
+  - **Technical answer:** The body must evaluate to an owned `String`; `format!` creates one while borrowing fields through `&self`. Leaving the final expression without a semicolon returns that value from the method.
+  - **Plain-English analogy / example:**
+    ```rust
+    fn label(&self) -> String {
+        format!("Article: {}", self.title)
+    }
+    ```
+  - **See also:** `topics/rust/03-types-and-traits/traits.md`; `topics/rust/pitfalls.md`
+**Question to answer later:** When should a production API prefer a generic trait bound over a trait object?
+**Next:** Begin Ch 3 exercise 7: use the newtype pattern to make `UserId` and `OrderId` distinct types.

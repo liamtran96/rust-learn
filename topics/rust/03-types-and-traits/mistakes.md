@@ -7,6 +7,18 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-22 - Putting notification consumers inside the trait (`summary-trait`)
+- **What I wrote:** `trait Summary { fn summarize(&self) -> String; fn notify<T: Summary>(s: &T); fn notify_dyn(items: &[Box<dyn Summary>]); }`
+- **Why it's wrong:** This made both notification helpers required associated functions on every implementation. Because they have no `self` receiver, they also prevented `Summary` from being dyn-compatible and therefore blocked `Box<dyn Summary>`.
+- **The rule:** Put only implementor behavior in a trait; functions that consume any implementor should normally be free functions. A trait used behind `dyn Trait` must satisfy Rust's dyn-compatibility rules.
+- **Status:** dYY - fresh
+
+### 2026-09-22 - Formatting a unit-returning function call (`summary-trait`)
+- **What I wrote:** `println!("this is notify{}", notify());`
+- **Why it's wrong:** `notify` requires a borrowed summarizable argument, but the call supplied none. It also prints internally and has no return arrow, so its return type is unit `()`, which does not implement `Display` for `{}` formatting.
+- **The rule:** Supply every declared argument, and use a side-effecting unit-returning function as a statement rather than as a value to format.
+- **Status:** dYY - fresh
+
 ### 2026-09-21 - Replacing a method receiver with a string type (`animal-trait`)
 - **What I wrote:** `fn name(&str) -> &str`
 - **Why it's wrong:** `&self` is the special receiver that borrows the current `Dog`; `&str` is a type and cannot replace the receiver name. The implementation signature must match the trait declaration.

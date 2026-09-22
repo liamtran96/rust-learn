@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 1 day |
+| Streak (current) | 2 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 32 (formally tracked) |
-| Exercises completed | 18 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 5 Ch 3 exercises) |
+| Total sessions | 33 (formally tracked) |
+| Exercises completed | 19 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 6 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-21 - Animal trait and default method |
+| Last session | 2026-09-22 - Static and dynamic trait dispatch |
 | Days since last session | 0 |
 
 ## Template
@@ -390,6 +390,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/03-types-and-traits/animal-trait/` - formatting, check, runtime output, 2 tests, and strict Clippy passed.
 - Mood: -
 - Tomorrow's first move: Recall required versus default trait methods, then scaffold Ch 3 exercise 6 (`$new-exercise 03 summary-trait`).
+- Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
+
+### 2026-09-22 - Static and dynamic trait dispatch
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / trait bounds, trait objects, and dynamic dispatch
+- What I did: Implemented `Summary` for two types, wrote generic `notify<T: Summary>` with static dispatch, wrote `notify_dyn` over a borrowed slice of boxed trait objects, and demonstrated a heterogeneous collection. Clarified why consumer functions belong outside the trait and how `Box<dyn Summary>` enables runtime dispatch.
+- Exercises: Ch 3 `Summary` notification exercise completed (19 total exercises officially recorded).
+- Code: `code/03-types-and-traits/summary-trait/` - formatting, check, runtime output, zero-test harness, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: Recall why `Vec<Box<dyn Summary>>` can mix concrete types, then scaffold Ch 3 exercise 7 (`$new-exercise 03 typed-ids`).
 - Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
 
 ## Weekly review

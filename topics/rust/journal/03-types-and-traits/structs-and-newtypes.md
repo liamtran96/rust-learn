@@ -78,3 +78,39 @@ tags: [rust, journal, structs, newtypes]
   - **See also:** `topics/rust/03-types-and-traits/structs.md`
 **Question to answer later:** How can `Clone`, `Copy`, `Eq`, and `Hash` each be verified without triggering Clippy's `clone_on_copy` lint?
 **Next:** Construct and debug-print one `Point` in `main`, then rerun `cargo clippy -- -D warnings` before adding the remaining trait tests.
+
+### 2026-09-23 - Point derives completed
+**Working on:** Point derives in `code/03-types-and-traits/point-derives/`
+**What clicked:** `T: Clone` declares a bound, while `::<Point>` supplies the concrete call-site type. Post-assignment use demonstrates `Copy`; a generic bound checks `Clone` or `Eq`; and storing `Point` in `HashSet<Point>` verifies `Hash + Eq`.
+**What didn't:** Generic declaration syntax was copied into calls as `::<T: Clone>` and `::<T>`. The first hash test inserted `7`, proving `i32: Hash` rather than `Point: Hash`. Test helpers initially lived outside the test-only module and triggered dead-code warnings.
+**Questions asked this session:**
+- **Q:** `i mean i am not familiar with the syntax`
+  - **Prompt context:** Write a test proving assignment copies a `Point` and leaves the original usable.
+  - **Prompt code:** `#[test] fn point_is_copy() { let original = Point { x: __, y: __ }; let copied = original; assert_eq!(__, __); }`
+  - **Liam's answer:** -
+  - **Technical answer:** `#[test]` registers a function with the test harness. Assignment moves ordinary owned values, so successfully using both bindings afterward demonstrates the derived `Copy` behavior.
+  - **Plain-English analogy / example:** A move transfers the only ticket; a copy produces a second usable ticket.
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`
+- **Q:** `but why is Point while requires_clone need T: Clone this mean struct Point {x: i32, y:32} is Copy type right?`
+  - **Prompt context:** Decode a generic bound and its concrete type argument after two invalid calls.
+  - **Prompt code:** `requires_clone::<T: Clone>();`, then `requires_clone::<T>();`
+  - **Liam's answer:** `this mean struct Point {x: i32, y:32} is Copy type right?`
+  - **Technical answer:** `T` is a definition-site placeholder and `T: Clone` restricts its replacements. `requires_clone::<Point>()` substitutes `Point` and checks `Point: Clone`; `Point` is separately `Copy` because that trait was also derived.
+  - **Plain-English analogy / example:** The definition is a form with a constrained blank; the call fills that blank with `Point`.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** `why do we use &7 here assert!(values.contains(&7));`
+  - **Prompt context:** Understand why `HashSet::contains` receives a borrowed lookup value.
+  - **Prompt code:** `assert!(values.contains(&7));`
+  - **Liam's answer:** -
+  - **Technical answer:** `insert` takes ownership because the set stores a value, while `contains` only inspects a value and accepts a shared reference. With a named point, the same lookup is `contains(&point)`.
+  - **Plain-English analogy / example:** Inserting gives the set a book; searching shows it a reference card.
+  - **See also:** `topics/rust/02-ownership/borrowing.md`
+- **Q:** `what u mean i dont understand`
+  - **Prompt context:** Explain why inserting `7` did not verify the trait derived for `Point`.
+  - **Prompt code:** `let mut values = HashSet::new(); values.insert(7); assert!(values.contains(&7));`
+  - **Liam's answer:** -
+  - **Technical answer:** The first inserted value drives inference, so `insert(7)` produces `HashSet<i32>`. Inserting `Point` instead produces `HashSet<Point>` and requires `Point: Hash + Eq`.
+  - **Plain-English analogy / example:** An unlabeled bin gets its label from the first kind of item placed inside.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+**Question to answer later:** Can Liam independently separate a generic declaration from a concrete type argument and ensure a test exercises its named type?
+**Next:** Begin the Week 4 enum-driven state-machine library shipping milestone.

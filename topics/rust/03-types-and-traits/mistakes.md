@@ -7,17 +7,25 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-23 - Testing the example type instead of the intended type (`point-derives`)
+- **What I wrote:** `fn point_works_in_hash_set() { let mut values = HashSet::new(); values.insert(7); assert!(values.contains(&7)); }`
+- **Why it's wrong:** Inserting `7` makes Rust infer `HashSet<i32>`, so the test verifies integer traits and never requires `Point` to implement `Hash` or `Eq`.
+- **The rule:** A trait test must perform the capability with the type named by the test; check the inferred generic type after replacing an explanatory example.
+- **Status:** fresh
+
+
 ### 2026-09-23 - Comparing formatted text with the source struct (`point-derives`)
 - **What I wrote:** `assert_eq!(output, Point { x: 2, y: 3 });`
 - **Why it's wrong:** `output` has type `String`, while the other expression has type `Point`; deriving `PartialEq` for `Point` does not create an implementation for comparing `String` with `Point`. The formatted representation and the original value are different types even when they describe the same coordinates.
 - **The rule:** Both sides of `assert_eq!` must support comparison with each other; compare formatted output with a string literal and compare a struct value with another value of the same struct type.
 - **Status:** fresh
 
-### 2026-09-23 - Treating the generic placeholder as the selected type (`summary-trait` retrieval)
-- **What I wrote:** `It's T type right`
-- **Why it's wrong:** `T` is the parameter in the generic definition of `Vec`; it is replaced by the concrete element type at a use site. In `Vec<Box<dyn Summary>>`, the selected element type is `Box<dyn Summary>`.
-- **The rule:** Generic parameters are placeholders for types; read the type argument between `<...>` at the use site to see what replaced the placeholder.
+### 2026-09-23 - Treating the generic placeholder as the selected type (`summary-trait` retrieval and `point-derives`)
+- **What I wrote:** `It's T type right`; later, `requires_clone::<T: Clone>();` and `requires_clone::<T>();`
+- **Why it's wrong:** `T` is a definition-site placeholder and `T: Clone` is its bound; neither is the concrete call-site type. In `Vec<Box<dyn Summary>>`, `T` becomes `Box<dyn Summary>`; in `requires_clone::<Point>()`, it becomes `Point`.
+- **The rule:** Declare placeholders and bounds in generic definitions; supply a concrete type argument such as `Point` at a call site.
 - **Status:** fresh
+
 
 ### 2026-09-23 - Mixing named-field and tuple-struct syntax (`typed-ids`)
 - **What I wrote:** `struct TypeName{ UserId: u64, OrderId: u64, }`, followed by `struct <UserId>(u64);`

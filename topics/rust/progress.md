@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 3 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 35 (formally tracked) |
-| Exercises completed | 20 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 7 Ch 3 exercises) |
+| Total sessions | 36 (formally tracked) |
+| Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-23 - Point derives started |
+| Last session | 2026-09-23 - Point derives completed |
 | Days since last session | 0 |
 
 ## Template
@@ -421,6 +421,17 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Construct and debug-print one `Point` in `main`, then rerun `cargo clippy -- -D warnings` before adding the remaining trait tests.
 - Tracker note: Phase 3 / Week 4, 20 exercises, and 4 shipped projects remain unchanged; no week or chapter milestone was completed.
+
+### 2026-09-23 - Point derives completed
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / derives, generic trait bounds, and hash-based collections
+- What I did: Constructed and debug-printed `Point`; verified `Copy` through post-assignment use, `Clone` and `Eq` through generic trait-bound checks, and `Hash` by storing `Point` in a `HashSet`. Clarified generic substitution, test-only item scope, and why `contains` borrows its lookup value.
+- Exercises: Ch 3 point-derives exercise completed (21 total exercises officially recorded; Ch 3 exercises are 8 / 8 complete).
+- Code: `code/03-types-and-traits/point-derives/` - formatting, check, 6 tests, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: Begin the Week 4 enum-driven state-machine library shipping milestone.
+- Tracker note: Phase 3 / Week 4 and 4 shipped projects remain unchanged. The Ch 3 exercise checkbox is complete; the state-machine shipping milestone and reading checkboxes remain open.
+
 
 ## Weekly review
 

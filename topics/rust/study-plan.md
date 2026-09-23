@@ -58,7 +58,7 @@ Stop at the timer even mid-problem. Resume tomorrow. The compiler is teaching yo
 - [ ] Read [[03-types-and-traits/structs|structs]], [[03-types-and-traits/enums|enums]]
 - [ ] Read [[03-types-and-traits/pattern-matching|pattern matching]]
 - [ ] Read [[03-types-and-traits/generics|generics]], [[03-types-and-traits/traits|traits]], [[03-types-and-traits/trait-objects|trait objects]]
-- [ ] Do [[exercises/ch03-types|Ch 3 exercises]]
+- [x] Do [[exercises/ch03-types|Ch 3 exercises]]
 - [ ] **Ship:** State-machine library driven by an `enum`
 
 ### Week 5 — Collections & errors

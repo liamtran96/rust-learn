@@ -35,7 +35,13 @@ specifications, study-plan checkboxes, crate contents, or verification evidence.
 Prefer a task that has Liam typing code within two minutes over one that starts with reading; name the concept note as the unblock resource, not the first step (repo rule: code first, read to unblock — see `WORKFLOW.md` at the repository root).
 6. Run a status-fidelity check before replying: every phase, week, exercise-count, and shipped-project claim must match `progress.md`. Mention conflicting unchecked work in one tracker-note line without changing the official status.
 7. Name the chapter concept note alongside the exercise specification. Suggest a lowercase kebab-case slug of at most three words when a crate is needed.
-8. Reply in this shape:
+8. Check the progress log and relevant journal entries for the syntax the selected task requires. If Liam says the syntax is unfamiliar, or the learning records do not show it as learned, do not merely point him at a note or command:
+   - Explain in one or two sentences what the syntax is for and where it appears in real programs.
+   - Decode each new symbol or clause in the smallest useful example, line by line.
+   - Give one initial typing step and up to two graduated hints. Hints should reveal the next decision, not the completed implementation.
+   - Invite Liam to make the attempt and share the complete compiler output. Do not write the full exercise solution unless he explicitly asks.
+   Keep this support compact when the syntax is already recorded as learned.
+9. Reply in this shape:
 
    ```text
    You're on: <Phase> → <Week>
@@ -51,6 +57,13 @@ Prefer a task that has Liam typing code within two minutes over one that starts 
      <For a crate>: Use `$new-exercise <NN> <slug>` to scaffold it at code/<phase>/<slug>/.
      <For paper work>: No crate needed — predict, run, log. About 10–15 min.
 
+   <When syntax is unfamiliar> Syntax support:
+     Why it exists: <short real-application purpose>
+     Read it as: <line-by-line or symbol-by-symbol decoding>
+     First typing step: <small action that does not complete the exercise>
+     Hint 1: <next decision>
+     Hint 2, only if useful: <stronger clue without the finished solution>
+
    How topics/ and code/ connect for this exercise:
      Read in   topics/rust/<NN-name>/<file>.md       → concept
      Spec in   topics/rust/exercises/ch<NN>-*.md    → what to build
@@ -63,4 +76,4 @@ Prefer a task that has Liam typing code within two minutes over one that starts 
    Want me to scaffold it now?
    ```
 
-Give one next action, not the whole plan. Never infer a new completion count from the specification or code. Do not write Rust code or scaffold anything until Liam agrees. If he agrees, follow the `$new-exercise` workflow.
+Give one next action, not the whole plan. Never infer a new completion count from the specification or code. Do not write a complete Rust solution or scaffold anything until Liam agrees. Small syntax fragments are allowed when needed to explain unfamiliar syntax, but leave the exercise's implementation decisions and typing to Liam. If he agrees to scaffolding, follow the `$new-exercise` workflow.

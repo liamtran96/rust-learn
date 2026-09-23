@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 2 days |
+| Streak (current) | 3 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 33 (formally tracked) |
-| Exercises completed | 19 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 6 Ch 3 exercises) |
+| Total sessions | 34 (formally tracked) |
+| Exercises completed | 20 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 7 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-22 - Static and dynamic trait dispatch |
+| Last session | 2026-09-23 - Typed IDs with newtypes |
 | Days since last session | 0 |
 
 ## Template
@@ -400,6 +400,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Code: `code/03-types-and-traits/summary-trait/` - formatting, check, runtime output, zero-test harness, and strict Clippy passed.
 - Mood: -
 - Tomorrow's first move: Recall why `Vec<Box<dyn Summary>>` can mix concrete types, then scaffold Ch 3 exercise 7 (`$new-exercise 03 typed-ids`).
+- Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
+
+### 2026-09-23 - Typed IDs with newtypes
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / tuple structs and the newtype pattern
+- What I did: Created distinct `UserId` and `OrderId` wrappers around `u64`, wrote a function that accepts only `UserId`, and observed compiler error E0308 when intentionally passing `OrderId`. Reviewed why `Vec<Box<dyn Summary>>` has one concrete outer element type while hiding different inner implementors.
+- Exercises: Ch 3 typed-ID newtype exercise completed (20 total exercises officially recorded).
+- Code: `code/03-types-and-traits/typed-ids/` - formatting, check, runtime output, zero-test harness, and strict Clippy passed.
+- Mood: -
+- Tomorrow's first move: Recall why two newtypes remain distinct despite wrapping the same primitive, then scaffold Ch 3 exercise 8 (`$new-exercise 03 point-derives`).
 - Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
 
 ## Weekly review

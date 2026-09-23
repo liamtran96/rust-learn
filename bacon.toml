@@ -228,6 +228,19 @@ workdir = "code/03-types-and-traits/summary-trait"
 watch = ["code/03-types-and-traits/summary-trait/src", "code/03-types-and-traits/summary-trait/Cargo.toml"]
 default_watch = false
 
+[jobs.typed-ids]
+command = ['cargo', 'check']
+workdir = 'code/03-types-and-traits/typed-ids'
+watch = ['code/03-types-and-traits/typed-ids/src', 'code/03-types-and-traits/typed-ids/Cargo.toml']
+default_watch = false
+
+[jobs.typed-ids-run]
+command = ['cargo', 'run']
+workdir = 'code/03-types-and-traits/typed-ids'
+watch = ['code/03-types-and-traits/typed-ids/src', 'code/03-types-and-traits/typed-ids/Cargo.toml']
+default_watch = false
+need_stdout = true
+
 [jobs.summary-trait-run]
 command = ["cargo", "run"]
 workdir = "code/03-types-and-traits/summary-trait"

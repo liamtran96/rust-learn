@@ -7,6 +7,24 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-23 - Treating the generic placeholder as the selected type (`summary-trait` retrieval)
+- **What I wrote:** `It's T type right`
+- **Why it's wrong:** `T` is the parameter in the generic definition of `Vec`; it is replaced by the concrete element type at a use site. In `Vec<Box<dyn Summary>>`, the selected element type is `Box<dyn Summary>`.
+- **The rule:** Generic parameters are placeholders for types; read the type argument between `<...>` at the use site to see what replaced the placeholder.
+- **Status:** fresh
+
+### 2026-09-23 - Mixing named-field and tuple-struct syntax (`typed-ids`)
+- **What I wrote:** `struct TypeName{ UserId: u64, OrderId: u64, }`, followed by `struct <UserId>(u64);`
+- **Why it's wrong:** The first form declares one type containing two named fields rather than two distinct ID types. In the second form, `<UserId>` was placeholder notation copied as literal syntax; a tuple struct expects its identifier directly after `struct`.
+- **The rule:** Declare each newtype independently with `struct TypeName(InnerType);`; angle brackets denote generic arguments only in valid generic syntax, not an editable placeholder.
+- **Status:** fresh
+
+### 2026-09-23 - Missing why raw IDs lose type safety (`typed-ids`)
+- **What I wrote:** `because we just pass the user id as a parameter to the function`
+- **Why it's wrong:** This describes the successful call but not the protection. If the parameter is changed to `u64`, callers can pass either `user_id.0` or `order_id.0`, and the compiler can no longer distinguish their domain meanings.
+- **The rule:** Keep domain meaning in parameter types; unwrapping distinct newtypes to the same primitive before a call erases the distinction the compiler could enforce.
+- **Status:** fresh
+
 ### 2026-09-22 - Putting notification consumers inside the trait (`summary-trait`)
 - **What I wrote:** `trait Summary { fn summarize(&self) -> String; fn notify<T: Summary>(s: &T); fn notify_dyn(items: &[Box<dyn Summary>]); }`
 - **Why it's wrong:** This made both notification helpers required associated functions on every implementation. Because they have no `self` receiver, they also prevented `Summary` from being dyn-compatible and therefore blocked `Box<dyn Summary>`.

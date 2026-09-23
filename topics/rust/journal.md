@@ -24,6 +24,7 @@ tags: [rust, journal]
 - **Types and traits**
   - [[journal/03-types-and-traits/enums-and-pattern-matching|Enums and pattern matching]]
   - [[journal/03-types-and-traits/generics-and-bounds|Generics and bounds]]
+  - [[journal/03-types-and-traits/structs-and-newtypes|Structs and newtypes]]
   - [[journal/03-types-and-traits/traits-and-default-methods|Traits and default methods]]
 
 Create a topic journal when a genuinely new subject receives its first session entry. The `$journal` skill appends to the closest existing topic or creates and indexes a concise new one.

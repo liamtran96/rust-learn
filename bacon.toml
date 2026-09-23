@@ -1,6 +1,19 @@
 # Short, repository-root commands for each standalone exercise crate.
 # `$new-exercise <chapter> <slug>` keeps this file updated.
 
+[jobs.point-derives]
+command = ['cargo', 'check']
+workdir = 'code/03-types-and-traits/point-derives'
+watch = ['code/03-types-and-traits/point-derives/src', 'code/03-types-and-traits/point-derives/Cargo.toml']
+default_watch = false
+
+[jobs.point-derives-run]
+command = ['cargo', 'run']
+workdir = 'code/03-types-and-traits/point-derives'
+watch = ['code/03-types-and-traits/point-derives/src', 'code/03-types-and-traits/point-derives/Cargo.toml']
+default_watch = false
+need_stdout = true
+
 [jobs.count-digits]
 command = ["cargo", "check"]
 workdir = "code/01-fundamentals/count-digits"

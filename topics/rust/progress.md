@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 3 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 34 (formally tracked) |
+| Total sessions | 35 (formally tracked) |
 | Exercises completed | 20 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 7 Ch 3 exercises) |
 | Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-23 - Typed IDs with newtypes |
+| Last session | 2026-09-23 - Point derives started |
 | Days since last session | 0 |
 
 ## Template
@@ -411,6 +411,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Recall why two newtypes remain distinct despite wrapping the same primitive, then scaffold Ch 3 exercise 8 (`$new-exercise 03 point-derives`).
 - Tracker note: Phase 3 / Week 4 remains active. The combined Ch 3 exercise checkbox and enum-driven state-machine shipping milestone remain open; projects shipped remain 4.
+
+### 2026-09-23 - Point derives started
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / structs, derives, and trait-generated behavior
+- What I did: Scaffolded `Point`, derived six standard traits, learned that derive generates trait implementations at compile time, and added passing tests for `Debug` formatting and `PartialEq` equality. Corrected an assertion that compared formatted `String` output with a `Point` value.
+- Exercises: Ch 3 point-derives exercise remains in progress; official total remains 20.
+- Code: `code/03-types-and-traits/point-derives/` - formatting clean and 2 tests pass; `cargo check` reports dead code and strict Clippy fails because the normal binary does not construct `Point`. `Clone`, `Copy`, `Eq`, and `Hash` verification remains.
+- Mood: -
+- Tomorrow's first move: Construct and debug-print one `Point` in `main`, then rerun `cargo clippy -- -D warnings` before adding the remaining trait tests.
+- Tracker note: Phase 3 / Week 4, 20 exercises, and 4 shipped projects remain unchanged; no week or chapter milestone was completed.
 
 ## Weekly review
 

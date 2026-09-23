@@ -7,6 +7,12 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-23 - Comparing formatted text with the source struct (`point-derives`)
+- **What I wrote:** `assert_eq!(output, Point { x: 2, y: 3 });`
+- **Why it's wrong:** `output` has type `String`, while the other expression has type `Point`; deriving `PartialEq` for `Point` does not create an implementation for comparing `String` with `Point`. The formatted representation and the original value are different types even when they describe the same coordinates.
+- **The rule:** Both sides of `assert_eq!` must support comparison with each other; compare formatted output with a string literal and compare a struct value with another value of the same struct type.
+- **Status:** fresh
+
 ### 2026-09-23 - Treating the generic placeholder as the selected type (`summary-trait` retrieval)
 - **What I wrote:** `It's T type right`
 - **Why it's wrong:** `T` is the parameter in the generic definition of `Vec`; it is replaced by the concrete element type at a use site. In `Vec<Box<dyn Summary>>`, the selected element type is `Box<dyn Summary>`.

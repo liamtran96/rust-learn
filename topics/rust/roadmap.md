@@ -30,7 +30,7 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at
 - [[03-types-and-traits/pattern-matching|Pattern matching]] & `if let` / `while let`
 - [[03-types-and-traits/generics|Generics]]
 - [[03-types-and-traits/traits|Traits]] & `impl` blocks
-- **Milestone:** A state-machine library (`enum`-driven).
+- **Milestone:** ✓ A state-machine library (`enum`-driven).
 
 ## Week 4 — Collections & error handling
 - [[04-collections/strings|String]] vs `&str` — when to use which

@@ -1,3 +1,5 @@
+use network_state::ConnectionState;
+
 fn main() {
     let connection = ConnectionState::Disconnected;
     let connection = connection.on_connect_attempt();
@@ -26,13 +28,6 @@ fn main() {
             println!("Expected a failed connection");
         }
     }
-}
-
-enum ConnectionState {
-    Disconnected,
-    Connecting { attempts: u32 },
-    Connected { peer: String },
-    Failed(String),
 }
 
 #[cfg(test)]
@@ -78,20 +73,18 @@ mod tests {
             }
         }
     }
-}
-impl ConnectionState {
-    fn on_connect_success(self, peer: String) -> Self {
-        Self::Connected { peer }
-    }
-    fn on_connect_attempt(self) -> Self {
-        match self {
-            Self::Connecting { attempts } => Self::Connecting {
-                attempts: attempts + 1,
-            },
-            _ => Self::Connecting { attempts: 1 },
+    #[test]
+    fn failed_connection_can_retry() {
+        let state = ConnectionState::Failed(String::from("timeout"));
+        let state = state.on_connect_attempt();
+
+        match state {
+            ConnectionState::Connecting { attempts } => {
+                assert_eq!(attempts, 1);
+            }
+            _ => {
+                panic!("expected Connecting")
+            }
         }
-    }
-    fn on_connect_failure(self, message: String) -> Self {
-        Self::Failed(message)
     }
 }

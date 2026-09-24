@@ -7,6 +7,12 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-24 - Predicting a transition without tracing its match arm (`network-state`)
+- **What I wrote:** `Connected` for `Disconnected + on_connect_attempt()`; later, `it is Failed right` for `Failed + on_connect_attempt()`.
+- **Why it's wrong:** Starting an attempt is not the same event as reporting success, and the current `on_connect_attempt` implementation sends every non-`Connecting` variant through its `_` arm to `Connecting { attempts: 1 }`.
+- **The rule:** Predict an enum transition by following the active variant through the method's `match`; `_` matches every variant not handled by an earlier arm.
+- **Status:** fresh
+
 ### 2026-09-23 - Testing the example type instead of the intended type (`point-derives`)
 - **What I wrote:** `fn point_works_in_hash_set() { let mut values = HashSet::new(); values.insert(7); assert!(values.contains(&7)); }`
 - **Why it's wrong:** Inserting `7` makes Rust infer `HashSet<i32>`, so the test verifies integer traits and never requires `Point` to implement `Hash` or `Eq`.

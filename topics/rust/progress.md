@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 3 days |
+| Streak (current) | 4 days |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 36 (formally tracked) |
+| Total sessions | 37 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
-| Projects shipped | 4 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup) |
+| Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-23 - Point derives completed |
+| Last session | 2026-09-24 - Enum-driven state-machine library shipped |
 | Days since last session | 0 |
 
 ## Template
@@ -431,6 +431,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Begin the Week 4 enum-driven state-machine library shipping milestone.
 - Tracker note: Phase 3 / Week 4 and 4 shipped projects remain unchanged. The Ch 3 exercise checkbox is complete; the state-machine shipping milestone and reading checkboxes remain open.
+
+### 2026-09-24 - Enum-driven state-machine library shipped
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / enums, library visibility, crate paths, and transition tests
+- What I did: Moved `ConnectionState` and its consuming transition methods into `src/lib.rs`, exposed the public API, imported it into the binary with `use network_state::ConnectionState`, and added a retry-after-failure transition test. Reviewed enum variants, state-machine events, wildcard match arms, `pub`, library versus binary targets, crate paths, test syntax, and statement semicolons.
+- Exercises: no new numbered exercise; official total remains 21. The separate Week 4 enum-driven state-machine shipping milestone is complete.
+- Code: `code/03-types-and-traits/network-state/` - formatting, check, 4 tests, strict Clippy, and runtime output passed.
+- Mood: -
+- Tomorrow's first move: Complete the Week 4 structs/enums reading checkbox by reviewing `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type one small example from memory.
+- Tracker note: Phase 3 / Week 4 remains active with three reading checkboxes open. Projects shipped advances to 5; exercise total remains 21.
 
 
 ## Weekly review

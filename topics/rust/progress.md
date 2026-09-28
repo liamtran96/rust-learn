@@ -19,15 +19,15 @@ tags: [rust, progress, log]
 
 | Metric | Value |
 |---|---|
-| Streak (current) | 4 days |
+| Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 37 (formally tracked) |
+| Total sessions | 38 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-24 - Enum-driven state-machine library shipped |
+| Last session | 2026-09-28 - Struct and enum retrieval review |
 | Days since last session | 0 |
 
 ## Template
@@ -441,6 +441,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Complete the Week 4 structs/enums reading checkbox by reviewing `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type one small example from memory.
 - Tracker note: Phase 3 / Week 4 remains active with three reading checkboxes open. Projects shipped advances to 5; exercise total remains 21.
+
+### 2026-09-28 - Struct and enum retrieval review
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / structs and enums
+- What I did: Reviewed the structs and enums notes, recalled that struct fields coexist while enum variants are mutually exclusive, identified invalid states permitted by an all-optional shape struct, and reconstructed a `User` struct plus unit, named-field, and tuple-style `Access` variants and constructors.
+- Exercises: no new numbered exercise; official total remains 21. The Week 4 structs/enums reading checkbox is complete.
+- Code: none - retrieval review typed in the learning session
+- Mood: -
+- Tomorrow's first move: Review `topics/rust/03-types-and-traits/pattern-matching.md`, then type one small exhaustive `match` from memory.
+- Tracker note: Phase 3 / Week 4 remains active with two reading checkboxes open. Projects shipped remains 5; exercise total remains 21.
 
 
 ## Weekly review

@@ -198,3 +198,25 @@ tags: [rust, journal, enums, pattern-matching]
   - **See also:** `topics/rust/07-testing/unit-tests.md`
 **Question to answer later:** Without notes, can Liam explain why `main.rs` needs both a public library item and a `use` path, then trace `Failed + on_connect_attempt()` through the wildcard arm?
 **Next:** Complete the Week 4 structs/enums reading checkbox by reviewing `topics/rust/03-types-and-traits/structs.md` and `enums.md`, then type one small example from memory.
+
+### 2026-09-28 - Struct and enum retrieval review
+**Working on:** Week 4 structs/enums reading and retrieval check - `topics/rust/03-types-and-traits/structs.md` and `topics/rust/03-types-and-traits/enums.md`
+**What clicked:** A struct groups fields that coexist in every value, while an enum value has exactly one active variant whose payload can have a different shape. Liam reconstructed named-field struct syntax, unit and data-carrying enum variants, and constructors for `User` and `Access::Member`.
+**What didn't:** The first explanation described structs as a list of fields but did not connect enums to mutually exclusive valid states. An all-optional `Shape` did not initially reveal either the contradictory all-fields-present state or the meaningless all-fields-absent state. The first code attempt used `boolean`, `u36`, and a named-field `Banned` variant when the prompt requested tuple-style syntax; constructing `String` from a string literal also needed a reminder.
+**Questions asked this session:**
+- **Q:** `I dont understand the question`
+  - **Prompt context:** Identify what invalid shape would be represented when an all-optional `Shape` struct had no radius, width, or height.
+  - **Prompt code:** `radius = None; width = None; height = None`
+  - **Liam's answer:** -
+  - **Technical answer:** `None` means an optional field has no stored value. When every dimension is absent, the value represents neither a circle nor a rectangle, yet the struct still permits it; an enum prevents that invalid state by requiring one concrete variant.
+  - **Plain-English analogy / example:** An order form with every product box blank is still a form, but it does not represent an actual order. An enum instead requires choosing exactly one valid order kind.
+  - **See also:** `topics/rust/03-types-and-traits/enums.md`
+- **Q:** `what do u want to me?`
+  - **Prompt context:** Type a small `User` struct and `Access` enum from memory after explaining their modeling roles.
+  - **Prompt code:** -
+  - **Liam's answer:** -
+  - **Technical answer:** The task was to write two type declarations: a struct with fields that always coexist and an enum with mutually exclusive access variants. A declaration defines the allowed shape of values; a later constructor expression creates one value matching that declaration.
+  - **Plain-English analogy / example:** The declaration is a form template; `User { ... }` or `Access::Member { ... }` is one completed form that follows the template.
+  - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/03-types-and-traits/enums.md`
+**Question to answer later:** Can Liam independently identify invalid states in an all-optional struct and choose between unit, tuple-style, and named-field enum variants?
+**Next:** Complete the Week 4 pattern-matching reading checkbox by reviewing `topics/rust/03-types-and-traits/pattern-matching.md`, then type one small exhaustive `match` from memory.

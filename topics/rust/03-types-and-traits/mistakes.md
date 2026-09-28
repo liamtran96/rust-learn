@@ -7,6 +7,12 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-28 - Missing the invalid state in an all-optional model (struct and enum retrieval)
+- **What I wrote:** `i think it is radius`
+- **Why it's wrong:** A radius by itself can validly describe a circle. The modeling problem is that one struct with optional radius, width, and height permits contradictory combinations where every field is present and meaningless combinations where every field is absent.
+- **The rule:** Use a struct when its fields coexist; use an enum when a value must be exactly one of several alternatives, each with only the data required for that case.
+- **Status:** dYY - fresh
+
 ### 2026-09-24 - Predicting a transition without tracing its match arm (`network-state`)
 - **What I wrote:** `Connected` for `Disconnected + on_connect_attempt()`; later, `it is Failed right` for `Failed + on_connect_attempt()`.
 - **Why it's wrong:** Starting an attempt is not the same event as reporting success, and the current `on_connect_attempt` implementation sends every non-`Connecting` variant through its `_` arm to `Connecting { attempts: 1 }`.

@@ -32,6 +32,8 @@ A pragmatic path from zero to shipping Rust. Estimated ~8 weeks for core Rust at
 - [[03-types-and-traits/traits|Traits]] & `impl` blocks
 - **Milestone:** ✓ A state-machine library (`enum`-driven).
 
+Chapter 3 closeout: completed 2026-09-30, including all eight exercises, the enum-driven state-machine library, and the remaining concept reviews. The official study-plan tracker advances from Week 4 to Week 5; this roadmap uses a shorter week numbering scheme.
+
 ## Week 4 — Collections & error handling
 - [[04-collections/strings|String]] vs `&str` — when to use which
 - [[04-collections/vec|Vec<T>]] — the workhorse

@@ -7,6 +7,12 @@ tags: [rust, mistakes, types, enums, traits]
 
 ## Open mistakes
 
+### 2026-09-30 - Attributing generic eligibility to borrowing (Summary retrieval)
+- **What I wrote:** `it can accept both because we are using item: &T`
+- **Why it's wrong:** The conclusion is correct, but `&T` only specifies shared borrowing. The generic parameter `T` allows different concrete types, and the `T: Summary` bound restricts them to types that implement the required summary behavior.
+- **The rule:** Separate a generic parameter, its trait bounds, and its ownership mode: `T` selects a type, `T: Summary` requires behavior, and `&T` borrows its value.
+- **Status:** fresh - reviewed with guidance; independent recall pending
+
 ### 2026-09-28 - Missing the invalid state in an all-optional model (struct and enum retrieval)
 - **What I wrote:** `i think it is radius`
 - **Why it's wrong:** A radius by itself can validly describe a circle. The modeling problem is that one struct with optional radius, width, and height permits contradictory combinations where every field is present and meaningless combinations where every field is absent.

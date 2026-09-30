@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 39 (formally tracked) |
+| Total sessions | 40 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
-| Current week | Week 4 |
-| Last session | 2026-09-30 - Pattern-matching retrieval review |
+| Current week | Week 5 |
+| Last session | 2026-09-30 - Traits, dispatch, and Chapter 3 closeout |
 | Days since last session | 0 |
 
 ## Template
@@ -462,6 +462,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Tomorrow's first move: Review `topics/rust/03-types-and-traits/generics.md`, `traits.md`, and `trait-objects.md`, then type one small example that contrasts static and dynamic dispatch.
 - Tracker note: Phase 3 / Week 4 remains active with one combined reading checkbox open. Projects shipped remains 5; exercise total remains 21.
 
+
+### 2026-09-30 - Traits, dispatch, and Chapter 3 closeout
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / generics, traits, and trait objects
+- What I did: Reconstructed `Summary`, corrected the notification statement to call `item.summarize()`, reviewed trait bounds versus shared borrowing, and explained that mixed boxed values retain their concrete types. Reviewed `Box` ownership and heap storage using a news-feed example. Clarified that "run both" referred to the whole feed loop, not one boxed item. Reported completing the generics, traits, and trait-objects reading review.
+- Exercises: no new numbered exercise; official total remains 21. Chapter 3 and Week 4 are complete.
+- Code: none changed - guided retrieval in chat; no Cargo checks run for this review
+- Mood: -
+- Tomorrow's first move: Answer Question 1 of `topics/rust/homework/2026-09-30-retrieval-03-types-and-traits.md` from memory; after retrieval, begin Week 5 collections.
+- Tracker note: Advanced to Phase 3 / Week 5; projects shipped remains 5. Boxed trait objects still need independent recall. Duration is unknown, so no additional streak day or minutes were inferred.
 
 ## Weekly review
 

@@ -28,6 +28,17 @@ Explain the separate purposes of `T`, `T: Label`, and `&T`. For a call with a `R
 
 **Your answer:**
 
+**Attempts (2026-09-30, verbatim):**
+
+1. T is generic type, T: Label is apply generic type for Label and &T borrow value from the type
+2. T become receipt
+3. can not because there is no connect between DraftReport and Label meanwhile announce treat Label as trait bound
+4. Rust choose depend on the parameter pass the the announce fn and it selected at compile time
+
+**Review:** Correct after guided wording corrections. The initial trait-bound explanation was partly correct; Receipt (type) was distinguished from receipt (value). Eligibility and compile-time dispatch answers were correct. Confidence rating not supplied.
+
+**Reference answer:** T is a type parameter. T: Label requires the selected type to implement Label. &T borrows a value of that type without taking ownership. Passing &receipt makes T become Receipt. DraftReport without a Label implementation is rejected. The compiler selects Receipt's Label implementation through static dispatch.
+
 ### 2. Who owns the feed items?
 
 A dashboard stores invoices and shipping notices in one list. Both types implement `Label`:

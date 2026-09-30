@@ -156,3 +156,69 @@ tags: [rust, journal, traits, methods]
 **Official sources:** [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html), [Trait objects](https://doc.rust-lang.org/book/ch18-02-trait-objects.html), [Box](https://doc.rust-lang.org/std/boxed/index.html), [Display](https://doc.rust-lang.org/std/fmt/trait.Display.html).
 **Question to answer later:** Can Liam independently distinguish type selection, trait eligibility, borrowing, and boxed ownership in a new application scenario?
 **Next:** Chapter 3 and Week 4 complete. Answer Question 1 of `topics/rust/homework/2026-09-30-retrieval-03-types-and-traits.md` from memory, then begin Phase 3 / Week 5 collections.
+
+### 2026-09-30 - Signature and trait-bound retrieval (Question 1)
+**Working on:** Question 1 of `topics/rust/homework/2026-09-30-retrieval-03-types-and-traits.md`; no exercise code changed.
+**What clicked:** Concrete argument types determine generic substitution; a missing trait implementation rejects the call; generic dispatch is selected at compile time.
+**What didn't:** The term signature was unfamiliar. Trait-bound wording and the distinction between a type and its value needed guidance; Question 1 is correct after those corrections, not evidence of fully independent recall.
+**Questions asked this session:**
+- **Q:** $next
+  - **Prompt context:** Choose one task from the official learning records.
+  - **Prompt code:** -
+  - **Liam's answer:** -
+  - **Technical answer:** The recorded first move was Question 1 of the Chapter 3 retrieval set. Phase 3 / Week 5 is active; Chapter 3 remains complete.
+  - **Plain-English analogy / example:** Start the reporting-app signature question before new collections material.
+  - **See also:** `WORKFLOW.md`
+- **Q:** waht is **signature**?
+  - **Prompt context:** Question 1 asks what the function signature promises.
+  - **Prompt code:** `fn announce<T: Label>(record: &T) { println!("{}", record.label()); }`
+  - **Liam's answer:** -
+  - **Technical answer:** A function signature is its header: its name, generic parameters and bounds, inputs, and return type. The body contains the implementation; announce has no return arrow and returns unit ().
+  - **Plain-English analogy / example:** A contract says what a service accepts and returns; its internal steps are the body.
+  - **See also:** `topics/rust/01-fundamentals/functions.md`
+- **Q:** I want to track all the questions from the review whenever we review where should we save it
+  - **Prompt context:** Choose where review discussion and homework answers belong.
+  - **Prompt code:** -
+  - **Liam's answer:** -
+  - **Technical answer:** Record substantive review questions, attempts, explanations, examples, and note links in the matching dated topic-journal entry. Keep homework attempts and reference answers in the homework file; use the journal closeout to update progress.
+  - **Plain-English analogy / example:** This traits review belongs in this topic journal, while Question 1 attempts stay with the homework prompt.
+  - **See also:** `topics/rust/journal.md`
+- **Q:** What separate jobs do T, T: Label, and &T do?
+  - **Prompt context:** A reporting app labels receipts and shipping notices using one generic function.
+  - **Prompt code:** `fn announce<T: Label>(record: &T) { println!("{}", record.label()); }`
+  - **Liam's answer:** `1. T is generic type, T: Label is apply generic type for Label and &T borrow value from the type`
+  - **Technical answer:** T is a type parameter, a placeholder for a concrete type. T: Label is a trait bound requiring that type to implement Label, while &T is a shared reference to a value of that type and does not transfer ownership.
+  - **Plain-English analogy / example:** The type names a kind of receipt; the bound requires label behavior; the reference lets the function read one receipt.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** If receipt has type Receipt and we call announce(&receipt), what does T become?
+  - **Prompt context:** Identify the concrete type substituted at the call site.
+  - **Prompt code:** `announce(&receipt)`
+  - **Liam's answer:** `T become receipt`
+  - **Technical answer:** T becomes Receipt, the concrete type. Lowercase receipt names the value, and &receipt is the borrowed argument.
+  - **Plain-English analogy / example:** Receipt is the form design; receipt is one filled-in form.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** Could announce accept DraftReport without an implementation of Label? Why?
+  - **Prompt context:** Determine whether a third report type satisfies the signature.
+  - **Prompt code:** `fn announce<T: Label>(record: &T) { println!("{}", record.label()); }`
+  - **Liam's answer:** `can not because there is no connect between DraftReport and Label meanwhile announce treat Label as trait bound`
+  - **Technical answer:** The call is rejected because DraftReport does not implement Label and therefore fails the T: Label bound. A bound requires an existing implementation; it does not create one.
+  - **Plain-English analogy / example:** A report without label behavior cannot fulfill this function contract.
+  - **See also:** `topics/rust/03-types-and-traits/traits.md`
+- **Q:** How does Rust choose the label implementation, and is selection at compile time or runtime?
+  - **Prompt context:** Trace record.label() when announce is called with a borrowed Receipt.
+  - **Prompt code:** `fn announce<T: Label>(record: &T) { println!("{}", record.label()); }`
+  - **Liam's answer:** `Rust choose depend on the parameter pass the the announce fn and it selected at compile time`
+  - **Technical answer:** The argument type selects T = Receipt. This generic call uses static dispatch, meaning the concrete type's Label implementation is selected at compile time.
+  - **Plain-English analogy / example:** For this call, the compiler uses the label behavior provided by impl Label for Receipt.
+  - **See also:** `topics/rust/03-types-and-traits/generics.md`
+- **Q:** ok are we done?
+  - **Prompt context:** Clarify the scope of the completed review.
+  - **Prompt code:** -
+  - **Liam's answer:** -
+  - **Technical answer:** Question 1 and the planned warm-up are complete after guided wording corrections. Questions 2-6 remain unanswered; completing one question does not complete the whole homework set.
+  - **Plain-English analogy / example:** One of six homework questions is finished; the next learning action is Week 5 collections.
+  - **See also:** `topics/rust/homework/2026-09-30-retrieval-03-types-and-traits.md`
+**Verification:** Explanations checked against official Rust Book chapters on functions, generics, traits, and borrowing. No Cargo checks run; no Rust source changed.
+**Official sources:** [Functions](https://doc.rust-lang.org/book/ch03-03-how-functions-work.html), [Generics](https://doc.rust-lang.org/book/ch10-01-syntax.html), [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html), [Borrowing](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html).
+**Question to answer later:** Can Liam independently distinguish a type parameter, trait bound, and shared borrow in a new signature? Homework Questions 2-6 remain.
+**Next:** Begin Week 5 collections: open `topics/rust/04-collections/strings.md`, read for at most 10 minutes, then type one small owned-string and borrowed-view example.

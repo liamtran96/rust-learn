@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 40 (formally tracked) |
+| Total sessions | 41 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 5 |
-| Last session | 2026-09-30 - Traits, dispatch, and Chapter 3 closeout |
+| Last session | 2026-09-30 - Signature and trait-bound retrieval |
 | Days since last session | 0 |
 
 ## Template
@@ -472,6 +472,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Answer Question 1 of `topics/rust/homework/2026-09-30-retrieval-03-types-and-traits.md` from memory; after retrieval, begin Week 5 collections.
 - Tracker note: Advanced to Phase 3 / Week 5; projects shipped remains 5. Boxed trait objects still need independent recall. Duration is unknown, so no additional streak day or minutes were inferred.
+
+### 2026-09-30 - Signature and trait-bound retrieval
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / function signatures, generic bounds, borrowing, and static dispatch
+- What I did: Completed homework Question 1 with guided wording corrections; learned function-signature terminology; distinguished T, T: Label, &T, Receipt, and receipt; correctly explained trait eligibility and compile-time dispatch. Recorded review questions in the topic journal and attempts in the homework file.
+- Exercises: no new numbered exercise; official total remains 21. Homework Question 1 complete; Questions 2-6 remain.
+- Code: none changed - chat retrieval; no Cargo checks run
+- Mood: -
+- Tomorrow's first move: Begin Week 5 collections: open `topics/rust/04-collections/strings.md`, read for at most 10 minutes, then type one small owned-string and borrowed-view example.
+- Tracker note: Phase 3 / Week 5 and 5 shipped projects remain unchanged. No new chapter or week completion and no new homework set. Duration unknown; no additional minutes or streak day inferred.
 
 ## Weekly review
 

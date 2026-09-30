@@ -480,7 +480,7 @@ Keep it terse. The journal is for prose; this is for facts.
 - Exercises: no new numbered exercise; official total remains 21. Homework Question 1 complete; Questions 2-6 remain.
 - Code: none changed - chat retrieval; no Cargo checks run
 - Mood: -
-- Tomorrow's first move: Begin Week 5 collections: open `topics/rust/04-collections/strings.md`, read for at most 10 minutes, then type one small owned-string and borrowed-view example.
+- Tomorrow's first move: Open `code/03-types-and-traits/string-views/BRIEF.md`, then replace the Hello World line in `src/main.rs` with an owned `String`, borrow it as `&str`, and print both. Use `topics/rust/04-collections/strings.md` if stuck; the scaffold is ready and the exercise is not yet completed.
 - Tracker note: Phase 3 / Week 5 and 5 shipped projects remain unchanged. No new chapter or week completion and no new homework set. Duration unknown; no additional minutes or streak day inferred.
 
 ## Weekly review

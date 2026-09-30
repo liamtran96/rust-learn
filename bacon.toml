@@ -1,6 +1,19 @@
 # Short, repository-root commands for each standalone exercise crate.
 # `$new-exercise <chapter> <slug>` keeps this file updated.
 
+[jobs.string-views]
+command = ["cargo", "check"]
+workdir = "code/03-types-and-traits/string-views"
+watch = ["code/03-types-and-traits/string-views/src", "code/03-types-and-traits/string-views/Cargo.toml"]
+default_watch = false
+
+[jobs.string-views-run]
+command = ["cargo", "run"]
+workdir = "code/03-types-and-traits/string-views"
+watch = ["code/03-types-and-traits/string-views/src", "code/03-types-and-traits/string-views/Cargo.toml"]
+default_watch = false
+need_stdout = true
+
 [jobs.point-derives]
 command = ['cargo', 'check']
 workdir = 'code/03-types-and-traits/point-derives'

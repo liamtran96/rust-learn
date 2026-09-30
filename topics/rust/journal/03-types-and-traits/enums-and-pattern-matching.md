@@ -220,3 +220,11 @@ tags: [rust, journal, enums, pattern-matching]
   - **See also:** `topics/rust/03-types-and-traits/structs.md`, `topics/rust/03-types-and-traits/enums.md`
 **Question to answer later:** Can Liam independently identify invalid states in an all-optional struct and choose between unit, tuple-style, and named-field enum variants?
 **Next:** Complete the Week 4 pattern-matching reading checkbox by reviewing `topics/rust/03-types-and-traits/pattern-matching.md`, then type one small exhaustive `match` from memory.
+
+### 2026-09-30 - Pattern-matching retrieval review
+**Working on:** Week 4 pattern-matching reading and retrieval check - `topics/rust/03-types-and-traits/pattern-matching.md`
+**What clicked:** Liam reported completing the pattern-matching review and writing one small exhaustive `match` from memory.
+**What didn't:** The match expression was not saved in the repository or shared in the session, so its exact syntax and exhaustiveness were not independently reviewed.
+**Questions asked this session:** None.
+**Question to answer later:** Can Liam independently explain why naming every enum variant in a `match` gives stronger refactoring feedback than using a catch-all arm?
+**Next:** Review `topics/rust/03-types-and-traits/generics.md`, `traits.md`, and `trait-objects.md`, then type one small example that contrasts static and dynamic dispatch.

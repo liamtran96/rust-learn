@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 38 (formally tracked) |
+| Total sessions | 39 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 4 |
-| Last session | 2026-09-28 - Struct and enum retrieval review |
+| Last session | 2026-09-30 - Pattern-matching retrieval review |
 | Days since last session | 0 |
 
 ## Template
@@ -451,6 +451,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Review `topics/rust/03-types-and-traits/pattern-matching.md`, then type one small exhaustive `match` from memory.
 - Tracker note: Phase 3 / Week 4 remains active with two reading checkboxes open. Projects shipped remains 5; exercise total remains 21.
+
+### 2026-09-30 - Pattern-matching retrieval review
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Ch 3 / pattern matching
+- What I did: Reviewed the pattern-matching note and reported completing one small exhaustive `match` from memory. The typed snippet was not saved in the repository or shared in the session, so its exact syntax was not independently reviewed.
+- Exercises: no new numbered exercise; official total remains 21. The Week 4 pattern-matching reading checkbox is complete.
+- Code: none - retrieval review
+- Mood: -
+- Tomorrow's first move: Review `topics/rust/03-types-and-traits/generics.md`, `traits.md`, and `trait-objects.md`, then type one small example that contrasts static and dynamic dispatch.
+- Tracker note: Phase 3 / Week 4 remains active with one combined reading checkbox open. Projects shipped remains 5; exercise total remains 21.
 
 
 ## Weekly review

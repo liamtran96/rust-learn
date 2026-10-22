@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 41 (formally tracked) |
+| Total sessions | 42 (formally tracked) |
 | Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 5 |
-| Last session | 2026-09-30 - Signature and trait-bound retrieval |
+| Last session | 2026-10-22 - Owned string and borrowed view warm-up |
 | Days since last session | 0 |
 
 ## Template
@@ -482,6 +482,16 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Open `code/03-types-and-traits/string-views/BRIEF.md`, then replace the Hello World line in `src/main.rs` with an owned `String`, borrow it as `&str`, and print both. Use `topics/rust/04-collections/strings.md` if stuck; the scaffold is ready and the exercise is not yet completed.
 - Tracker note: Phase 3 / Week 5 and 5 shipped projects remain unchanged. No new chapter or week completion and no new homework set. Duration unknown; no additional minutes or streak day inferred.
+
+### 2026-10-22 - Owned string and borrowed view warm-up
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Week 5 / Ch 4 introduction / strings and shared borrowing
+- What I did: Corrected the claim that String is Copy, predicted use-after-move, replaced an ownership transfer with an explicitly typed &str borrow, and printed both the owner and view. Codex applied cargo fmt; ownership explanations were guided, with independent recall still pending.
+- Exercises: string-views warm-up completed; not a numbered Chapter 4 exercise. Official total remains 21; Chapter 3 remains complete.
+- Code: `code/03-types-and-traits/string-views/` - fmt/check/test/strict Clippy/run passed; test harness has 0 tests; both output lines were `Hello, world!hello`.
+- Mood: -
+- Tomorrow's first move: Recall why `a` remains the owner after `let b: &str = &a;`, then begin Chapter 4 exercise 1 (median and mode) from `topics/rust/exercises/ch04-collections.md`; clarify the requirements before scaffolding a new crate.
+- Tracker note: Phase 3 / Week 5, 21 exercises, and 5 shipped projects remain unchanged. All four Week 5 study-plan boxes remain unchecked. Duration unknown; no additional minutes or streak day inferred. No chapter completion or new homework set.
 
 ## Weekly review
 

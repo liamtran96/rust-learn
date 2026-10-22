@@ -35,12 +35,12 @@ Do not use `.clone()` to create the view; the task is to borrow existing text.
 - Session routine: `WORKFLOW.md`
 
 ## Checklist
-- [ ] Explain the owner and borrowed view
-- [ ] Create, borrow, and print the text
-- [ ] `cargo run` prints both values
-- [ ] `cargo clippy -- -D warnings` is clean
-- [ ] `cargo fmt` applied
-- [ ] Tell Codex “done” to record the session
+- [x] Explain the owner and borrowed view (guided review; independent recall pending)
+- [x] Create, borrow, and print the text
+- [x] `cargo run` prints both values
+- [x] `cargo clippy -- -D warnings` is clean
+- [x] `cargo fmt` applied
+- [x] Tell Codex "done" to record the session
 
 ## Run
 ```text

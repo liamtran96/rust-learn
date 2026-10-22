@@ -273,3 +273,16 @@ workdir = "code/03-types-and-traits/summary-trait"
 watch = ["code/03-types-and-traits/summary-trait/src", "code/03-types-and-traits/summary-trait/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.median-mode]
+command = ["cargo", "check"]
+workdir = "code/04-collections/median-mode"
+watch = ["code/04-collections/median-mode/src", "code/04-collections/median-mode/Cargo.toml"]
+default_watch = false
+
+[jobs.median-mode-run]
+command = ["cargo", "run"]
+workdir = "code/04-collections/median-mode"
+watch = ["code/04-collections/median-mode/src", "code/04-collections/median-mode/Cargo.toml"]
+default_watch = false
+need_stdout = true

@@ -28,6 +28,7 @@ tags: [rust, journal]
   - [[journal/03-types-and-traits/traits-and-default-methods|Traits and default methods]]
 - **Collections**
   - [[journal/04-collections/strings-and-views|Strings and borrowed views]]
+  - [[journal/04-collections/vec-and-hashmap|Vec and HashMap]]
 
 Create a topic journal when a genuinely new subject receives its first session entry. The `$journal` skill appends to the closest existing topic or creates and indexes a concise new one.
 

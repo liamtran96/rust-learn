@@ -22,12 +22,12 @@ tags: [rust, progress, log]
 | Streak (current) | 1 day |
 | Streak (best) | 4 days |
 | Total minutes | ~75 formally tracked + sessions with duration not recorded |
-| Total sessions | 42 (formally tracked) |
-| Exercises completed | 21 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises) |
+| Total sessions | 44 (formally tracked) |
+| Exercises completed | 22 total (7 / 7 Ch 1 + 6 Ch 2 exercises + 8 / 8 Ch 3 exercises + 1 / 7 Ch 4 exercises) |
 | Projects shipped | 5 (fizzbuzz, temp-converter, guessing-game, hand-written split/dedup, enum-driven state machine) |
 | Current phase | Phase 3 — Types & data |
 | Current week | Week 5 |
-| Last session | 2026-10-22 - Owned string and borrowed view warm-up |
+| Last session | 2026-11-18 - Anagram groups, part 1 |
 | Days since last session | 0 |
 
 ## Template
@@ -492,6 +492,26 @@ Keep it terse. The journal is for prose; this is for facts.
 - Mood: -
 - Tomorrow's first move: Recall why `a` remains the owner after `let b: &str = &a;`, then begin Chapter 4 exercise 1 (median and mode) from `topics/rust/exercises/ch04-collections.md`; clarify the requirements before scaffolding a new crate.
 - Tracker note: Phase 3 / Week 5, 21 exercises, and 5 shipped projects remain unchanged. All four Week 5 study-plan boxes remain unchecked. Duration unknown; no additional minutes or streak day inferred. No chapter completion or new homework set.
+
+### 2026-11-18 - Median and mode
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Week 5 / Ch 4 / Vec sorting, HashMap counting, numeric casts
+- What I did: Finished `median_mode(mut numbers: Vec<i32>) -> (f64, i32)`: sorted the Vec, averaged the two middle values for even lengths by casting each operand to `f64`, counted values with `*counts.entry(*number).or_insert(0) += 1`, and picked the mode with a best-so-far loop. Worked through E0308 (mismatched `if`/`else` branch types, missing tail expression), E0425 (placeholder `KEY` copied literally), and E0596 (`mut` on `main`'s binding instead of the parameter). Five mistakes logged in `topics/rust/04-collections/mistakes.md`; questions in `topics/rust/journal/04-collections/vec-and-hashmap.md`.
+- Exercises: Ch 4 #1 done; official total is now 22. Ch 4 stands at 1 / 7.
+- Code: `code/04-collections/median-mode/` - completed; strict Clippy clean and `cargo run` prints `median:7 mode:7` for `[7]`. Empty input panics by documented choice. `code/04-collections/anagram-groups/` scaffolded, not started.
+- Mood: -
+- Tomorrow's first move: Recall why `(a + b) / 2 as f64` does not compile, then open `code/04-collections/anagram-groups/BRIEF.md` and stub `fn group_anagrams(words: Vec<String>) -> Vec<Vec<String>>` in `src/main.rs`. Use `topics/rust/04-collections/hashmap.md` if stuck.
+- Tracker note: Backfilled on 2026-11-18 from the journal entry, commits, and crate. Phase 3 / Week 5 and 5 shipped projects unchanged. All four Week 5 study-plan boxes remain unchecked (Ch 4 is 1 / 7, Ch 5 not started). Duration unknown; no additional minutes or streak day inferred. Open questions: `Option<(f64, i32)>` for empty input, and tie-breaking for the mode.
+
+### 2026-11-18 - Anagram groups, part 1
+- Duration: not recorded
+- Phase / chapter: Phase 3 / Week 5 / Ch 4 / HashMap grouping with the entry API, `chars()`, scope, moves
+- What I did: Built the grouping logic in `main` in small guided steps: cut a word into a `Vec<char>` with `.chars().collect()`, sorted it to make the key, looped over a `Vec<String>`, grouped with `boxes.entry(letters).or_insert(Vec::new()).push(word)`, and took the groups out with `boxes.into_values().collect()`. Worked through E0425 (variable used after the loop body), E0308 (wrong key type, wrong pushed value), E0599 (typo), and E0382 (map consumed inside the loop). Also asked how to print a `HashMap` (`{:?}`) and how `insert` differs from `entry().or_insert()`. Five mistakes logged in `topics/rust/04-collections/mistakes.md`.
+- Exercises: Ch 4 #2 in progress - part 1 (grouping) works; not counted. Official total remains 22. Ch 4 stands at 1 / 7.
+- Code: `code/04-collections/anagram-groups/` - updated; `cargo run` prints `[["tan"], ["eat", "tea"]]` (group order varies). Strict Clippy has one finding: `or_insert(Vec::new())` should be `or_default()`. No journal entry yet; it is due when the exercise is done.
+- Mood: -
+- Tomorrow's first move: Part 2 of anagram groups. Below `main`, write `fn group_anagrams(words: Vec<String>) -> Vec<Vec<String>> { }`, move the `boxes` line, the `for` loop, and the `into_values` line into it, and end the body with `group` (no `;`). Call it from `main` with `let groups = group_anagrams(words);` and print `groups`. Then part 3: full example from the brief, empty `Vec`, single word, Clippy finding, `cargo fmt`.
+- Tracker note: Phase 3 / Week 5 and 5 shipped projects unchanged. All four Week 5 study-plan boxes remain unchecked. Duration unknown; no additional minutes or streak day inferred. Explanations this session used the Feynman style and Simplified Technical English at Liam's request; hints given as a full list did not work, one small step per message did.
 
 ## Weekly review
 

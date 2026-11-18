@@ -43,3 +43,70 @@ tags: [rust, collections, mistakes, review]
 - **Why it's wrong:** Passing `numbers` moves the Vec into the function's parameter, a separate binding. Mutability belongs to the binding, so the parameter needs `mut` (E0596) and `main`'s binding does not.
 - **The rule:** The variable that calls a `&mut self` method such as `sort()` is the one that needs `mut`; each new owner declares its own mutability.
 - **Status:** 🔴 fresh
+
+### 2026-11-18 - Stored the result of `sort()` in a variable (anagram-groups, ex 2)
+- **What I wrote:** `let tray = letters.sort();` then `println!("{:?}", tray)`, which printed `()`
+- **Why it's wrong:** `sort()` changes the Vec in place and returns nothing. "Nothing" in Rust is the unit value `()`, so `tray` holds `()`, not a sorted Vec. The sorted letters are in `letters`. Also removed `mut` from `letters` first because of the "does not need to be mutable" warning, although the missing `sort()` line was the real cause.
+- **The rule:** `sort()` is a command, not a question: call it as a statement (`letters.sort();`) and then use the same variable. If a `{:?}` print shows `()`, the method returned nothing.
+- **Status:** 🔴 fresh
+- **See also:** [[vec]]
+
+```mermaid
+flowchart LR
+    A["letters: t, e, a"] -->|"letters.sort()"| B["letters: a, e, t"]
+    A -.->|"return value of sort()"| C["() - nothing"]
+    style B fill:#d4edda,stroke:#28a745
+    style C fill:#f8d7da,stroke:#dc3545
+```
+
+### 2026-11-18 - Used a loop variable after the loop (anagram-groups, ex 2)
+- **What I wrote:** `for word in words { let mut letters: Vec<char> = word.chars().collect(); letters.sort(); }` and then `println!("{:?}", letters);` below the closing `}` of the loop
+- **Why it's wrong:** `letters` is created inside the loop body. A variable lives only until the `}` that closes the block where `let` created it. Each round of the loop makes a new `letters` and drops it at the `}`. After the loop, no `letters` exists (E0425: cannot find value in this scope).
+- **The rule:** Use a variable inside the same `{ }` where `let` created it. Code that needs the value for each item goes inside the loop body.
+- **Status:** 🔴 fresh
+- **See also:** [[../01-fundamentals/variables]]
+
+```mermaid
+flowchart TD
+    A["for word in words {"] --> B["let mut letters = ... (created)"]
+    B --> C["letters.sort()"]
+    C --> D["} - letters dropped here"]
+    D --> E["println!(letters) - E0425, no such variable"]
+    style B fill:#d4edda,stroke:#28a745
+    style E fill:#f8d7da,stroke:#dc3545
+```
+
+### 2026-11-18 - Copied the counter line without adapting it (anagram-groups, ex 2)
+- **What I wrote:** `*boxes.entry(*word).or_inssert(0) +=1;` as the first line of the loop body, above the lines that make `letters`
+- **Why it's wrong:** Only the map name changed. The key was the word, but the map's key type is `Vec<char>` (the sorted letters), so `entry(*word)` is E0308. The start value `0` and the action `+= 1` belong to a counter, but each value here is a `Vec<String>` that needs `.push(word)`. The line also ran before `letters` existed, and `or_inssert` is a typo (E0599). Same pattern as the median-mode entry "Copying placeholders and examples literally".
+- **The rule:** Before I reuse a line, name each part (map, key, start value, action) and replace every part for the new job. The key must have the type between `HashMap<` and the first comma. A line can only use a value that an earlier line made.
+- **Status:** 🔴 fresh (second occurrence of this pattern)
+- **See also:** [[hashmap]]
+
+```mermaid
+flowchart LR
+    A["counter: *counts.entry(*number).or_insert(0) += 1"] --> B["map: counts to boxes"]
+    A --> C["key: *number to letters"]
+    A --> D["start value: 0 to Vec::new()"]
+    A --> E["action: += 1 to .push(word)"]
+    style B fill:#d4edda,stroke:#28a745
+    style C fill:#f8d7da,stroke:#dc3545
+    style D fill:#f8d7da,stroke:#dc3545
+    style E fill:#f8d7da,stroke:#dc3545
+```
+
+### 2026-11-18 - Consumed the map inside the loop (anagram-groups, ex 2)
+- **What I wrote:** `let group: Vec<Vec<String>> = boxes.into_values().collect();` inside the `for word in words { ... }` body, below the `boxes.entry(letters)...push(word);` line
+- **Why it's wrong:** `into_values(self)` takes ownership of the map, so `boxes` is moved (gone) at the end of the first round. The second round calls `boxes.entry(...)` on a moved value: E0382 "value borrowed here after move ... in previous iteration of loop". The compiler suggests `.clone()`, but that hides the real problem, which is the position of the line.
+- **The rule:** A line that uses a collection completely (`into_values`, `into_iter`, passing it by value) runs once, after the loop that fills the collection. Inside the loop, only fill.
+- **Status:** 🔴 fresh
+- **See also:** [[hashmap]]; [[../02-ownership/ownership]]
+
+```mermaid
+flowchart TD
+    A["round 1: boxes.entry(...).push(word)"] --> B["round 1: boxes.into_values() - boxes moved"]
+    B --> C["round 2: boxes.entry(...) - E0382, boxes is gone"]
+    D["fix: fill boxes in every round"] --> E["after the loop: boxes.into_values() once"]
+    style C fill:#f8d7da,stroke:#dc3545
+    style E fill:#d4edda,stroke:#28a745
+```

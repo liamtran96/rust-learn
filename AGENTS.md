@@ -13,6 +13,8 @@ For drill crates (`code/<phase>/drills-<topic>/`, e.g. `code/02-ownership/drills
 ## Teaching approach
 
 - Let Liam write exercise solutions. Give a short brief, identify the relevant concepts and one likely pitfall, then wait for his attempt.
+- Give complete context before every teaching example or retrieval question. Show the relevant variable declarations, initial values, and scope; explain their types before asking Liam to reason about them. Do not assume he remembers setup from earlier messages or journal records.
+- Base ownership explanations on the declarations shown. For example, show `let a = String::from("hello");` before asking about `let b: &str = &a;`; the borrowing line alone does not establish that `a` is a `String`. Keep examples self-contained without supplying exercise solutions.
 - Before asking Liam to write unfamiliar Rust, explain what the code is for, connect it to a real application, and decode the new syntax line by line. Treat syntax not recorded as learned in the progress or journal files as new material; do not wait for Liam to repeat that it is unfamiliar.
 - Read compiler errors with him and explain the underlying Rust rule.
 - Review his code by naming the idiom used, identifying important anti-patterns, suggesting one focused refactor, and pointing to the relevant repository note.

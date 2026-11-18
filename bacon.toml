@@ -286,3 +286,16 @@ workdir = "code/04-collections/median-mode"
 watch = ["code/04-collections/median-mode/src", "code/04-collections/median-mode/Cargo.toml"]
 default_watch = false
 need_stdout = true
+
+[jobs.anagram-groups]
+command = ["cargo", "check"]
+workdir = "code/04-collections/anagram-groups"
+watch = ["code/04-collections/anagram-groups/src", "code/04-collections/anagram-groups/Cargo.toml"]
+default_watch = false
+
+[jobs.anagram-groups-run]
+command = ["cargo", "run"]
+workdir = "code/04-collections/anagram-groups"
+watch = ["code/04-collections/anagram-groups/src", "code/04-collections/anagram-groups/Cargo.toml"]
+default_watch = false
+need_stdout = true
